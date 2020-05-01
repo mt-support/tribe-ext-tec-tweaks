@@ -3,6 +3,7 @@
 namespace Tribe\Extensions\Tec_Tweaks;
 
 use Tribe__Settings_Manager;
+use Tribe__Settings_Tab;
 
 if ( ! class_exists( Settings::class ) ) {
 	/**
@@ -27,6 +28,11 @@ if ( ! class_exists( Settings::class ) ) {
 		private $options_prefix = '';
 
 		/**
+		 * @var Tribe__Settings_Tab
+		 */
+		private $settings_tab;
+
+		/**
 		 * Settings constructor.
 		 *
 		 * TODO: Update this entire class for your needs, or remove the entire `src` directory this file is in and do not load it in the main plugin file.
@@ -39,10 +45,12 @@ if ( ! class_exists( Settings::class ) ) {
 			$this->set_options_prefix( $options_prefix );
 
 			// Remove settings specific to Google Maps
-			add_action( 'admin_init', [ $this, 'remove_settings' ] );
+			//add_action( 'admin_init', [ $this, 'remove_settings' ] );
+
+			$this->add_settings_tab();
 
 			// Add settings specific to OSM
-			add_action( 'admin_init', [ $this, 'add_settings' ] );
+			//add_action( 'admin_init', [ $this, 'add_settings' ] );
 		}
 
 		/**
@@ -227,12 +235,12 @@ if ( ! class_exists( Settings::class ) ) {
 				],
 			];
 
-			$this->settings_helper->add_fields(
+/*			$this->settings_helper->add_fields(
 				$this->prefix_settings_field_keys( $fields ),
-				'general',
-				'tribeEventsMiscellaneousTitle',
+				'tec-tweaks',
+				'a_start',
 				true
-			);
+			);*/
 		}
 
 		/**
@@ -272,6 +280,28 @@ if ( ! class_exists( Settings::class ) ) {
 
 			return $result;
 		}
+
+		/**
+		 * Setting up the Tweaks setting tab in admin
+		 */
+		public function add_settings_tab() {
+			$TabFields = [
+				'a_start' => [
+					'type' => 'text',
+					'label'           => esc_html__( 'xxx try this', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => sprintf( esc_html__( 'Enter your custom URL, including "http://" or "https://", for example %s.', 'tribe-ext-tec-tweaks' ), '<code>https://wpshindig.com/events/</code>' ),
+					'validation_type' => 'html',
+				],
+			];
+			$args = [
+				'priority' => 110,
+				'fields'   => $TabFields,
+			];
+			if ( empty ( $this->settings_tab ) ) {
+				$this->settings_tab = new Tribe__Settings_Tab( 'tec-tweaks', esc_html__( 'Tweaks', 'tribe-common' ), $args );
+			}
+		}
+
 
 	} // class
 }

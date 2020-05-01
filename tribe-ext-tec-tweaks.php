@@ -28,6 +28,7 @@ namespace Tribe\Extensions\Tec_Tweaks;
 use Tribe__Autoloader;
 use Tribe__Dependency;
 use Tribe__Extension;
+use Tribe__Settings_Tab;
 
 // Do not load unless Tribe Common is fully loaded and our class does not yet exist.
 if (
@@ -55,7 +56,6 @@ if (
 		 * @return bool
 		 */
 		public $ecp_active = false;
-
 		/**
 		 * Setup the Extension's properties.
 		 *
@@ -73,9 +73,9 @@ if (
 			 *
 			 * If using `tribe()`, such as with `Tribe__Dependency`, require TEC/ET version 4.4+ (January 9, 2017).
 			 */
-			$this->add_required_plugin( 'Tribe__Tickets__Main', '5.0' );
+			//$this->add_required_plugin( 'Tribe__Tickets__Main', '5.0' );
 			// $this->add_required_plugin( 'Tribe__Tickets_Plus__Main', '4.3.3' );
-			// $this->add_required_plugin( 'Tribe__Events__Main', '4.4' );
+			$this->add_required_plugin( 'Tribe__Events__Main', '5.0' );
 			// $this->add_required_plugin( 'Tribe__Events__Pro__Main', '4.3.3' );
 			// $this->add_required_plugin( 'Tribe__Events__Community__Main', '4.3.2' );
 			// $this->add_required_plugin( 'Tribe__Events__Community__Tickets__Main', '4.3.2' );
@@ -84,7 +84,7 @@ if (
 			// $this->add_required_plugin( 'Tribe_APM', '4.4' );
 
 			// Conditionally-require Events Calendar PRO. If it is active, run an extra bit of code.
-			add_action( 'tribe_plugins_loaded', [ $this, 'detect_tec_pro' ], 0 );
+			//add_action( 'tribe_plugins_loaded', [ $this, 'detect_tec_pro' ], 0 );
 		}
 
 		/**
@@ -156,6 +156,8 @@ if (
 
 			// Insert filter and action hooks here
 			add_filter( 'thing_we_are_filtering', [ $this, 'my_custom_function' ] );
+
+
 		}
 
 		/**
@@ -277,6 +279,13 @@ if (
 			$this->class_loader->register_autoloader();
 
 			return $this->class_loader;
+		}
+
+		public function add_first_section() {
+
+		}
+		public function print_section_info() {
+			print 'enter';
 		}
 
 		/**
