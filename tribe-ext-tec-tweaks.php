@@ -28,7 +28,6 @@ namespace Tribe\Extensions\Tec_Tweaks;
 use Tribe__Autoloader;
 use Tribe__Dependency;
 use Tribe__Extension;
-use Tribe__Settings_Tab;
 
 // Do not load unless Tribe Common is fully loaded and our class does not yet exist.
 if (
@@ -157,6 +156,7 @@ if (
 			// Insert filter and action hooks here
 			add_filter( 'thing_we_are_filtering', [ $this, 'my_custom_function' ] );
 
+			$this->disable_latest_past_events();
 
 		}
 
@@ -281,13 +281,6 @@ if (
 			return $this->class_loader;
 		}
 
-		public function add_first_section() {
-
-		}
-		public function print_section_info() {
-			print 'enter';
-		}
-
 		/**
 		 * TODO: Testing Hello World. Delete this for your new extension.
 		 */
@@ -312,6 +305,14 @@ if (
 			return $settings->get_option( 'a_setting', 'https://theeventscalendar.com/' );
 		}
 
+		public function get_disable_latest_past_events() {
+			$settings = $this->get_settings();
+var_dump($settings);
+$opt = $settings->get_option( 'disable_recent_past_events', '0' );
+var_dump($opt);
+			return $settings->get_option( 'disable_recent_past_events', '1' );
+		}
+
 		/**
 		 * Get all of this extension's options.
 		 *
@@ -328,6 +329,12 @@ if (
 		 */
 		public function my_custom_function() {
 			// do your custom stuff
+		}
+
+		public function disable_latest_past_events() {
+			if ( $this->get_disable_latest_past_events() ) {
+				add_filter( 'tribe_events_views_v2_show_latest_past_events_view', '__return_false' );
+			}
 		}
 
 	} // end class

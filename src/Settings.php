@@ -25,7 +25,7 @@ if ( ! class_exists( Settings::class ) ) {
 		 *
 		 * @var string
 		 */
-		private $options_prefix = '';
+		private $options_prefix = 'tribe_ext_tec_tweaks_';
 
 		/**
 		 * @var Tribe__Settings_Tab
@@ -302,11 +302,11 @@ if ( ! class_exists( Settings::class ) ) {
 					'type' => 'html',
 					'html' => $this->get_example_intro_text(),
 				],
-				'a_start' => [
-					'type' => 'text',
-					'label'           => esc_html__( 'xxx try this', 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => sprintf( esc_html__( 'Enter your custom URL, including "http://" or "https://", for example %s.', 'tribe-ext-tec-tweaks' ), '<code>https://wpshindig.com/events/</code>' ),
-					'validation_type' => 'html',
+				'disable_recent_past_events' => [
+					'type' => 'checkbox_bool',
+					'label'           => esc_html__( 'Disable "Recent Past Events"', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( 'When there are no events coming up in your calendar a list of recent past events will be shown. Checking this setting will remove that list.', 'tribe-ext-tec-tweaks' ),
+					'validation_type' => 'boolean',
 				],
 			];
 
