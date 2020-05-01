@@ -287,18 +287,22 @@ if ( ! class_exists( Settings::class ) ) {
 		 * Setting up the Tweaks setting tab in admin
 		 */
 		public function add_settings_tab() {
-			//$fields = $thi
-/*			$args = [
+			$args = [
 				'priority' => 110,
-				'fields'   => $this->get_settings_fields(),
-			];*/
+				'fields'   => $this->prefix_settings_field_keys( $this->get_settings_fields() ),
+			];
+
 			if ( empty ( $this->settings_tab ) ) {
-				$this->settings_tab = new Tribe__Settings_Tab( 'tec-tweaks', esc_html__( 'Tweaks', 'tribe-ext-tec-tweaks' )  );
+				$this->settings_tab = new Tribe__Settings_Tab(
+					'tec-tweaks',
+					esc_html_x(
+						'Tweaks',
+						'settings tab name',
+						'tribe-ext-tec-tweaks'
+					),
+					$args
+				);
 			}
-			$this->settings_helper->add_fields(
-				$this->prefix_settings_field_keys( $this->get_settings_fields() ),
-				'tec-tweaks'
-			);
 		}
 
 		public function get_settings_fields() {
