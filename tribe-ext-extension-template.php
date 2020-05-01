@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name:       [Base Plugin Name] Extension: [Extension Name]
- * Plugin URI:        https://theeventscalendar.com/extensions/---the-extension-article-url---/
- * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-extension-template
- * Description:       [Extension Description]
+ * Plugin Name:       The Events Calendar Extension: Tweaks
+ * Plugin URI:        https://theeventscalendar.com/extensions/tec-tweaks/
+ * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-tec-tweaks
+ * Description:       A combination of snippets and tweaks for The Events Calendar
  * Version:           1.0.0
- * Extension Class:   Tribe\Extensions\Example\Main
+ * Extension Class:   Tribe\Extensions\Tec_Tweaks\Main
  * Author:            Modern Tribe, Inc.
  * Author URI:        http://m.tri.be/1971
  * License:           GPL version 3 or any later version
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain:       tribe-ext-extension-template
+ * Text Domain:       tribe-ext-tec-tweaks
  *
  *     This plugin is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
  *     GNU General Public License for more details.
  */
 
-namespace Tribe\Extensions\Example;
+namespace Tribe\Extensions\Tec_Tweaks;
 
 use Tribe__Autoloader;
 use Tribe__Dependency;
@@ -110,12 +110,12 @@ if (
 		 *
 		 * TODO: Remove if not using Settings.
 		 *
-		 * @see \Tribe\Extensions\Example\Settings::set_options_prefix()
+		 * @see \Tribe\Extensions\Tec_Tweaks\Settings::set_options_prefix()
 		 *
 		 * @return string
 		 */
 		private function get_options_prefix() {
-			return (string) str_replace( '-', '_', 'tribe-ext-extension-template' );
+			return (string) str_replace( '-', '_', 'tribe-ext-tec-tweaks' );
 		}
 
 		/**
@@ -136,8 +136,8 @@ if (
 		 */
 		public function init() {
 			// Load plugin textdomain
-			// Don't forget to generate the 'languages/tribe-ext-extension-template.pot' file
-			load_plugin_textdomain( 'tribe-ext-extension-template', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+			// Don't forget to generate the 'languages/tribe-ext-tec-tweaks.pot' file
+			load_plugin_textdomain( 'tribe-ext-tec-tweaks', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
 			if ( ! $this->php_version_check() ) {
 				return;
@@ -193,13 +193,13 @@ if (
 				) {
 					$message = '<p>';
 
-					$message .= sprintf( __( '%s requires PHP version %s or newer to work. Please contact your website host and inquire about updating PHP.', 'tribe-ext-extension-template' ), $this->get_name(), $php_required_version );
+					$message .= sprintf( __( '%s requires PHP version %s or newer to work. Please contact your website host and inquire about updating PHP.', 'tribe-ext-tec-tweaks' ), $this->get_name(), $php_required_version );
 
 					$message .= sprintf( ' <a href="%1$s">%1$s</a>', 'https://wordpress.org/about/requirements/' );
 
 					$message .= '</p>';
 
-					tribe_notice( 'tribe-ext-extension-template-php-version', $message, [ 'type' => 'error' ] );
+					tribe_notice( 'tribe-ext-tec-tweaks-php-version', $message, [ 'type' => 'error' ] );
 				}
 
 				return false;
@@ -254,9 +254,9 @@ if (
 				&& current_user_can( 'activate_plugins' )
 			) {
 				if ( 1 === $view_required_version ) {
-					$view_name = _x( 'Legacy Views', 'name of view', 'tribe-ext-extension-template' );
+					$view_name = _x( 'Legacy Views', 'name of view', 'tribe-ext-tec-tweaks' );
 				} else {
-					$view_name = _x( 'New (V2) Views', 'name of view', 'tribe-ext-extension-template' );
+					$view_name = _x( 'New (V2) Views', 'name of view', 'tribe-ext-tec-tweaks' );
 				}
 
 				$view_name = sprintf(
@@ -269,14 +269,14 @@ if (
 				$message = sprintf(
 					__(
 						'%1$s requires the "%2$s" so this extension\'s code will not run until this requirement is met. You may want to deactivate this extension or visit its homepage to see if there are any updates available.',
-						'tribe-ext-extension-template'
+						'tribe-ext-tec-tweaks'
 					),
 					$this->get_name(),
 					$view_name
 				);
 
 				tribe_notice(
-					'tribe-ext-extension-template-view-mismatch',
+					'tribe-ext-tec-tweaks-view-mismatch',
 					'<p>' . $message . '</p>',
 					[ 'type' => 'error' ]
 				);
@@ -315,7 +315,7 @@ if (
 
 			$message .= sprintf( '<p><strong>Bonus!</strong> Get one of our own custom option values: %s</p><p><em>See the code to learn more.</em></p>', $this->get_one_custom_option() );
 
-			tribe_notice( 'tribe-ext-extension-template-hello-world', $message, [ 'type' => 'info' ] );
+			tribe_notice( 'tribe-ext-tec-tweaks-hello-world', $message, [ 'type' => 'info' ] );
 		}
 
 		/**

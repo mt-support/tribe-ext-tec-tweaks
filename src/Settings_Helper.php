@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Extensions\Example;
+namespace Tribe\Extensions\Tec_Tweaks;
 
 use Tribe__Main;
 
@@ -127,7 +127,7 @@ if ( ! class_exists( Settings_Helper::class ) ) {
 					$misc_heading = [
 						'tribeMiscSettings' => [
 							'type' => 'html',
-							'html' => '<h3>' . esc_html__( 'Miscellaneous Settings', 'tribe-ext-extension-template' ) . '</h3>',
+							'html' => '<h3>' . esc_html__( 'Miscellaneous Settings', 'tribe-ext-tec-tweaks' ) . '</h3>',
 						],
 					];
 					$fields       = Tribe__Main::array_insert_before_key( 'tribe-form-content-end', $fields, $misc_heading );

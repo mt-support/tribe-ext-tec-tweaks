@@ -1,6 +1,6 @@
 <?php
 
-namespace Tribe\Extensions\Example;
+namespace Tribe\Extensions\Tec_Tweaks;
 
 use Tribe__Settings_Manager;
 
@@ -221,8 +221,8 @@ if ( ! class_exists( Settings::class ) ) {
 				// TODO: Settings heading end.
 				'a_setting' => [ // TODO
 					'type'            => 'text',
-					'label'           => esc_html__( 'xxx try this', 'tribe-ext-extension-template' ),
-					'tooltip'         => sprintf( esc_html__( 'Enter your custom URL, including "http://" or "https://", for example %s.', 'tribe-ext-extension-template' ), '<code>https://wpshindig.com/events/</code>' ),
+					'label'           => esc_html__( 'xxx try this', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => sprintf( esc_html__( 'Enter your custom URL, including "http://" or "https://", for example %s.', 'tribe-ext-tec-tweaks' ), '<code>https://wpshindig.com/events/</code>' ),
 					'validation_type' => 'html',
 				],
 			];
@@ -263,10 +263,10 @@ if ( ! class_exists( Settings::class ) ) {
 		 * @return string
 		 */
 		private function get_example_intro_text() {
-			$result = '<h3>' . esc_html_x( 'Example Extension Setup', 'Settings header', 'tribe-ext-extension-template' ) . '</h3>';
+			$result = '<h3>' . esc_html_x( 'Example Extension Setup', 'Settings header', 'tribe-ext-tec-tweaks' ) . '</h3>';
 			$result .= '<div style="margin-left: 20px;">';
 			$result .= '<p>';
-			$result .= esc_html_x( 'Some text here about this settings section.', 'Settings', 'tribe-ext-extension-template' );
+			$result .= esc_html_x( 'Some text here about this settings section.', 'Settings', 'tribe-ext-tec-tweaks' );
 			$result .= '</p>';
 			$result .= '</div>';
 
