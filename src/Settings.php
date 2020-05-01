@@ -47,10 +47,10 @@ if ( ! class_exists( Settings::class ) ) {
 			// Remove settings specific to Google Maps
 			//add_action( 'admin_init', [ $this, 'remove_settings' ] );
 
-			$this->add_settings_tab();
+			add_action( 'admin_init', [ $this, 'add_settings_tab' ] );
 
 			// Add settings specific to OSM
-			//add_action( 'admin_init', [ $this, 'add_settings' ] );
+			add_action( 'admin_init', [ $this, 'add_settings' ] );
 		}
 
 		/**
@@ -235,12 +235,12 @@ if ( ! class_exists( Settings::class ) ) {
 				],
 			];
 
-/*			$this->settings_helper->add_fields(
+			$this->settings_helper->add_fields(
 				$this->prefix_settings_field_keys( $fields ),
 				'tec-tweaks',
-				'a_start',
-				true
-			);*/
+/*				'a_start',
+				true*/
+			);
 		}
 
 		/**
