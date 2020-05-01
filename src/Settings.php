@@ -50,7 +50,7 @@ if ( ! class_exists( Settings::class ) ) {
 			add_action( 'admin_init', [ $this, 'add_settings_tab' ] );
 
 			// Add settings specific to OSM
-			add_action( 'admin_init', [ $this, 'add_settings' ] );
+			//add_action( 'admin_init', [ $this, 'add_settings' ] );
 		}
 
 		/**
@@ -271,7 +271,7 @@ if ( ! class_exists( Settings::class ) ) {
 		 * @return string
 		 */
 		private function get_example_intro_text() {
-			$result = '<h3>' . esc_html_x( 'Example Extension Setup', 'Settings header', 'tribe-ext-tec-tweaks' ) . '</h3>';
+			$result = '<h3>' . esc_html_x( 'The Events Calendar Tweaks Settings', 'Settings header', 'tribe-ext-tec-tweaks' ) . '</h3>';
 			$result .= '<div style="margin-left: 20px;">';
 			$result .= '<p>';
 			$result .= esc_html_x( 'Some text here about this settings section.', 'Settings', 'tribe-ext-tec-tweaks' );
@@ -285,7 +285,23 @@ if ( ! class_exists( Settings::class ) ) {
 		 * Setting up the Tweaks setting tab in admin
 		 */
 		public function add_settings_tab() {
-			$TabFields = [
+			//$fields = $thi
+			$args = [
+				'priority' => 110,
+				'fields'   => $this->get_settings_fields(),
+			];
+			if ( empty ( $this->settings_tab ) ) {
+				$this->settings_tab = new Tribe__Settings_Tab( 'tec-tweaks', esc_html__( 'Tweaks', 'tribe-common' ), $args );
+			}
+		}
+
+		public function get_settings_fields() {
+			$fields = [
+				// TODO: Settings heading start. Remove this element if not needed. Also remove the corresponding `get_example_intro_text()` method below.
+				'Example'   => [
+					'type' => 'html',
+					'html' => $this->get_example_intro_text(),
+				],
 				'a_start' => [
 					'type' => 'text',
 					'label'           => esc_html__( 'xxx try this', 'tribe-ext-tec-tweaks' ),
@@ -293,13 +309,9 @@ if ( ! class_exists( Settings::class ) ) {
 					'validation_type' => 'html',
 				],
 			];
-			$args = [
-				'priority' => 110,
-				'fields'   => $TabFields,
-			];
-			if ( empty ( $this->settings_tab ) ) {
-				$this->settings_tab = new Tribe__Settings_Tab( 'tec-tweaks', esc_html__( 'Tweaks', 'tribe-common' ), $args );
-			}
+
+			return $fields;
+
 		}
 
 
