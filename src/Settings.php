@@ -91,7 +91,9 @@ if ( ! class_exists( Settings::class ) ) {
 			if ( empty( $opts_prefix ) ) {
 				$opts_prefix = str_replace( '-', '_', 'tribe-ext-tec-tweaks' ); // The text domain.
 			}
+
 			$opts_prefix = $opts_prefix . '_';
+
 			$this->options_prefix = str_replace( '__', '_', $opts_prefix );
 		}
 
@@ -306,21 +308,19 @@ if ( ! class_exists( Settings::class ) ) {
 		}
 
 		public function get_settings_fields() {
-			$fields = [
+			return [
 				// TODO: Settings heading start. Remove this element if not needed. Also remove the corresponding `get_example_intro_text()` method below.
-				'Example'   => [
+				'Example'                    => [
 					'type' => 'html',
 					'html' => $this->get_example_intro_text(),
 				],
 				'disable_recent_past_events' => [
-					'type' => 'checkbox_bool',
+					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( 'Disable "Recent Past Events"', 'tribe-ext-tec-tweaks' ),
 					'tooltip'         => esc_html__( 'When there are no events coming up in your calendar a list of recent past events will be shown. Checking this setting will remove that list.', 'tribe-ext-tec-tweaks' ),
 					'validation_type' => 'boolean',
 				],
 			];
-
-			return $fields;
 
 		}
 
