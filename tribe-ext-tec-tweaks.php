@@ -308,7 +308,7 @@ if (
 		public function get_disable_latest_past_events() {
 			$settings = $this->get_settings();
 var_dump($settings);
-$opt = $settings->get_option( 'disable_recent_past_events', '0' );
+$opt = $settings->get_option( 'disable_recent_past_events');
 var_dump($opt);
 			return $settings->get_option( 'disable_recent_past_events', '1' );
 		}
@@ -332,7 +332,11 @@ var_dump($opt);
 		}
 
 		public function disable_latest_past_events() {
-			if ( $this->get_disable_latest_past_events() ) {
+			$isit = $this->get_all_options();
+			$days_to_show = (bool)$isit['disable_recent_past_events'];
+
+			var_dump($days_to_show);
+			if ( $days_to_show ) {
 				add_filter( 'tribe_events_views_v2_show_latest_past_events_view', '__return_false' );
 			}
 		}
