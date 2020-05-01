@@ -25,7 +25,7 @@ if ( ! class_exists( Settings::class ) ) {
 		 *
 		 * @var string
 		 */
-		private $options_prefix = 'tribe_ext_tec_tweaks_';
+		private $options_prefix = '';
 
 		/**
 		 * @var Tribe__Settings_Tab
@@ -87,10 +87,12 @@ if ( ! class_exists( Settings::class ) ) {
 		 *
 		 * @param string $options_prefix
 		 */
-		private function set_options_prefix( $options_prefix ) {
-			$options_prefix = $options_prefix . '_';
-
-			$this->options_prefix = str_replace( '__', '_', $options_prefix );
+		private function set_options_prefix( $options_prefix = '' ) {
+			if ( empty( $opts_prefix ) ) {
+				$opts_prefix = str_replace( '-', '_', 'tribe-ext-tec-tweaks' ); // The text domain.
+			}
+			$opts_prefix = $opts_prefix . '_';
+			$this->options_prefix = str_replace( '__', '_', $opts_prefix );
 		}
 
 		/**
@@ -238,8 +240,8 @@ if ( ! class_exists( Settings::class ) ) {
 			$this->settings_helper->add_fields(
 				$this->prefix_settings_field_keys( $fields ),
 				'tec-tweaks',
-/*				'a_start',
-				true*/
+				'a_start',
+				true
 			);
 		}
 
@@ -286,13 +288,17 @@ if ( ! class_exists( Settings::class ) ) {
 		 */
 		public function add_settings_tab() {
 			//$fields = $thi
-			$args = [
+/*			$args = [
 				'priority' => 110,
 				'fields'   => $this->get_settings_fields(),
-			];
+			];*/
 			if ( empty ( $this->settings_tab ) ) {
-				$this->settings_tab = new Tribe__Settings_Tab( 'tec-tweaks', esc_html__( 'Tweaks', 'tribe-common' ), $args );
+				$this->settings_tab = new Tribe__Settings_Tab( 'tec-tweaks', esc_html__( 'Tweaks', 'tribe-ext-tec-tweaks' )  );
 			}
+			$this->settings_helper->add_fields(
+				$this->prefix_settings_field_keys( $this->get_settings_fields() ),
+				'tec-tweaks'
+			);
 		}
 
 		public function get_settings_fields() {
