@@ -73,7 +73,7 @@ if (
 			 *
 			 * If using `tribe()`, such as with `Tribe__Dependency`, require TEC/ET version 4.4+ (January 9, 2017).
 			 */
-			// $this->add_required_plugin( 'Tribe__Tickets__Main', '4.4' );
+			$this->add_required_plugin( 'Tribe__Tickets__Main', '5.0' );
 			// $this->add_required_plugin( 'Tribe__Tickets_Plus__Main', '4.3.3' );
 			// $this->add_required_plugin( 'Tribe__Events__Main', '4.4' );
 			// $this->add_required_plugin( 'Tribe__Events__Pro__Main', '4.3.3' );
@@ -161,26 +161,6 @@ if (
 		/**
 		 * Check if we have a sufficient version of PHP. Admin notice if we don't and user should see it.
 		 *
-		 * @link https://theeventscalendar.com/knowledgebase/php-version-requirement-changes/ All extensions require PHP 5.6+.
-		 *
-		 * Delete this paragraph and the non-applicable comments below.
-		 * Make sure to match the readme.txt header.
-		 *
-		 * Note that older version syntax errors may still throw fatals even
-		 * if you implement this PHP version checking so QA it at least once.
-		 *
-		 * @link https://secure.php.net/manual/en/migration56.new-features.php
-		 * 5.6: Variadic Functions, Argument Unpacking, and Constant Expressions
-		 *
-		 * @link https://secure.php.net/manual/en/migration70.new-features.php
-		 * 7.0: Return Types, Scalar Type Hints, Spaceship Operator, Constant Arrays Using define(), Anonymous Classes, intdiv(), and preg_replace_callback_array()
-		 *
-		 * @link https://secure.php.net/manual/en/migration71.new-features.php
-		 * 7.1: Class Constant Visibility, Nullable Types, Multiple Exceptions per Catch Block, `iterable` Pseudo-Type, and Negative String Offsets
-		 *
-		 * @link https://secure.php.net/manual/en/migration72.new-features.php
-		 * 7.2: `object` Parameter and Covariant Return Typing, Abstract Function Override, and Allow Trailing Comma for Grouped Namespaces
-		 *
 		 * @return bool
 		 */
 		private function php_version_check() {
@@ -192,32 +172,24 @@ if (
 					&& current_user_can( 'activate_plugins' )
 				) {
 					$message = '<p>';
-
 					$message .= sprintf( __( '%s requires PHP version %s or newer to work. Please contact your website host and inquire about updating PHP.', 'tribe-ext-tec-tweaks' ), $this->get_name(), $php_required_version );
-
 					$message .= sprintf( ' <a href="%1$s">%1$s</a>', 'https://wordpress.org/about/requirements/' );
-
 					$message .= '</p>';
-
 					tribe_notice( 'tribe-ext-tec-tweaks-php-version', $message, [ 'type' => 'error' ] );
 				}
-
 				return false;
 			}
-
 			return true;
 		}
 
 		/**
 		 * Check if we have the required TEC view. Admin notice if we don't and user should see it.
 		 *
-		 * @TODO Remove method if extension doesn't require The Events Calendar or works with both V1 and V2 views.
-		 *
 		 * @return bool
 		 */
 		private function is_using_compatible_view_version() {
-			// @TODO: Set the required views version, then remove this comment.
-			$view_required_version = 1;
+
+			$view_required_version = 2;
 
 			$meets_req = true;
 
