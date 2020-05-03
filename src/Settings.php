@@ -35,8 +35,6 @@ if ( ! class_exists( Settings::class ) ) {
 		/**
 		 * Settings constructor.
 		 *
-		 * TODO: Update this entire class for your needs, or remove the entire `src` directory this file is in and do not load it in the main plugin file.
-		 *
 		 * @param string $options_prefix Recommended: the plugin text domain, with hyphens converted to underscores.
 		 */
 		public function __construct( $options_prefix ) {
@@ -44,13 +42,7 @@ if ( ! class_exists( Settings::class ) ) {
 
 			$this->set_options_prefix( $options_prefix );
 
-			// Remove settings specific to Google Maps
-			//add_action( 'admin_init', [ $this, 'remove_settings' ] );
-
 			add_action( 'admin_init', [ $this, 'add_settings_tab' ] );
-
-			// Add settings specific to OSM
-			//add_action( 'admin_init', [ $this, 'add_settings' ] );
 		}
 
 		/**
@@ -228,7 +220,7 @@ if ( ! class_exists( Settings::class ) ) {
 				// TODO: Settings heading start. Remove this element if not needed. Also remove the corresponding `get_example_intro_text()` method below.
 				'Example'   => [
 					'type' => 'html',
-					'html' => $this->get_example_intro_text(),
+					'html' => $this->get_tweaks_intro_text(),
 				],
 				// TODO: Settings heading end.
 				'a_setting' => [ // TODO
@@ -270,15 +262,13 @@ if ( ! class_exists( Settings::class ) ) {
 		/**
 		 * Here is an example of getting some HTML for the Settings Header.
 		 *
-		 * TODO: Delete this method if you do not need a heading for your settings. Also remove the corresponding element in the the $fields array in the `add_settings()` method above.
-		 *
 		 * @return string
 		 */
-		private function get_example_intro_text() {
+		private function get_tweaks_intro_text() {
 			$result = '<h3>' . esc_html_x( 'The Events Calendar Tweaks', 'Settings header', 'tribe-ext-tec-tweaks' ) . '</h3>';
 			$result .= '<div style="margin-left: 20px;">';
 			$result .= '<p>';
-			$result .= esc_html_x( 'Some text here about this settings section.', 'Settings', 'tribe-ext-tec-tweaks' );
+			$result .= esc_html_x( 'This is a collection of tweaks and snippets for The Events Calendar.', 'Settings', 'tribe-ext-tec-tweaks' );
 			$result .= '</p>';
 			$result .= '</div>';
 
@@ -333,10 +323,9 @@ if ( ! class_exists( Settings::class ) ) {
 				'tribe-events-pro-week-grid__event-link'                 => 'Week view',
 			];
 			return [
-				// TODO: Settings heading start. Remove this element if not needed. Also remove the corresponding `get_example_intro_text()` method below.
 				'Example'                    => [
 					'type' => 'html',
-					'html' => $this->get_example_intro_text(),
+					'html' => $this->get_tweaks_intro_text(),
 				],
 				'disable_recent_past_events' => [
 					'type'            => 'checkbox_bool',

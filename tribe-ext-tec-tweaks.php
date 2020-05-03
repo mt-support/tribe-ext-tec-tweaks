@@ -107,8 +107,6 @@ if (
 		 *
 		 * Settings_Helper will append a trailing underscore before each option.
 		 *
-		 * TODO: Remove if not using Settings.
-		 *
 		 * @see \Tribe\Extensions\Tec_Tweaks\Settings::set_options_prefix()
 		 *
 		 * @return string
@@ -149,12 +147,6 @@ if (
 			$this->class_loader();
 
 			$this->get_settings();
-
-			// TODO: Just a test. Remove this.
-			$this->testing_hello_world();
-
-			// Insert filter and action hooks here
-			add_filter( 'thing_we_are_filtering', [ $this, 'my_custom_function' ] );
 
 			$this->disable_latest_past_events();
 			$this->hide_event_end_time();
@@ -270,8 +262,6 @@ if (
 		/**
 		 * Use Tribe Autoloader for all class files within this namespace in the 'src' directory.
 		 *
-		 * TODO: Delete this method and its usage throughout this file if there is no `src` directory, such as if there are no settings being added to the admin UI.
-		 *
 		 * @return Tribe__Autoloader
 		 */
 		public function class_loader() {
@@ -287,17 +277,6 @@ if (
 			$this->class_loader->register_autoloader();
 
 			return $this->class_loader;
-		}
-
-		/**
-		 * TODO: Testing Hello World. Delete this for your new extension.
-		 */
-		public function testing_hello_world() {
-			$message = sprintf( '<p>Hello World from %s. Make sure to remove this in your own new extension.</p>', '<strong>' . $this->get_name() . '</strong>' );
-
-			$message .= sprintf( '<p><strong>Bonus!</strong> Get one of our own custom option values: %s</p><p><em>See the code to learn more.</em></p>', $this->get_one_custom_option() );
-
-			tribe_notice( 'tribe-ext-tec-tweaks-hello-world', $message, [ 'type' => 'info' ] );
 		}
 
 		/**
@@ -322,13 +301,6 @@ if (
 		 */
 		public function get_all_options() {
 			return $this->settings->get_all_options();
-		}
-
-		/**
-		 * Include a docblock for every class method and property.
-		 */
-		public function my_custom_function() {
-			// do your custom stuff
 		}
 
 		public function disable_latest_past_events() {
