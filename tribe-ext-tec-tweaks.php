@@ -159,9 +159,12 @@ if (
 			$this->disable_latest_past_events();
 			$this->hide_event_end_time();
 			$this->hide_tooltip();
+			$this->hide_past_events_in_month_view();
+			$this->hide_event_time_in_month_view();
 			$this->show_past_events_in_reverse_order();
 			$this->remove_links_from_events();
 			$this->change_free_in_ticket_cost();
+			$this->disable_tribe_rest_api();
 
 		}
 
@@ -374,6 +377,26 @@ if (
 			}
 		}
 
+		public function hide_past_events_in_month_view() {
+			$hide_past = (bool) $this->settings->get_option( 'hide_past_events_in_month_view', false );
+
+			if ( $hide_past ) {
+				add_action( 'wp_head', function(){
+					echo '<style id="tribe-ext-tec-tweaks-css-hide-past">.tribe-events-calendar-month__day--past .tribe-events-calendar-month__events{display: none;}</style>';
+				} );
+			}
+		}
+
+		public function hide_event_time_in_month_view() {
+			$hide_event_time_in_month_view = (bool) $this->settings->get_option( 'hide_event_time_in_month_view', false );
+
+			if ( $hide_event_time_in_month_view ) {
+				add_action( 'wp_head', function(){
+					echo '<style id="tribe-ext-tec-tweaks-css-hide-event-time">.tribe-events-calendar-month__calendar-event-datetime{display: none;}</style>';
+				} );
+			}
+		}
+
 		public function remove_archives_from_page_title() {
 			$remove_archives = (bool) $this->settings->get_option('remove_archives_from_page_title', false );
 
@@ -449,7 +472,14 @@ if (
 				$translation = $custom_text[ $translation ];
 			}
 			return $translation;
+		}
 
+		public function disable_tribe_rest_api() {
+			$disable_tribe_rest_api = (bool) $this->settings->get_option( 'disable_tribe_rest_api', false );
+
+			if ( $disable_tribe_rest_api ) {
+				add_action( 'init', function(){	remove_action( 'rest_api_init', [ tribe( 'tec.rest-v1.main' ), 'register_endpoints' ] ); } );
+			}
 		}
 
 	} // end class
