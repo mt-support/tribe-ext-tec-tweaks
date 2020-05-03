@@ -396,6 +396,16 @@ if ( ! class_exists( Settings::class ) ) {
 					'validation_type' => 'options_multi',
 					'can_be_empty'    => true,
 				],
+				'change_free_in_ticket_cost' => [
+					'type'            => 'text',
+					'label'           => esc_html__( 'Change "Free" in the Ticket Cost', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "When you enter a price or a price range for an event and it is or starts with zero (0), then on the front-end it will show up as set above." )
+					                     . '<br>'
+					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
+					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/changing-the-free-event-price-to-0-zero/" target="_blank">Change “Free” to “0” in the Ticket Cost</a>',
+					'validation_type' => 'html',
+					'can_be_empty'    => true,
+				],
 
 			];
 

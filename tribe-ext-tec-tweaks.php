@@ -161,6 +161,7 @@ if (
 			$this->hide_tooltip();
 			$this->show_past_events_in_reverse_order();
 			$this->remove_links_from_events();
+			$this->change_free_in_ticket_cost();
 
 		}
 
@@ -414,7 +415,6 @@ if (
 			if ( ! empty ( $remove_links_from_events_views ) ) {
 				add_action( 'wp_head', [ $this, 'remove_links_html' ] );
 			}
-
 		}
 
 		public function remove_links_html() {
@@ -424,11 +424,32 @@ if (
 			foreach ( $classes as $class ) {
 				$html .= "\n." . $class . ",";
 			}
+			// Remove last comma
 			$html = substr( $html, 0, -1 );
 			$html .= "\n{ pointer-events: none; }\n";
 			$html .= "</style>\n";
 
 			echo $html;
+		}
+
+		public function change_free_in_ticket_cost() {
+			$free = $this->settings->get_option('change_free_in_ticket_cost' );
+
+			if ( ! empty ( $free ) || $free == '0' ) {
+				add_filter( 'gettext', [ $this, 'change_free_function' ], 20, 3 );
+			}
+		}
+
+		public function change_free_function( $translation, $text, $domain ) {
+			//$free = $this->settings->get_option('change_free_in_ticket_cost' );
+			$custom_text = [ 'Free' => $this->settings->get_option('change_free_in_ticket_cost' ) ];
+
+			// If this text domain starts with "tribe-", "the-events-", or "event-" and we have replacement text
+			if( 0 === strpos($domain, 'the-events-calendar') && array_key_exists( $translation, $custom_text ) ) {
+				$translation = $custom_text[ $translation ];
+			}
+			return $translation;
+
 		}
 
 	} // end class
