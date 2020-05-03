@@ -197,49 +197,6 @@ if ( ! class_exists( Settings::class ) ) {
 		}
 
 		/**
-		 * Here is an example of removing settings from Events > Settings > General tab > "Map Settings" section
-		 * that are specific to Google Maps.
-		 */
-		public function remove_settings() {
-			// "Enable Google Maps" checkbox
-			$this->settings_helper->remove_field( 'embedGoogleMaps', 'general' );
-			// "Map view search distance limit" (default of 25)
-			$this->settings_helper->remove_field( 'geoloc_default_geofence', 'general' );
-			// "Google Maps default zoom level" (0-21, default of 10)
-			$this->settings_helper->remove_field( 'embedGoogleMapsZoom', 'general' );
-		}
-
-		/**
-		 * Adds a new section of fields to Events > Settings > General tab, appearing after the "Map Settings" section
-		 * and before the "Miscellaneous Settings" section.
-		 *
-		 * TODO: Move it to where you want and update this docblock. If you like it here, just delete this TODO.
-		 */
-		public function add_settings() {
-			$fields = [
-				// TODO: Settings heading start. Remove this element if not needed. Also remove the corresponding `get_example_intro_text()` method below.
-				'Example'   => [
-					'type' => 'html',
-					'html' => $this->get_tweaks_intro_text(),
-				],
-				// TODO: Settings heading end.
-				'a_setting' => [ // TODO
-					'type'            => 'text',
-					'label'           => esc_html__( 'xxx try this', 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => sprintf( esc_html__( 'Enter your custom URL, including "http://" or "https://", for example %s.', 'tribe-ext-tec-tweaks' ), '<code>https://wpshindig.com/events/</code>' ),
-					'validation_type' => 'html',
-				],
-			];
-
-			$this->settings_helper->add_fields(
-				$this->prefix_settings_field_keys( $fields ),
-				'tec-tweaks',
-				'a_start',
-				true
-			);
-		}
-
-		/**
 		 * Add the options prefix to each of the array keys.
 		 *
 		 * @param array $fields
@@ -297,6 +254,11 @@ if ( ! class_exists( Settings::class ) ) {
 			}
 		}
 
+		/**
+		 * Adds a new section of fields to Events > Settings > Tweaks tab.
+		 *
+		 * @return array[]
+		 */
 		public function get_settings_fields() {
 
 			// TODO: Will be used later, when I can get it to work. :)
@@ -322,6 +284,7 @@ if ( ! class_exists( Settings::class ) ) {
 				'tribe-events-pro-photo__event-title-link'               => 'Photo view',
 				'tribe-events-pro-week-grid__event-link'                 => 'Week view',
 			];
+
 			return [
 				'Example'                    => [
 					'type' => 'html',
