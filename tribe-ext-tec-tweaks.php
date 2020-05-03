@@ -157,6 +157,10 @@ if (
 			add_filter( 'thing_we_are_filtering', [ $this, 'my_custom_function' ] );
 
 			$this->disable_latest_past_events();
+			$this->hide_event_end_time();
+			$this->hide_tooltip();
+			$this->show_past_events_in_reverse_order();
+			$this->remove_links_from_events();
 
 		}
 
@@ -324,15 +328,107 @@ if (
 		}
 
 		public function disable_latest_past_events() {
-			//$isit = $this->get_all_options();
-			//$this->get_disable_latest_past_events();
 
 			$days_to_show = (bool) $this->settings->get_option('disable_recent_past_events', false );
 
-//			var_dump($days_to_show);
 			if ( $days_to_show ) {
 				add_filter( 'tribe_events_views_v2_show_latest_past_events_view', '__return_false' );
 			}
+		}
+
+		public function hide_event_end_time() {
+
+			$views = (bool) $this->settings->get_option( 'remove_event_end_time', 'false' );
+
+			if ( $views ) {
+				add_filter( 'tribe_events_event_schedule_details_formatting', function( $settings ) {
+					$settings['show_end_time'] = false;
+					return $settings;
+				});
+			}
+
+			// TODO: Saving for later
+			//$views = (array) $this->settings->get_option('remove_event_end_time', '' );
+
+			//if ( empty ( $views ) ) return;
+			// If there are any views checked, then run the filter
+/*			add_filter( 'tribe_events_event_schedule_details_formatting', function( $settings ) {
+				echo 'xxx'. DOING_AJAX;
+				$views = (array) $this->settings->get_option('remove_event_end_time', '' );
+				foreach ( $views as $view ) {
+					if ( tribe_is_view( $view ) || tribe_is_ajax_view_request( $view ) ) {
+						$settings['show_end_time'] = false;
+						return $settings;
+						break;
+					}
+				}
+			} );*/
+		}
+
+		public function hide_tooltip() {
+			$hide_tooltip = (bool) $this->settings->get_option( 'hide_tooltip', false );
+
+			if ( $hide_tooltip ) {
+				add_filter( 'tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip', '__return_false' );
+			}
+		}
+
+		public function remove_archives_from_page_title() {
+			$remove_archives = (bool) $this->settings->get_option('remove_archives_from_page_title', false );
+
+			if ( $remove_archives ) {
+				add_filter( 'get_the_archive_title', function ( $title ) {
+					if ( is_post_type_archive( 'tribe_events' ) ) {
+						$title = sprintf( __( '%s' ), post_type_archive_title( '', false ) );
+					}
+					return $title;
+				});
+			}
+		}
+
+		public function show_past_events_in_reverse_order() {
+			$show_past_events_in_reverse_order = (bool) $this->settings->get_option('show_past_events_in_reverse_order', false );
+
+			if ( $show_past_events_in_reverse_order ) {
+				// Change List View to Past Event Reverse Chronological Order
+				add_filter( 'tribe_events_views_v2_view_list_template_vars', [ $this, 'tribe_past_reverse_chronological_v2' ], 100 );
+
+				if ( $ecp_active ) {
+					add_filter( 'tribe_events_views_v2_view_photo_template_vars', [ $this, 'tribe_past_reverse_chronological_v2' ], 100 );
+				}
+			}
+		}
+
+		private function tribe_past_reverse_chronological_v2( $template_vars ) {
+
+			if ( ! empty( $template_vars['is_past'] ) ) {
+				$template_vars['events'] = array_reverse( $template_vars['events'] );
+			}
+
+			return $template_vars;
+		}
+
+		public function remove_links_from_events() {
+			$remove_links_from_events_views = (array) $this->settings->get_option('remove_links_from_events', false );
+
+			if ( ! empty ( $remove_links_from_events_views ) ) {
+				add_action( 'wp_head', [ $this, 'remove_links_html' ] );
+			}
+
+		}
+
+		public function remove_links_html() {
+			$classes = (array) $this->settings->get_option('remove_links_from_events', false );
+
+			$html = "\n<style id='tribe-ext-tec-tweaks-css'>";
+			foreach ( $classes as $class ) {
+				$html .= "\n." . $class . ",";
+			}
+			$html = substr( $html, 0, -1 );
+			$html .= "\n{ pointer-events: none; }\n";
+			$html .= "</style>\n";
+
+			echo $html;
 		}
 
 	} // end class

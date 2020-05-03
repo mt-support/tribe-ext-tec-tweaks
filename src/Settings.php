@@ -275,7 +275,7 @@ if ( ! class_exists( Settings::class ) ) {
 		 * @return string
 		 */
 		private function get_example_intro_text() {
-			$result = '<h3>' . esc_html_x( 'The Events Calendar Tweaks Settings', 'Settings header', 'tribe-ext-tec-tweaks' ) . '</h3>';
+			$result = '<h3>' . esc_html_x( 'The Events Calendar Tweaks', 'Settings header', 'tribe-ext-tec-tweaks' ) . '</h3>';
 			$result .= '<div style="margin-left: 20px;">';
 			$result .= '<p>';
 			$result .= esc_html_x( 'Some text here about this settings section.', 'Settings', 'tribe-ext-tec-tweaks' );
@@ -308,6 +308,30 @@ if ( ! class_exists( Settings::class ) ) {
 		}
 
 		public function get_settings_fields() {
+
+			// TODO: Will be used later, when I can get it to work. :)
+/*			$views_options = [
+				'list'   => 'List view',
+				'day'    => 'Day view',
+				'month'  => 'Month view tooltip',
+				'week'   => 'Week view tooltip',
+				'recent' => 'Recent past events list',
+				'single' => 'Single event page',
+			];
+
+			$views_options_pro = [
+				'map'   => 'Map',
+				'photo' => 'Photo view',
+			];*/
+
+			$remove_links_from_events_views = [
+				'tribe-events-calendar-day__event-title-link'            => 'Day view',
+				'tribe-events-calendar-list__event-title-link'           => 'List view',
+				'tribe-events-calendar-month__calendar-event-title-link' => 'Month view',
+				'tribe-events-pro-map__event-card-button'                => 'Map view',
+				'tribe-events-pro-photo__event-title-link'               => 'Photo view',
+				'tribe-events-pro-week-grid__event-link'                 => 'Week view',
+			];
 			return [
 				// TODO: Settings heading start. Remove this element if not needed. Also remove the corresponding `get_example_intro_text()` method below.
 				'Example'                    => [
@@ -320,10 +344,62 @@ if ( ! class_exists( Settings::class ) ) {
 					'tooltip'         => esc_html__( 'When there are no events coming up in your calendar a list of recent past events will be shown. Checking this setting will remove that list.', 'tribe-ext-tec-tweaks' ),
 					'validation_type' => 'boolean',
 				],
+				'remove_event_end_time' => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( 'Remove event end time', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( 'When this box is checked the end time will no longer display for events that end on the same day when viewing the list, day, map (Pro) and photo (Pro) views, the recent past events list, the tooltip in month and week views, as well as on the event page itself.', 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' ) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a>',
+					'validation_type' => 'boolean',
+				],
+				// TODO: Commented out for later
+/*				'remove_event_end_time' => [
+					'type'            => 'checkbox_list',
+					'label'           => esc_html__( 'Remove event end time', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( 'When this box is checked the end time will no longer display for events that end on the same day when viewing the list, day, map (Pro) and photo (Pro) views, the recent past events list, the tooltip in month and week views, as well as on the event page itself.', 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' ) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a>',
+					'options'         => $views_options,
+					'validation_type' => 'options_multi',
+				],*/
+				'hide_tooltip' => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( 'Hide tooltip in month view', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( 'When this box is checked the tooltip will be removed from month view.' )
+					                     . '<br>'
+					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
+					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/hiding-tooltips-in-month-and-week-view/" target="_blank">Hiding Tooltips in Month and Week View</a>',
+					'validation_type' => 'boolean',
+				],
+				'remove_archives_from_page_title' => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( "Remove 'Archives:' from the calendar page title", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "Checking this box will try to remove 'Archives:' from the calendar page title, which is usually coming from the page or archive template of the theme." )
+					                     . '<br>'
+					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
+					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-archives-from-calendar-page-title/" target="_blank">Removing "Archives" From the Calendar Page Title</a>',
+					'validation_type' => 'boolean',
+				],
+				'show_past_events_in_reverse_order' => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( "Show Past Events in Reverse Order", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "The calendar’s list and photo (Pro) views show past events in chronological order by default. That means the oldest events are displayed first and get newer as you go. Check this checkbox if you would like to show the events in reverse order, where the newest events are displayed first." )
+					                     . '<br>'
+					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
+					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/showing-past-events-in-reverse-order/" target="_blank">Showing Past Events in Reverse Order</a>',
+					'validation_type' => 'boolean',
+				],
+				'remove_links_from_events' => [
+					'type'            => 'checkbox_list',
+					'label'           => esc_html__( "Remove Links pointing to Events", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "This will remove the links from events so that users cannot click on them. This way, users cannot visit single events pages." )
+					                     . '<br>'
+					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
+					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-links-from-events/" target="_blank">Remove Links from Events</a>',
+					'options'         => $remove_links_from_events_views,
+					'validation_type' => 'options_multi',
+					'can_be_empty'    => true,
+				],
+
 			];
 
 		}
-
 
 	} // class
 }
