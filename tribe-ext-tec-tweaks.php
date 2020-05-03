@@ -290,10 +290,6 @@ if (
 			return $this->settings->get_option( 'a_setting', 'https://theeventscalendar.com/' );
 		}
 
-		public function get_disable_latest_past_events() {
-			return $this->settings->get_option( 'disable_recent_past_events', false );
-		}
-
 		/**
 		 * Get all of this extension's options.
 		 *
@@ -303,6 +299,9 @@ if (
 			return $this->settings->get_all_options();
 		}
 
+		/**
+		 * Disables the "Recent Past Events" block
+		 */
 		public function disable_latest_past_events() {
 
 			$days_to_show = (bool) $this->settings->get_option('disable_recent_past_events', false );
@@ -312,6 +311,11 @@ if (
 			}
 		}
 
+		/**
+		 * Hides the event ent time on several views
+		 *
+		 * TODO: Adjust it to make views / places selectable
+		 */
 		public function hide_event_end_time() {
 
 			$views = (bool) $this->settings->get_option( 'remove_event_end_time', 'false' );
@@ -341,6 +345,9 @@ if (
 			} );*/
 		}
 
+		/**
+		 * Hide the tooltip in month view
+		 */
 		public function hide_tooltip() {
 			$hide_tooltip = (bool) $this->settings->get_option( 'hide_tooltip', false );
 
@@ -349,6 +356,9 @@ if (
 			}
 		}
 
+		/**
+		 * Hide past events in month view
+		 */
 		public function hide_past_events_in_month_view() {
 			$hide_past = (bool) $this->settings->get_option( 'hide_past_events_in_month_view', false );
 
@@ -359,6 +369,9 @@ if (
 			}
 		}
 
+		/**
+		 * Hide event times in month view
+		 */
 		public function hide_event_time_in_month_view() {
 			$hide_event_time_in_month_view = (bool) $this->settings->get_option( 'hide_event_time_in_month_view', false );
 
@@ -369,6 +382,10 @@ if (
 			}
 		}
 
+		/**
+		 * Remove "Archives:" from the page titles.
+		 * Some themes add that.
+		 */
 		public function remove_archives_from_page_title() {
 			$remove_archives = (bool) $this->settings->get_option('remove_archives_from_page_title', false );
 
@@ -382,6 +399,9 @@ if (
 			}
 		}
 
+		/**
+		 * Show past events in reverse order
+		 */
 		public function show_past_events_in_reverse_order() {
 			$show_past_events_in_reverse_order = (bool) $this->settings->get_option('show_past_events_in_reverse_order', false );
 
@@ -395,6 +415,13 @@ if (
 			}
 		}
 
+		/**
+		 * Show past events in reverse order
+		 *
+		 * @param $template_vars
+		 *
+		 * @return mixed
+		 */
 		private function tribe_past_reverse_chronological_v2( $template_vars ) {
 
 			if ( ! empty( $template_vars['is_past'] ) ) {
@@ -404,6 +431,9 @@ if (
 			return $template_vars;
 		}
 
+		/**
+		 * Remove links from event titles. Event titles will not be clickable.
+		 */
 		public function remove_links_from_events() {
 			$remove_links_from_events_views = (array) $this->settings->get_option('remove_links_from_events', false );
 
@@ -412,6 +442,9 @@ if (
 			}
 		}
 
+		/**
+		 * Code for removing links from event titles.
+		 */
 		public function remove_links_html() {
 			$classes = (array) $this->settings->get_option('remove_links_from_events', false );
 
@@ -427,6 +460,9 @@ if (
 			echo $html;
 		}
 
+		/**
+		 * Change "Free" in event cost to custom text
+		 */
 		public function change_free_in_ticket_cost() {
 			$free = $this->settings->get_option('change_free_in_ticket_cost' );
 
@@ -435,6 +471,15 @@ if (
 			}
 		}
 
+		/**
+		 * Change "Free" in event cost to custom text
+		 *
+		 * @param $translation
+		 * @param $text
+		 * @param $domain
+		 *
+		 * @return mixed
+		 */
 		public function change_free_function( $translation, $text, $domain ) {
 			//$free = $this->settings->get_option('change_free_in_ticket_cost' );
 			$custom_text = [ 'Free' => $this->settings->get_option('change_free_in_ticket_cost' ) ];
@@ -446,6 +491,9 @@ if (
 			return $translation;
 		}
 
+		/**
+		 * Disable REST API for The Events Calendar
+		 */
 		public function disable_tribe_rest_api() {
 			$disable_tribe_rest_api = (bool) $this->settings->get_option( 'disable_tribe_rest_api', false );
 
