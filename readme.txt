@@ -1,21 +1,15 @@
-=== [Base Plugin Name] Extension: [Extension Name] ===
+=== The Events Calendar Extension: Tweaks ===
 Contributors: ModernTribe
 Donate link: http://m.tri.be/29
 Tags: events, calendar
-Requires at least: 4.5
-Tested up to: 5.3.2
+Requires at least: 4.9
+Tested up to: 5.4.1
 Requires PHP: 5.6
 Stable tag: 1.0.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-[Extension Description]
-
-== Description ==
-
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and Markdown parsed.
+A collection of tweaks for The Events Calendar.
 
 == Installation ==
 

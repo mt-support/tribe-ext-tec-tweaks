@@ -1,8 +1,9 @@
 <?php
 
-namespace Tribe\Extensions\Example;
+namespace Tribe\Extensions\Tec_Tweaks;
 
 use Tribe__Settings_Manager;
+use Tribe__Settings_Tab;
 
 if ( ! class_exists( Settings::class ) ) {
 	/**
@@ -27,9 +28,12 @@ if ( ! class_exists( Settings::class ) ) {
 		private $options_prefix = '';
 
 		/**
+		 * @var Tribe__Settings_Tab
+		 */
+		private $settings_tab;
+
+		/**
 		 * Settings constructor.
-		 *
-		 * TODO: Update this entire class for your needs, or remove the entire `src` directory this file is in and do not load it in the main plugin file.
 		 *
 		 * @param string $options_prefix Recommended: the plugin text domain, with hyphens converted to underscores.
 		 */
@@ -38,11 +42,7 @@ if ( ! class_exists( Settings::class ) ) {
 
 			$this->set_options_prefix( $options_prefix );
 
-			// Remove settings specific to Google Maps
-			add_action( 'admin_init', [ $this, 'remove_settings' ] );
-
-			// Add settings specific to OSM
-			add_action( 'admin_init', [ $this, 'add_settings' ] );
+			add_action( 'admin_init', [ $this, 'add_settings_tab' ] );
 		}
 
 		/**
@@ -79,10 +79,14 @@ if ( ! class_exists( Settings::class ) ) {
 		 *
 		 * @param string $options_prefix
 		 */
-		private function set_options_prefix( $options_prefix ) {
-			$options_prefix = $options_prefix . '_';
+		private function set_options_prefix( $options_prefix = '' ) {
+			if ( empty( $opts_prefix ) ) {
+				$opts_prefix = str_replace( '-', '_', 'tribe-ext-tec-tweaks' ); // The text domain.
+			}
 
-			$this->options_prefix = str_replace( '__', '_', $options_prefix );
+			$opts_prefix = $opts_prefix . '_';
+
+			$this->options_prefix = str_replace( '__', '_', $opts_prefix );
 		}
 
 		/**
@@ -193,49 +197,6 @@ if ( ! class_exists( Settings::class ) ) {
 		}
 
 		/**
-		 * Here is an example of removing settings from Events > Settings > General tab > "Map Settings" section
-		 * that are specific to Google Maps.
-		 */
-		public function remove_settings() {
-			// "Enable Google Maps" checkbox
-			$this->settings_helper->remove_field( 'embedGoogleMaps', 'general' );
-			// "Map view search distance limit" (default of 25)
-			$this->settings_helper->remove_field( 'geoloc_default_geofence', 'general' );
-			// "Google Maps default zoom level" (0-21, default of 10)
-			$this->settings_helper->remove_field( 'embedGoogleMapsZoom', 'general' );
-		}
-
-		/**
-		 * Adds a new section of fields to Events > Settings > General tab, appearing after the "Map Settings" section
-		 * and before the "Miscellaneous Settings" section.
-		 *
-		 * TODO: Move it to where you want and update this docblock. If you like it here, just delete this TODO.
-		 */
-		public function add_settings() {
-			$fields = [
-				// TODO: Settings heading start. Remove this element if not needed. Also remove the corresponding `get_example_intro_text()` method below.
-				'Example'   => [
-					'type' => 'html',
-					'html' => $this->get_example_intro_text(),
-				],
-				// TODO: Settings heading end.
-				'a_setting' => [ // TODO
-					'type'            => 'text',
-					'label'           => esc_html__( 'xxx try this', 'tribe-ext-extension-template' ),
-					'tooltip'         => sprintf( esc_html__( 'Enter your custom URL, including "http://" or "https://", for example %s.', 'tribe-ext-extension-template' ), '<code>https://wpshindig.com/events/</code>' ),
-					'validation_type' => 'html',
-				],
-			];
-
-			$this->settings_helper->add_fields(
-				$this->prefix_settings_field_keys( $fields ),
-				'general',
-				'tribeEventsMiscellaneousTitle',
-				true
-			);
-		}
-
-		/**
 		 * Add the options prefix to each of the array keys.
 		 *
 		 * @param array $fields
@@ -258,19 +219,175 @@ if ( ! class_exists( Settings::class ) ) {
 		/**
 		 * Here is an example of getting some HTML for the Settings Header.
 		 *
-		 * TODO: Delete this method if you do not need a heading for your settings. Also remove the corresponding element in the the $fields array in the `add_settings()` method above.
-		 *
 		 * @return string
 		 */
-		private function get_example_intro_text() {
-			$result = '<h3>' . esc_html_x( 'Example Extension Setup', 'Settings header', 'tribe-ext-extension-template' ) . '</h3>';
+		private function get_tweaks_intro_text() {
+			$result = '<h3>' . esc_html_x( 'The Events Calendar Tweaks', 'Settings header', 'tribe-ext-tec-tweaks' ) . '</h3>';
 			$result .= '<div style="margin-left: 20px;">';
 			$result .= '<p>';
-			$result .= esc_html_x( 'Some text here about this settings section.', 'Settings', 'tribe-ext-extension-template' );
+			$result .= esc_html_x( 'This is a collection of tweaks and snippets for The Events Calendar.', 'Settings', 'tribe-ext-tec-tweaks' );
 			$result .= '</p>';
 			$result .= '</div>';
 
 			return $result;
+		}
+
+		/**
+		 * Setting up the Tweaks setting tab in admin
+		 */
+		public function add_settings_tab() {
+			$args = [
+				'priority' => 110,
+				'fields'   => $this->prefix_settings_field_keys( $this->get_settings_fields() ),
+			];
+
+			if ( empty ( $this->settings_tab ) ) {
+				$this->settings_tab = new Tribe__Settings_Tab(
+					'tec-tweaks',
+					esc_html_x(
+						'Tweaks',
+						'settings tab name',
+						'tribe-ext-tec-tweaks'
+					),
+					$args
+				);
+			}
+		}
+
+		/**
+		 * Adds a new section of fields to Events > Settings > Tweaks tab.
+		 *
+		 * @return array[]
+		 */
+		public function get_settings_fields() {
+
+			// TODO: Will be used later, when I can get it to work. :)
+/*			$views_options = [
+				'list'   => 'List view',
+				'day'    => 'Day view',
+				'month'  => 'Month view tooltip',
+				'week'   => 'Week view tooltip',
+				'recent' => 'Recent past events list',
+				'single' => 'Single event page',
+			];
+
+			$views_options_pro = [
+				'map'   => 'Map',
+				'photo' => 'Photo view',
+			];*/
+
+			$remove_links_from_events_views = [
+				'tribe-events-calendar-day__event-title-link'            => 'Day view',
+				'tribe-events-calendar-list__event-title-link'           => 'List view',
+				'tribe-events-calendar-month__calendar-event-title-link' => 'Month view',
+				'tribe-events-pro-map__event-card-button'                => 'Map view',
+				'tribe-events-pro-photo__event-title-link'               => 'Photo view',
+				'tribe-events-pro-week-grid__event-link'                 => 'Week view',
+			];
+
+			return [
+				'Example'                    => [
+					'type' => 'html',
+					'html' => $this->get_tweaks_intro_text(),
+				],
+				'disable_recent_past_events' => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( 'Disable "Recent Past Events"', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( 'When there are no events coming up in your calendar a list of recent past events will be shown. Checking this setting will remove that list.', 'tribe-ext-tec-tweaks' ),
+					'validation_type' => 'boolean',
+				],
+				'remove_event_end_time' => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( 'Remove event end time', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( 'When this box is checked the end time will no longer display for events that end on the same day when viewing the list, day, map (Pro) and photo (Pro) views, the recent past events list, the tooltip in month and week views, as well as on the event page itself.', 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' ) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a>',
+					'validation_type' => 'boolean',
+				],
+				// TODO: Commented out for later
+/*				'remove_event_end_time' => [
+					'type'            => 'checkbox_list',
+					'label'           => esc_html__( 'Remove event end time', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( 'When this box is checked the end time will no longer display for events that end on the same day when viewing the list, day, map (Pro) and photo (Pro) views, the recent past events list, the tooltip in month and week views, as well as on the event page itself.', 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' ) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a>',
+					'options'         => $views_options,
+					'validation_type' => 'options_multi',
+				],*/
+				'hide_tooltip' => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( 'Hide tooltip in Month view', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( 'When this box is checked the tooltip will be removed from month view.' )
+					                     . '<br>'
+					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
+					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/hiding-tooltips-in-month-and-week-view/" target="_blank">Hiding Tooltips in Month and Week View</a>',
+					'validation_type' => 'boolean',
+				],
+				'hide_past_events_in_month_view' => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( "Hide past events in Month view", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "Checking this box will hide past events in Month view." )
+					                     . '<br>'
+					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
+					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/hide-past-events-on-the-events-calendars-month-view/" target="_blank">Hide Past Events in Month View</a>',
+					'validation_type' => 'boolean',
+				],
+				'hide_event_time_in_month_view' => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( "Hide event time in Month view", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "Checking this box will hide the start and end time of the events in Month view." ),
+					'validation_type' => 'boolean',
+				],
+				'remove_archives_from_page_title' => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( "Remove 'Archives:' from the calendar page title", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "Checking this box will try to remove 'Archives:' from the calendar page title, which is usually coming from the page or archive template of the theme." )
+					                     . '<br>'
+					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
+					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-archives-from-calendar-page-title/" target="_blank">Removing "Archives" From the Calendar Page Title</a>',
+					'validation_type' => 'boolean',
+				],
+				'show_past_events_in_reverse_order' => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( "Show past events in reverse order", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "The calendar’s list and photo (Pro) views show past events in chronological order by default. That means the oldest events are displayed first and get newer as you go. Check this checkbox if you would like to show the events in reverse order, where the newest events are displayed first." )
+					                     . '<br>'
+					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
+					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/showing-past-events-in-reverse-order/" target="_blank">Showing Past Events in Reverse Order</a>',
+					'validation_type' => 'boolean',
+				],
+				'remove_links_from_events' => [
+					'type'            => 'checkbox_list',
+					'label'           => esc_html__( "Remove links pointing to events", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "This will remove the links from events so that users cannot click on them. This way, users cannot visit single events pages." )
+					                     . '<br>'
+					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
+					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-links-from-events/" target="_blank">Remove Links from Events</a>',
+					'options'         => $remove_links_from_events_views,
+					'validation_type' => 'options_multi',
+					'can_be_empty'    => true,
+				],
+				'change_free_in_ticket_cost' => [
+					'type'            => 'text',
+					'label'           => esc_html__( 'Change "Free" in the ticket cost', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "When you enter a price or a price range for an event and it is or starts with zero (0), then on the front-end it will show up as set above. Leave empty for default setting." )
+					                     . '<br>'
+					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
+					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/changing-the-free-event-price-to-0-zero/" target="_blank">Change “Free” to “0” in the Ticket Cost</a>',
+					'validation_type' => 'html',
+					'can_be_empty'    => true,
+				],
+				'custom_all_events_url' => [
+					'type'            => 'text',
+					'label'           => esc_html__( 'Custom URL for "All Events"', 'tribe-ext-custom-all-events-url' ),
+					'tooltip'         => sprintf( esc_html__( 'Enter your custom URL, including "http://" or "https://", for example %s. This can be useful when your main calendar page is not the default one', 'tribe-ext-custom-all-events-url' ), '<code>https://demo.theeventscalendar.com/events/</code>' ),
+					'validation_type' => 'html',
+				],
+				'disable_tribe_rest_api' => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( "Disable REST API for The Events Calendar", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "Checking this box will disable the REST API for The Events Calendar and its add-ons." ),
+					'validation_type' => 'boolean',
+				],
+
+			];
+
 		}
 
 	} // class
