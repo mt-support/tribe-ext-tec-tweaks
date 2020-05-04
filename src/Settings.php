@@ -373,6 +373,12 @@ if ( ! class_exists( Settings::class ) ) {
 					'validation_type' => 'html',
 					'can_be_empty'    => true,
 				],
+				'custom_all_events_url' => [
+					'type'            => 'text',
+					'label'           => esc_html__( 'Custom URL for "All Events"', 'tribe-ext-custom-all-events-url' ),
+					'tooltip'         => sprintf( esc_html__( 'Enter your custom URL, including "http://" or "https://", for example %s. This can be useful when your main calendar page is not the default one', 'tribe-ext-custom-all-events-url' ), '<code>https://demo.theeventscalendar.com/events/</code>' ),
+					'validation_type' => 'html',
+				],
 				'disable_tribe_rest_api' => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( "Disable REST API for The Events Calendar", 'tribe-ext-tec-tweaks' ),

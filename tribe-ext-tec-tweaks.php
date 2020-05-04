@@ -158,6 +158,8 @@ if (
 			$this->change_free_in_ticket_cost();
 			$this->disable_tribe_rest_api();
 
+			add_filter( 'tribe_get_events_link', [ $this, 'custom_all_events_url' ] );
+
 		}
 
 		/**
@@ -464,7 +466,7 @@ if (
 		 * Change "Free" in event cost to custom text
 		 */
 		public function change_free_in_ticket_cost() {
-			$free = $this->settings->get_option('change_free_in_ticket_cost' );
+			$free = $this->settings->get_option('change_free_in_ticket_cost', '0' );
 
 			if ( ! empty ( $free ) || $free == '0' ) {
 				add_filter( 'gettext', [ $this, 'change_free_function' ], 20, 3 );
@@ -481,14 +483,29 @@ if (
 		 * @return mixed
 		 */
 		public function change_free_function( $translation, $text, $domain ) {
-			//$free = $this->settings->get_option('change_free_in_ticket_cost' );
-			$custom_text = [ 'Free' => $this->settings->get_option('change_free_in_ticket_cost' ) ];
+			$free = $this->settings->get_option('change_free_in_ticket_cost' );
+			$custom_text = [ 'Free' => $free ];
 
 			// If this text domain starts with "tribe-", "the-events-", or "event-" and we have replacement text
 			if( 0 === strpos($domain, 'the-events-calendar') && array_key_exists( $translation, $custom_text ) ) {
 				$translation = $custom_text[ $translation ];
 			}
 			return $translation;
+		}
+
+		/**
+		 * Reads and returns the custom 'All Events' URL if it is set
+		 *
+		 * @return mixed
+		 */
+		public function custom_all_events_url() {
+			$url = $this->settings->get_option('custom_all_events_url' );
+
+			if ( ! empty ( $custom_url ) ) {
+				$url = $custom_url;
+			}
+
+			return $url;
 		}
 
 		/**
