@@ -411,7 +411,7 @@ if (
 				// Change List View to Past Event Reverse Chronological Order
 				add_filter( 'tribe_events_views_v2_view_list_template_vars', [ $this, 'tribe_past_reverse_chronological_v2' ], 100 );
 
-				if ( $ecp_active ) {
+				if ( $this->ecp_active ) {
 					add_filter( 'tribe_events_views_v2_view_photo_template_vars', [ $this, 'tribe_past_reverse_chronological_v2' ], 100 );
 				}
 			}
