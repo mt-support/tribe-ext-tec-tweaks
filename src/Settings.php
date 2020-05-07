@@ -225,7 +225,18 @@ if ( ! class_exists( Settings::class ) ) {
 			$result = '<h3>' . esc_html_x( 'The Events Calendar Tweaks', 'Settings header', 'tribe-ext-tec-tweaks' ) . '</h3>';
 			$result .= '<div style="margin-left: 20px;">';
 			$result .= '<p>';
-			$result .= esc_html_x( 'This is a collection of tweaks and snippets for The Events Calendar.', 'Settings', 'tribe-ext-tec-tweaks' );
+			$result .= esc_html_x( 'This is a collection of tweaks and snippets for The Events Calendar.', 'Settings intro', 'tribe-ext-tec-tweaks' );
+			$result .= ' ';
+			$result .= sprintf(
+				esc_html_x(
+					'For more tweaks visit the %sSnippets%s section of our Knowledgebase.',
+					'Settings intro',
+					'tribe-ext-tec-tweaks'
+				),
+				'<a href="https://theeventscalendar.com/knowledgebase/knowledgebase-category/snippets/" target="_blank">',
+				'</a><span class="dashicons dashicons-external"></span>',
+			);
+
 			$result .= '</p>';
 			$result .= '</div>';
 
@@ -300,7 +311,10 @@ if ( ! class_exists( Settings::class ) ) {
 				'remove_event_end_time' => [
 					'type'            => 'checkbox_list',
 					'label'           => esc_html__( 'Remove event end time', 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( 'When this box is checked the end time will no longer display for events that end on the same day when viewing the list, day, views, the recent past events list, the tooltip in month and week views (Pro), as well as on the event page itself.', 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' ) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a>',
+					'tooltip'         => esc_html__( 'When this box is checked the end time will no longer display for events that end on the same day when viewing the list, day, views, the recent past events list, the tooltip in month and week (Pro) views, as well as on the event page itself.', 'tribe-ext-tec-tweaks' )
+					                     . '<br>'
+					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
+					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a>',
 					'options'         => $remove_event_end_time_in_view,
 					'validation_type' => 'options_multi',
 					'can_be_empty'    => true,
@@ -371,7 +385,13 @@ if ( ! class_exists( Settings::class ) ) {
 				'custom_all_events_url' => [
 					'type'            => 'text',
 					'label'           => esc_html__( 'Custom URL for "All Events"', 'tribe-ext-custom-all-events-url' ),
-					'tooltip'         => sprintf( esc_html__( 'Enter your custom URL, including "http://" or "https://", for example %s. This can be useful when your main calendar page is not the default one', 'tribe-ext-custom-all-events-url' ), '<code>https://demo.theeventscalendar.com/events/</code>' ),
+					'tooltip'         => sprintf(
+						esc_html__(
+							'Enter your custom URL, including "http://" or "https://", for example %s. This can be useful when your main calendar page is not the default one',
+							'tribe-ext-custom-all-events-url'
+						),
+						'<code>https://demo.theeventscalendar.com/events/</code>'
+					),
 					'validation_type' => 'html',
 				],
 				'disable_tribe_rest_api' => [
