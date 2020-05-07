@@ -55,6 +55,7 @@ if (
 		 * @return bool
 		 */
 		public $ecp_active = false;
+
 		/**
 		 * Setup the Extension's properties.
 		 *
