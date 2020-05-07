@@ -228,15 +228,14 @@ if ( ! class_exists( Settings::class ) ) {
 			$result .= esc_html_x( 'This is a collection of tweaks and snippets for The Events Calendar.', 'Settings intro', 'tribe-ext-tec-tweaks' );
 			$result .= ' ';
 			$result .= sprintf(
-				esc_html_x(
-					'For more tweaks visit the %sSnippets%s section of our Knowledgebase.',
-					'Settings intro',
-					'tribe-ext-tec-tweaks'
-				),
-				'<a href="https://theeventscalendar.com/knowledgebase/knowledgebase-category/snippets/" target="_blank">',
-				'</a><span class="dashicons dashicons-external"></span>',
-			);
-
+							esc_html_x(
+								'For more tweaks visit the %sSnippets%s section of our Knowledgebase.',
+								'Settings intro',
+								'tribe-ext-tec-tweaks'
+							),
+							'<a href="https://theeventscalendar.com/knowledgebase/knowledgebase-category/snippets/" target="_blank">',
+							'</a><span class="dashicons dashicons-external"></span>',
+						);
 			$result .= '</p>';
 			$result .= '</div>';
 
@@ -273,7 +272,7 @@ if ( ! class_exists( Settings::class ) ) {
 
 		public function get_settings_fields() {
 
-			$remove_event_end_time_in_view = [
+			$remove_event_end_time_in_views = [
 				'recent' => 'Recent past events list',
 				'single' => 'Single event page',
 				'day'    => 'Day view',
@@ -289,12 +288,11 @@ if ( ! class_exists( Settings::class ) ) {
 
 			// IF ECP is active, show more options.
 			if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
-				$remove_event_end_time_in_view['week'] = 'Week view tooltip';
+				$remove_event_end_time_in_views['week'] = 'Week view tooltip';
 
 				$remove_links_from_events_views['tribe-events-pro-map__event-card-button']  = 'Map view';
 				$remove_links_from_events_views['tribe-events-pro-photo__event-title-link'] = 'Photo view';
 				$remove_links_from_events_views['tribe-events-pro-week-grid__event-link']   = 'Week view';
-
 			}
 
 			return [
@@ -315,7 +313,7 @@ if ( ! class_exists( Settings::class ) ) {
 					                     . '<br>'
 					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
 					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a>',
-					'options'         => $remove_event_end_time_in_view,
+					'options'         => $remove_event_end_time_in_views,
 					'validation_type' => 'options_multi',
 					'can_be_empty'    => true,
 				],

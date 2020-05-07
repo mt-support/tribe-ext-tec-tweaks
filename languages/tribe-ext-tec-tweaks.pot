@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: The Events Calendar Extension: Tweaks\n"
-"POT-Creation-Date: 2020-05-03 23:44+0200\n"
+"POT-Creation-Date: 2020-05-07 15:09+0200\n"
 "PO-Revision-Date: 2020-05-03 23:44+0200\n"
 "Last-Translator: Andras Guseo <aguseo@gmail.com>\n"
 "Language-Team: Andras Guseo <aguseo@gmail.com>\n"
@@ -27,85 +27,91 @@ msgid "The Events Calendar Tweaks"
 msgstr ""
 
 #: src/Settings.php:228
-msgctxt "Settings"
+msgctxt "Settings intro"
 msgid "This is a collection of tweaks and snippets for The Events Calendar."
 msgstr ""
 
-#: src/Settings.php:248
+#: src/Settings.php:232
+#, php-format
+msgctxt "Settings intro"
+msgid "For more tweaks visit the %sSnippets%s section of our Knowledgebase."
+msgstr ""
+
+#: src/Settings.php:259
 msgctxt "settings tab name"
 msgid "Tweaks"
 msgstr ""
 
-#: src/Settings.php:295
+#: src/Settings.php:307
 msgid "Disable \"Recent Past Events\""
 msgstr ""
 
-#: src/Settings.php:296
+#: src/Settings.php:308
 msgid ""
 "When there are no events coming up in your calendar a list of recent past "
 "events will be shown. Checking this setting will remove that list."
 msgstr ""
 
-#: src/Settings.php:301
+#: src/Settings.php:313
 msgid "Remove event end time"
 msgstr ""
 
-#: src/Settings.php:302
+#: src/Settings.php:314
 msgid ""
 "When this box is checked the end time will no longer display for events that "
-"end on the same day when viewing the list, day, map (Pro) and photo (Pro) "
-"views, the recent past events list, the tooltip in month and week views, as "
-"well as on the event page itself."
+"end on the same day when viewing the list, day, views, the recent past "
+"events list, the tooltip in month and week (Pro) views, as well as on the "
+"event page itself."
 msgstr ""
 
-#: src/Settings.php:302 src/Settings.php:318 src/Settings.php:327
-#: src/Settings.php:342 src/Settings.php:351 src/Settings.php:360
-#: src/Settings.php:371
+#: src/Settings.php:316 src/Settings.php:327 src/Settings.php:336
+#: src/Settings.php:351 src/Settings.php:360 src/Settings.php:369
+#: src/Settings.php:380
 msgid "Source:"
 msgstr ""
 
-#: src/Settings.php:315
+#: src/Settings.php:324
 msgid "Hide tooltip in Month view"
 msgstr ""
 
-#: src/Settings.php:316
+#: src/Settings.php:325
 msgid "When this box is checked the tooltip will be removed from month view."
 msgstr ""
 
-#: src/Settings.php:324
+#: src/Settings.php:333
 msgid "Hide past events in Month view"
 msgstr ""
 
-#: src/Settings.php:325
+#: src/Settings.php:334
 msgid "Checking this box will hide past events in Month view."
 msgstr ""
 
-#: src/Settings.php:333
+#: src/Settings.php:342
 msgid "Hide event time in Month view"
 msgstr ""
 
-#: src/Settings.php:334
+#: src/Settings.php:343
 msgid ""
 "Checking this box will hide the start and end time of the events in Month "
 "view."
 msgstr ""
 
-#: src/Settings.php:339
+#: src/Settings.php:348
 msgid "Remove 'Archives:' from the calendar page title"
 msgstr ""
 
-#: src/Settings.php:340
+#: src/Settings.php:349
 msgid ""
 "Checking this box will try to remove 'Archives:' from the calendar page "
 "title, which is usually coming from the page or archive template of the "
 "theme."
 msgstr ""
 
-#: src/Settings.php:348
+#: src/Settings.php:357
 msgid "Show past events in reverse order"
 msgstr ""
 
-#: src/Settings.php:349
+#: src/Settings.php:358
 msgid ""
 "The calendar’s list and photo (Pro) views show past events in chronological "
 "order by default. That means the oldest events are displayed first and get "
@@ -113,32 +119,43 @@ msgid ""
 "reverse order, where the newest events are displayed first."
 msgstr ""
 
-#: src/Settings.php:357
+#: src/Settings.php:366
 msgid "Remove links pointing to events"
 msgstr ""
 
-#: src/Settings.php:358
+#: src/Settings.php:367
 msgid ""
 "This will remove the links from events so that users cannot click on them. "
 "This way, users cannot visit single events pages."
 msgstr ""
 
-#: src/Settings.php:368
+#: src/Settings.php:377
 msgid "Change \"Free\" in the ticket cost"
 msgstr ""
 
-#: src/Settings.php:369
+#: src/Settings.php:378
 msgid ""
 "When you enter a price or a price range for an event and it is or starts "
 "with zero (0), then on the front-end it will show up as set above. Leave "
 "empty for default setting."
 msgstr ""
 
-#: src/Settings.php:378
+#: src/Settings.php:387
+msgid "Custom URL for \"All Events\""
+msgstr ""
+
+#: src/Settings.php:390
+#, php-format
+msgid ""
+"Enter your custom URL, including \"http://\" or \"https://\", for example "
+"%s. This can be useful when your main calendar page is not the default one"
+msgstr ""
+
+#: src/Settings.php:399
 msgid "Disable REST API for The Events Calendar"
 msgstr ""
 
-#: src/Settings.php:379
+#: src/Settings.php:400
 msgid ""
 "Checking this box will disable the REST API for The Events Calendar and its "
 "add-ons."
@@ -148,24 +165,24 @@ msgstr ""
 msgid "Miscellaneous Settings"
 msgstr ""
 
-#: tribe-ext-tec-tweaks.php:177
+#: tribe-ext-tec-tweaks.php:161
 #, php-format
 msgid ""
 "%s requires PHP version %s or newer to work. Please contact your website "
 "host and inquire about updating PHP."
 msgstr ""
 
-#: tribe-ext-tec-tweaks.php:231
+#: tribe-ext-tec-tweaks.php:215
 msgctxt "name of view"
 msgid "Legacy Views"
 msgstr ""
 
-#: tribe-ext-tec-tweaks.php:233
+#: tribe-ext-tec-tweaks.php:217
 msgctxt "name of view"
 msgid "New (V2) Views"
 msgstr ""
 
-#: tribe-ext-tec-tweaks.php:245
+#: tribe-ext-tec-tweaks.php:229
 #, php-format
 msgid ""
 "%1$s requires the \"%2$s\" so this extension's code will not run until this "
@@ -173,7 +190,7 @@ msgid ""
 "homepage to see if there are any updates available."
 msgstr ""
 
-#: tribe-ext-tec-tweaks.php:395
+#: tribe-ext-tec-tweaks.php:360
 #, php-format
 msgid "%s"
 msgstr ""

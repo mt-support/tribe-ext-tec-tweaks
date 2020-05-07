@@ -62,29 +62,9 @@ if (
 		 * This always executes even if the required plugins are not present.
 		 */
 		public function construct() {
-			// Dependency requirements and class properties can be defined here.
 
-			/**
-			 * Examples:
-			 * All these version numbers are the ones on or after November 16, 2016, but you could remove the version
-			 * number, as it's an optional parameter. Know that your extension code will not run at all (we won't even
-			 * get this far) if you are not running The Events Calendar 4.3.3+ or Event Tickets 4.3.3+, as that is where
-			 * the Tribe__Extension class exists, which is what we are extending.
-			 *
-			 * If using `tribe()`, such as with `Tribe__Dependency`, require TEC/ET version 4.4+ (January 9, 2017).
-			 */
-			//$this->add_required_plugin( 'Tribe__Tickets__Main', '5.0' );
-			// $this->add_required_plugin( 'Tribe__Tickets_Plus__Main', '4.3.3' );
 			$this->add_required_plugin( 'Tribe__Events__Main', '5.0' );
-			// $this->add_required_plugin( 'Tribe__Events__Pro__Main', '4.3.3' );
-			// $this->add_required_plugin( 'Tribe__Events__Community__Main', '4.3.2' );
-			// $this->add_required_plugin( 'Tribe__Events__Community__Tickets__Main', '4.3.2' );
-			// $this->add_required_plugin( 'Tribe__Events__Filterbar__View', '4.3.3' );
-			// $this->add_required_plugin( 'Tribe__Events__Tickets__Eventbrite__Main', '4.3.2' );
-			// $this->add_required_plugin( 'Tribe_APM', '4.4' );
-
-			// Conditionally-require Events Calendar PRO. If it is active, run an extra bit of code.
-			//add_action( 'tribe_plugins_loaded', [ $this, 'detect_tec_pro' ], 0 );
+			add_action( 'tribe_plugins_loaded', [ $this, 'detect_tec_pro' ], 0 );
 		}
 
 		/**
@@ -154,11 +134,11 @@ if (
 			$this->hide_tooltip();
 			$this->hide_past_events_in_month_view();
 			$this->hide_event_time_in_month_view();
+			$this->remove_archives_from_page_title();
 			$this->show_past_events_in_reverse_order();
 			$this->remove_links_from_events();
 			$this->change_free_in_ticket_cost();
 			$this->disable_tribe_rest_api();
-
 			add_filter( 'tribe_get_events_link', [ $this, 'custom_all_events_url' ] );
 
 		}
@@ -283,17 +263,6 @@ if (
 		}
 
 		/**
-		 * Demonstration of getting this extension's `a_setting` option value.
-		 *
-		 * TODO: Rework or remove this.
-		 *
-		 * @return mixed
-		 */
-		public function get_one_custom_option() {
-			return $this->settings->get_option( 'a_setting', 'https://theeventscalendar.com/' );
-		}
-
-		/**
 		 * Get all of this extension's options.
 		 *
 		 * @return array
@@ -315,9 +284,7 @@ if (
 		}
 
 		/**
-		 * Hides the event ent time on several views
-		 *
-		 * TODO: Adjust it to make views / places selectable
+		 * Hides the event end time on several views
 		 */
 		public function hide_event_end_time() {
 
@@ -329,13 +296,16 @@ if (
 			add_filter( 'tribe_events_event_schedule_details_formatting', function( $settings ) {
 
 				$views = (array) $this->settings->get_option('remove_event_end_time', '' );
+
 				foreach ( $views as $view ) {
 					if ( tribe_is_view( $view ) || tribe_context()->get( 'view', false ) === $view ) {
 						$settings['show_end_time'] = false;
-						return $settings;
+
+						// If we found the view we are on, no need to go any further.
 						break;
 					}
 				}
+				return $settings;
 			} );
 		}
 
@@ -444,7 +414,9 @@ if (
 
 			$html = "\n<style id='tribe-ext-tec-tweaks-css'>";
 			foreach ( $classes as $class ) {
-				$html .= "\n." . $class . ",";
+				$html .= "\n."
+				         . $class
+				         . ",";
 			}
 			// Remove last comma
 			$html = substr( $html, 0, -1 );
@@ -479,7 +451,7 @@ if (
 			$custom_text = [ 'Free' => $free ];
 
 			// If this text domain starts with "tribe-", "the-events-", or "event-" and we have replacement text
-			if( 0 === strpos($domain, 'the-events-calendar') && array_key_exists( $translation, $custom_text ) ) {
+			if( 0 === strpos( $domain, 'the-events-calendar' ) && array_key_exists( $translation, $custom_text ) ) {
 				$translation = $custom_text[ $translation ];
 			}
 			return $translation;
@@ -490,14 +462,15 @@ if (
 		 *
 		 * @return mixed
 		 */
-		public function custom_all_events_url() {
-			$url = $this->settings->get_option('custom_all_events_url' );
+		public function custom_all_events_url( $url ) {
+			$custom_url = $this->settings->get_option('custom_all_events_url' );
 
 			if ( ! empty ( $custom_url ) ) {
 				$url = $custom_url;
 			}
 
 			return $url;
+
 		}
 
 		/**
