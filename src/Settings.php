@@ -262,7 +262,7 @@ if ( ! class_exists( Settings::class ) ) {
 		public function get_settings_fields() {
 
 			// TODO: Will be used later, when I can get it to work. :)
-/*			$views_options = [
+			$views_options = [
 				'list'   => 'List view',
 				'day'    => 'Day view',
 				'month'  => 'Month view tooltip',
@@ -271,7 +271,7 @@ if ( ! class_exists( Settings::class ) ) {
 				'single' => 'Single event page',
 			];
 
-			$views_options_pro = [
+/*			$views_options_pro = [
 				'map'   => 'Map',
 				'photo' => 'Photo view',
 			];*/
@@ -296,20 +296,20 @@ if ( ! class_exists( Settings::class ) ) {
 					'tooltip'         => esc_html__( 'When there are no events coming up in your calendar a list of recent past events will be shown. Checking this setting will remove that list.', 'tribe-ext-tec-tweaks' ),
 					'validation_type' => 'boolean',
 				],
-				'remove_event_end_time' => [
+/*				'remove_event_end_time' => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( 'Remove event end time', 'tribe-ext-tec-tweaks' ),
 					'tooltip'         => esc_html__( 'When this box is checked the end time will no longer display for events that end on the same day when viewing the list, day, map (Pro) and photo (Pro) views, the recent past events list, the tooltip in month and week views, as well as on the event page itself.', 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' ) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a>',
 					'validation_type' => 'boolean',
-				],
+				],*/
 				// TODO: Commented out for later
-/*				'remove_event_end_time' => [
+				'remove_event_end_time' => [
 					'type'            => 'checkbox_list',
 					'label'           => esc_html__( 'Remove event end time', 'tribe-ext-tec-tweaks' ),
 					'tooltip'         => esc_html__( 'When this box is checked the end time will no longer display for events that end on the same day when viewing the list, day, map (Pro) and photo (Pro) views, the recent past events list, the tooltip in month and week views, as well as on the event page itself.', 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' ) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a>',
 					'options'         => $views_options,
 					'validation_type' => 'options_multi',
-				],*/
+				],
 				'hide_tooltip' => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( 'Hide tooltip in Month view', 'tribe-ext-tec-tweaks' ),

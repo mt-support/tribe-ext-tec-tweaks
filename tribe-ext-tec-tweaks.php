@@ -320,31 +320,34 @@ if (
 		 */
 		public function hide_event_end_time() {
 
-			$views = (bool) $this->settings->get_option( 'remove_event_end_time', 'false' );
+/*			$views = (bool) $this->settings->get_option( 'remove_event_end_time', 'false' );
 
 			if ( $views ) {
 				add_filter( 'tribe_events_event_schedule_details_formatting', function( $settings ) {
 					$settings['show_end_time'] = false;
 					return $settings;
 				});
-			}
+			}*/
 
 			// TODO: Saving for later
-			//$views = (array) $this->settings->get_option('remove_event_end_time', '' );
+			$views = (array) $this->settings->get_option('remove_event_end_time', '' );
 
-			//if ( empty ( $views ) ) return;
+			if ( empty ( $views ) ) return;
 			// If there are any views checked, then run the filter
-/*			add_filter( 'tribe_events_event_schedule_details_formatting', function( $settings ) {
-				echo 'xxx'. DOING_AJAX;
+			add_filter( 'tribe_events_event_schedule_details_formatting', function( $settings ) {
+
 				$views = (array) $this->settings->get_option('remove_event_end_time', '' );
 				foreach ( $views as $view ) {
-					if ( tribe_is_view( $view ) || tribe_is_ajax_view_request( $view ) ) {
+					//if ( tribe_is_view( $view ) || tribe_is_ajax_view_request( $view ) ) {
+					$var = tribe_context()->get( 'view', false );
+					$theview = tribe_get_view(); // tribe_is_view( $view );
+					if ( tribe_is_view( $view ) || $var === $view ) {
 						$settings['show_end_time'] = false;
 						return $settings;
 						break;
 					}
 				}
-			} );*/
+			} );
 		}
 
 		/**
