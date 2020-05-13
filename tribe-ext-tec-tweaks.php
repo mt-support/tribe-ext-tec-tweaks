@@ -463,11 +463,12 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			$disable_tribe_rest_api = (bool) $this->settings->get_option( 'disable_tribe_rest_api', false );
 
 			if ( $disable_tribe_rest_api ) {
-				add_action( 'init',
-					function () {
-						remove_action( 'rest_api_init', [ tribe( 'tec.rest-v1.main' ), 'register_endpoints' ] );
-					} );
-			}
+				add_action( 'init', function () {
+					/** @var \Tribe__Events__REST__V1__Main $rest */
+					$rest = tribe( 'tec.rest-v1.main' );
+					
+					remove_action( 'rest_api_init', [ $rest, 'register_endpoints' ] );
+				} );			}
 		}
 
 	} // end class
