@@ -242,7 +242,7 @@ if ( ! class_exists( Settings::class ) ) {
 		}
 
 		/**
-		 * Setting up the Tweaks setting tab in admin
+		 * Setting up the Tweaks setting tab in admin.
 		 */
 		public function add_settings_tab() {
 			$args = [

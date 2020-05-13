@@ -245,7 +245,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		}
 
 		/**
-		 * Disables the "Recent Past Events" block
+		 * Disables the "Recent Past Events" block.
 		 */
 		public function disable_latest_past_events() {
 			$days_to_show = (bool) $this->settings->get_option( 'disable_recent_past_events', false );
@@ -256,7 +256,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		}
 
 		/**
-		 * Hides the event end time on several views
+		 * Hides the event end time on several views.
 		 */
 		public function hide_event_end_time() {
 			$views = (array) $this->settings->get_option( 'remove_event_end_time', '' );
@@ -265,7 +265,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 				return;
 			}
 
-			// If there are any views checked, then run the filter
+			// If there are any views checked, then run the filter.
 			add_filter( 'tribe_events_event_schedule_details_formatting',
 				function ( $settings ) {
 					$views = (array) $this->settings->get_option( 'remove_event_end_time', '' );
@@ -284,7 +284,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		}
 
 		/**
-		 * Hide the tooltip in month view
+		 * Hide the tooltip in month view.
 		 */
 		public function hide_tooltip() {
 			$hide_tooltip = (bool) $this->settings->get_option( 'hide_tooltip', false );
@@ -296,7 +296,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		}
 
 		/**
-		 * Hide past events in month view
+		 * Hide past events in month view.
 		 */
 		public function hide_past_events_in_month_view() {
 			$hide_past = (bool) $this->settings->get_option( 'hide_past_events_in_month_view', false );
@@ -310,7 +310,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		}
 
 		/**
-		 * Hide event times in month view
+		 * Hide event times in month view.
 		 */
 		public function hide_event_time_in_month_view() {
 			$hide_event_time_in_month_view = (bool) $this->settings->get_option( 'hide_event_time_in_month_view',
@@ -344,14 +344,14 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		}
 
 		/**
-		 * Show past events in reverse order
+		 * Show past events in reverse order.
 		 */
 		public function show_past_events_in_reverse_order() {
 			$show_past_events_in_reverse_order = (bool) $this->settings->get_option( 'show_past_events_in_reverse_order',
 			                                                                         false );
 
 			if ( $show_past_events_in_reverse_order ) {
-				// Change List View to Past Event Reverse Chronological Order
+				// Change List View to Past Event Reverse Chronological Order.
 				add_filter( 'tribe_events_views_v2_view_list_template_vars',
 				            [ $this, 'tribe_past_reverse_chronological_v2' ],
 				            100 );
@@ -365,7 +365,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		}
 
 		/**
-		 * Show past events in reverse order
+		 * Show past events in reverse order.
 		 *
 		 * @param $template_vars
 		 *
@@ -409,7 +409,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		}
 
 		/**
-		 * Change "Free" in event cost to custom text
+		 * Change "Free" in event cost to custom text.
 		 */
 		public function change_free_in_ticket_cost() {
 			$free = $this->settings->get_option( 'change_free_in_ticket_cost', '0' );
@@ -420,7 +420,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		}
 
 		/**
-		 * Change "Free" in event cost to custom text
+		 * Change "Free" in event cost to custom text.
 		 *
 		 * @param $translation
 		 * @param $text
@@ -441,7 +441,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		}
 
 		/**
-		 * Reads and returns the custom 'All Events' URL if it is set
+		 * Reads and returns the custom 'All Events' URL if it is set.
 		 *
 		 * @return mixed
 		 */
@@ -456,7 +456,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		}
 
 		/**
-		 * Disable REST API for The Events Calendar
+		 * Disable REST API for The Events Calendar.
 		 */
 		public function disable_tribe_rest_api() {
 			$disable_tribe_rest_api = (bool) $this->settings->get_option( 'disable_tribe_rest_api', false );
