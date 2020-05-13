@@ -259,7 +259,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		 * Hides the event end time on several views.
 		 */
 		public function hide_event_end_time() {
-			$views = (array) $this->settings->get_option( 'remove_event_end_time', '' );
+			$views = (array) $this->settings->get_option( 'remove_event_end_time', [] );
 
 			if ( empty ( $views ) ) {
 				return;
@@ -268,10 +268,13 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			// If there are any views checked, then run the filter.
 			add_filter( 'tribe_events_event_schedule_details_formatting',
 				function ( $settings ) {
-					$views = (array) $this->settings->get_option( 'remove_event_end_time', '' );
+					$views = (array) $this->settings->get_option( 'remove_event_end_time', [] );
 
 					foreach ( $views as $view ) {
-						if ( tribe_is_view( $view ) || tribe_context()->get( 'view', false ) === $view ) {
+						if (
+							tribe_is_view( $view )
+							|| $view === tribe_context()->get( 'view', false )
+						) {
 							$settings['show_end_time'] = false;
 
 							// If we found the view we are on, no need to go any further.
