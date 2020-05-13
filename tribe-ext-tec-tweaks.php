@@ -74,7 +74,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			$dep = tribe( Tribe__Dependency::class );
 
 			if ( $dep->is_plugin_active( 'Tribe__Events__Pro__Main' ) ) {
-				$this->add_required_plugin( 'Tribe__Events__Pro__Main' );
+				$this->add_required_plugin( 'Tribe__Events__Pro__Main', '5.0' );
 				$this->ecp_active = true;
 			}
 		}
@@ -356,11 +356,9 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 				            [ $this, 'tribe_past_reverse_chronological_v2' ],
 				            100 );
 
-				if ( $this->ecp_active ) {
-					add_filter( 'tribe_events_views_v2_view_photo_template_vars',
-					            [ $this, 'tribe_past_reverse_chronological_v2' ],
-					            100 );
-				}
+				add_filter( 'tribe_events_views_v2_view_photo_template_vars',
+				            [ $this, 'tribe_past_reverse_chronological_v2' ],
+				            100 );
 			}
 		}
 
