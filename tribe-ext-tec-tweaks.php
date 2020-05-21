@@ -27,6 +27,7 @@ namespace Tribe\Extensions\Tec_Tweaks;
 
 use Tribe__Autoloader;
 use Tribe__Dependency;
+use Tribe__Events__REST__V1__Main;
 use Tribe__Extension;
 
 // Do not load unless Tribe Common is fully loaded and our class does not yet exist.
@@ -84,9 +85,9 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		 *
 		 * Settings_Helper will append a trailing underscore before each option.
 		 *
-		 * @return string
 		 * @see \Tribe\Extensions\Tec_Tweaks\Settings::set_options_prefix()
 		 *
+		 * @return string
 		 */
 		private function get_options_prefix() {
 			return (string) str_replace( '-', '_', 'tribe-ext-tec-tweaks' );
@@ -148,10 +149,14 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			if ( version_compare( PHP_VERSION, $php_required_version, '<' ) ) {
 				if ( is_admin() && current_user_can( 'activate_plugins' ) ) {
 					$message = '<p>';
-					$message .= sprintf( __( '%s requires PHP version %s or newer to work. Please contact your website host and inquire about updating PHP.',
-					                         'tribe-ext-tec-tweaks' ),
-					                     $this->get_name(),
-					                     $php_required_version );
+					$message .= sprintf(
+						__(
+							'%s requires PHP version %s or newer to work. Please contact your website host and inquire about updating PHP.',
+							'tribe-ext-tec-tweaks'
+						),
+						$this->get_name(),
+						$php_required_version
+					);
 					$message .= sprintf( ' <a href="%1$s">%1$s</a>', 'https://wordpress.org/about/requirements/' );
 					$message .= '</p>';
 					tribe_notice( 'tribe-ext-tec-tweaks-php-version', $message, [ 'type' => 'error' ] );
@@ -198,19 +203,27 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 					$view_name = _x( 'New (V2) Views', 'name of view', 'tribe-ext-tec-tweaks' );
 				}
 
-				$view_name = sprintf( '<a href="%s">%s</a>',
-				                      esc_url( admin_url( 'edit.php?page=tribe-common&tab=display&post_type=tribe_events' ) ),
-				                      $view_name );
+				$view_name = sprintf(
+					'<a href="%s">%s</a>',
+					esc_url( admin_url( 'edit.php?page=tribe-common&tab=display&post_type=tribe_events' ) ),
+					$view_name
+				);
 
 				// Translators: 1: Extension plugin name, 2: Name of required view, linked to Display tab.
-				$message = sprintf( __( '%1$s requires the "%2$s" so this extension\'s code will not run until this requirement is met. You may want to deactivate this extension or visit its homepage to see if there are any updates available.',
-				                        'tribe-ext-tec-tweaks' ),
-				                    $this->get_name(),
-				                    $view_name );
+				$message = sprintf(
+					__(
+						'%1$s requires the "%2$s" so this extension\'s code will not run until this requirement is met. You may want to deactivate this extension or visit its homepage to see if there are any updates available.',
+						'tribe-ext-tec-tweaks'
+					),
+					$this->get_name(),
+					$view_name
+				);
 
-				tribe_notice( 'tribe-ext-tec-tweaks-view-mismatch',
-				              '<p>' . $message . '</p>',
-				              [ 'type' => 'error' ] );
+				tribe_notice(
+					'tribe-ext-tec-tweaks-view-mismatch',
+					'<p>' . $message . '</p>',
+					[ 'type' => 'error' ]
+				);
 			}
 
 			return $meets_req;
@@ -225,8 +238,10 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			if ( empty( $this->class_loader ) ) {
 				$this->class_loader = new Tribe__Autoloader;
 				$this->class_loader->set_dir_separator( '\\' );
-				$this->class_loader->register_prefix( __NAMESPACE__ . '\\',
-				                                      __DIR__ . DIRECTORY_SEPARATOR . 'src' );
+				$this->class_loader->register_prefix(
+					__NAMESPACE__ . '\\',
+					__DIR__ . DIRECTORY_SEPARATOR . 'src'
+				);
 			}
 
 			$this->class_loader->register_autoloader();
@@ -265,7 +280,8 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			}
 
 			// If there are any views checked, then run the filter.
-			add_filter( 'tribe_events_event_schedule_details_formatting',
+			add_filter(
+				'tribe_events_event_schedule_details_formatting',
 				function ( $settings ) {
 					$views = (array) $this->settings->get_option( 'remove_event_end_time', [] );
 
@@ -282,7 +298,8 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 					}
 
 					return $settings;
-				} );
+				}
+			);
 		}
 
 		/**
@@ -292,8 +309,10 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			$hide_tooltip = (bool) $this->settings->get_option( 'hide_tooltip', false );
 
 			if ( $hide_tooltip ) {
-				add_filter( 'tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip',
-				            '__return_false' );
+				add_filter(
+					'tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip',
+					'__return_false'
+				);
 			}
 		}
 
@@ -304,10 +323,12 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			$hide_past = (bool) $this->settings->get_option( 'hide_past_events_in_month_view', false );
 
 			if ( $hide_past ) {
-				add_action( 'wp_head',
+				add_action(
+					'wp_head',
 					function () {
 						echo '<style id="tribe-ext-tec-tweaks-css-hide-past">.tribe-events-calendar-month__day--past .tribe-events-calendar-month__events{display: none;}</style>';
-					} );
+					}
+				);
 			}
 		}
 
@@ -315,14 +336,18 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		 * Hide event times in month view.
 		 */
 		public function hide_event_time_in_month_view() {
-			$hide_event_time_in_month_view = (bool) $this->settings->get_option( 'hide_event_time_in_month_view',
-			                                                                     false );
+			$hide_event_time_in_month_view = (bool) $this->settings->get_option(
+				'hide_event_time_in_month_view',
+				false
+			);
 
 			if ( $hide_event_time_in_month_view ) {
-				add_action( 'wp_head',
+				add_action(
+					'wp_head',
 					function () {
 						echo '<style id="tribe-ext-tec-tweaks-css-hide-event-time">.tribe-events-calendar-month__calendar-event-datetime{display: none;}</style>';
-					} );
+					}
+				);
 			}
 		}
 
@@ -334,14 +359,16 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			$remove_archives = (bool) $this->settings->get_option( 'remove_archives_from_page_title', false );
 
 			if ( $remove_archives ) {
-				add_filter( 'get_the_archive_title',
+				add_filter(
+					'get_the_archive_title',
 					function ( $title ) {
 						if ( is_post_type_archive( 'tribe_events' ) ) {
 							$title = sprintf( __( '%s' ), post_type_archive_title( '', false ) );
 						}
 
 						return $title;
-					} );
+					}
+				);
 			}
 		}
 
@@ -349,18 +376,24 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		 * Show past events in reverse order.
 		 */
 		public function show_past_events_in_reverse_order() {
-			$show_past_events_in_reverse_order = (bool) $this->settings->get_option( 'show_past_events_in_reverse_order',
-			                                                                         false );
+			$show_past_events_in_reverse_order = (bool) $this->settings->get_option(
+				'show_past_events_in_reverse_order',
+				false
+			);
 
 			if ( $show_past_events_in_reverse_order ) {
 				// Change List View to Past Event Reverse Chronological Order.
-				add_filter( 'tribe_events_views_v2_view_list_template_vars',
-				            [ $this, 'tribe_past_reverse_chronological_v2' ],
-				            100 );
+				add_filter(
+					'tribe_events_views_v2_view_list_template_vars',
+					[ $this, 'tribe_past_reverse_chronological_v2' ],
+					100
+				);
 
-				add_filter( 'tribe_events_views_v2_view_photo_template_vars',
-				            [ $this, 'tribe_past_reverse_chronological_v2' ],
-				            100 );
+				add_filter(
+					'tribe_events_views_v2_view_photo_template_vars',
+					[ $this, 'tribe_past_reverse_chronological_v2' ],
+					100
+				);
 			}
 		}
 
@@ -464,13 +497,15 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			$disable_tribe_rest_api = (bool) $this->settings->get_option( 'disable_tribe_rest_api', false );
 
 			if ( $disable_tribe_rest_api ) {
-				add_action( 'init',
+				add_action(
+					'init',
 					function () {
-						/** @var \Tribe__Events__REST__V1__Main $rest */
+						/** @var Tribe__Events__REST__V1__Main $rest */
 						$rest = tribe( 'tec.rest-v1.main' );
 
 						remove_action( 'rest_api_init', [ $rest, 'register_endpoints' ] );
-					} );
+					}
+				);
 			}
 		}
 
