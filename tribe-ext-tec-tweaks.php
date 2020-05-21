@@ -430,7 +430,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		 * @return mixed
 		 */
 		public function change_free_function( $translation, $text, $domain ) {
-			$free = $this->settings->get_option( 'change_free_in_ticket_cost' );
+			$free        = $this->settings->get_option( 'change_free_in_ticket_cost' );
 			$custom_text = [ 'Free' => $free ];
 
 			// If this text domain starts with "tribe-", "the-events-", or "event-" and we have replacement text
@@ -463,12 +463,14 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			$disable_tribe_rest_api = (bool) $this->settings->get_option( 'disable_tribe_rest_api', false );
 
 			if ( $disable_tribe_rest_api ) {
-				add_action( 'init', function () {
-					/** @var \Tribe__Events__REST__V1__Main $rest */
-					$rest = tribe( 'tec.rest-v1.main' );
-					
-					remove_action( 'rest_api_init', [ $rest, 'register_endpoints' ] );
-				} );			}
+				add_action( 'init',
+					function () {
+						/** @var \Tribe__Events__REST__V1__Main $rest */
+						$rest = tribe( 'tec.rest-v1.main' );
+
+						remove_action( 'rest_api_init', [ $rest, 'register_endpoints' ] );
+					} );
+			}
 		}
 
 	} // end class
