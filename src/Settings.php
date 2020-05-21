@@ -108,9 +108,10 @@ if ( ! class_exists( Settings::class ) ) {
 		 *
 		 * @param string $key
 		 *
+		 * @param string $default
+		 *
 		 * @return mixed
 		 * @see tribe_get_option()
-		 *
 		 */
 		public function get_option( $key = '', $default = '' ) {
 			$key = $this->sanitize_option_key( $key );
@@ -233,7 +234,7 @@ if ( ! class_exists( Settings::class ) ) {
 			                                'Settings intro',
 			                                'tribe-ext-tec-tweaks' ),
 			                    '<a href="https://theeventscalendar.com/knowledgebase/knowledgebase-category/snippets/" target="_blank">',
-			                    '</a><span class="dashicons dashicons-external"></span>',
+			                    '</a><span class="dashicons dashicons-external"></span>'
 						);
 			$result .= '</p>';
 			$result .= '</div>';
@@ -366,7 +367,7 @@ if ( ! class_exists( Settings::class ) ) {
 				'custom_all_events_url'             => [
 					'type'            => 'text',
 					'label'           => esc_html__( 'Custom URL for "All Events"', 'tribe-ext-custom-all-events-url' ),
-					'tooltip'         => sprintf( esc_html__( 'Enter your custom URL, including "http://" or "https://", for example %s. This can be useful when your main calendar page is not the default one',
+					'tooltip'         => sprintf( esc_html__( 'Enter your custom URL, including "http://" or "https://", for example %s. This can be useful when your main calendar page is not the default one.',
 					                                          'tribe-ext-custom-all-events-url' ),
 					                              '<code>https://demo.theeventscalendar.com/events/</code>' ),
 					'validation_type' => 'html',
