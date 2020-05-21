@@ -150,8 +150,9 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 				if ( is_admin() && current_user_can( 'activate_plugins' ) ) {
 					$message = '<p>';
 					$message .= sprintf(
+						// Translators: 1: extension name, 2: required version.
 						__(
-							'%s requires PHP version %s or newer to work. Please contact your website host and inquire about updating PHP.',
+							'%1$s requires PHP version %2$s or newer to work. Please contact your website host and inquire about updating PHP.',
 							'tribe-ext-tec-tweaks'
 						),
 						$this->get_name(),

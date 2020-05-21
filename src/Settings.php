@@ -240,8 +240,9 @@ if ( ! class_exists( Settings::class ) ) {
 			);
 			$result .= ' ';
 			$result .= sprintf(
+				// Translators: 1: link to KB's snippets, 2: link icon.
 				esc_html_x(
-					'For more tweaks visit the %sSnippets%s section of our Knowledgebase.',
+					'For more tweaks visit the %1$sSnippets%2$s section of our Knowledgebase.',
 					'Settings intro',
 					'tribe-ext-tec-tweaks'
 				),
