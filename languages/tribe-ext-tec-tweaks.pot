@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-05-21T20:19:47+00:00\n"
+"POT-Creation-Date: 2020-05-21T20:26:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: tribe-ext-tec-tweaks\n"
@@ -118,21 +118,21 @@ msgid "Miscellaneous Settings"
 msgstr ""
 
 #. Translators: 1: extension name, 2: required version.
-#: tribe-ext-tec-tweaks.php:154
+#: tribe-ext-tec-tweaks.php:160
 msgid "%1$s requires PHP version %2$s or newer to work. Please contact your website host and inquire about updating PHP."
 msgstr ""
 
-#: tribe-ext-tec-tweaks.php:202
+#: tribe-ext-tec-tweaks.php:221
 msgctxt "name of view"
 msgid "Legacy Views"
 msgstr ""
 
-#: tribe-ext-tec-tweaks.php:204
+#: tribe-ext-tec-tweaks.php:223
 msgctxt "name of view"
 msgid "New (V2) Views"
 msgstr ""
 
 #. Translators: 1: Extension plugin name, 2: Name of required view, linked to Display tab.
-#: tribe-ext-tec-tweaks.php:215
+#: tribe-ext-tec-tweaks.php:234
 msgid "%1$s requires the \"%2$s\" so this extension's code will not run until this requirement is met. You may want to deactivate this extension or visit its homepage to see if there are any updates available."
 msgstr ""
