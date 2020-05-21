@@ -378,7 +378,7 @@ if ( ! class_exists( Settings::class ) ) {
 				'show_past_events_in_reverse_order' => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( "Show past events in reverse order", 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( "The calendar’s list and photo (Pro) views show past events in chronological order by default. That means the oldest events are displayed first and get newer as you go. Check this checkbox if you would like to show the events in reverse order, where the newest events are displayed first." ) . '<br>' . esc_html__(
+					'tooltip'         => esc_html__( "The calendar's list and photo (Pro) views show past events in chronological order by default. That means the oldest events are displayed first and get newer as you go. Check this checkbox if you would like to show the events in reverse order, where the newest events are displayed first." ) . '<br>' . esc_html__(
 							'Source:',
 							'tribe-ext-tec-tweaks'
 						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/showing-past-events-in-reverse-order/" target="_blank">Showing Past Events in Reverse Order</a>',
