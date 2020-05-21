@@ -31,7 +31,10 @@ use Tribe__Events__REST__V1__Main;
 use Tribe__Extension;
 
 // Do not load unless Tribe Common is fully loaded and our class does not yet exist.
-if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
+if (
+	class_exists( 'Tribe__Extension' )
+	&& ! class_exists( Main::class )
+) {
 	/**
 	 * Extension main class, class begins loading on init() function.
 	 */
@@ -147,10 +150,13 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			$php_required_version = '7.0';
 
 			if ( version_compare( PHP_VERSION, $php_required_version, '<' ) ) {
-				if ( is_admin() && current_user_can( 'activate_plugins' ) ) {
+				if (
+					is_admin()
+					&& current_user_can( 'activate_plugins' )
+				) {
 					$message = '<p>';
 					$message .= sprintf(
-						// Translators: 1: extension name, 2: required version.
+					// Translators: 1: extension name, 2: required version.
 						__(
 							'%1$s requires PHP version %2$s or newer to work. Please contact your website host and inquire about updating PHP.',
 							'tribe-ext-tec-tweaks'
@@ -180,24 +186,37 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			$meets_req = true;
 
 			// Is V2 enabled?
-			if ( function_exists( 'tribe_events_views_v2_is_enabled' ) && ! empty( tribe_events_views_v2_is_enabled() ) ) {
+			if (
+				function_exists( 'tribe_events_views_v2_is_enabled' )
+				&& ! empty( tribe_events_views_v2_is_enabled() )
+			) {
 				$is_v2 = true;
 			} else {
 				$is_v2 = false;
 			}
 
 			// V1 compatibility check.
-			if ( 1 === $view_required_version && $is_v2 ) {
+			if (
+				1 === $view_required_version
+				&& $is_v2
+			) {
 				$meets_req = false;
 			}
 
 			// V2 compatibility check.
-			if ( 2 === $view_required_version && ! $is_v2 ) {
+			if (
+				2 === $view_required_version
+				&& ! $is_v2
+			) {
 				$meets_req = false;
 			}
 
 			// Notice, if should be shown.
-			if ( ! $meets_req && is_admin() && current_user_can( 'activate_plugins' ) ) {
+			if (
+				! $meets_req
+				&& is_admin()
+				&& current_user_can( 'activate_plugins' )
+			) {
 				if ( 1 === $view_required_version ) {
 					$view_name = _x( 'Legacy Views', 'name of view', 'tribe-ext-tec-tweaks' );
 				} else {
@@ -448,7 +467,10 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		public function change_free_in_ticket_cost() {
 			$free = $this->settings->get_option( 'change_free_in_ticket_cost', '0' );
 
-			if ( ! empty ( $free ) || $free == '0' ) {
+			if (
+				! empty ( $free )
+				|| $free == '0'
+			) {
 				add_filter( 'gettext', [ $this, 'change_free_function' ], 20, 3 );
 			}
 		}
@@ -467,7 +489,10 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 			$custom_text = [ 'Free' => $free ];
 
 			// If this text domain starts with "tribe-", "the-events-", or "event-" and we have replacement text
-			if ( 0 === strpos( $domain, 'the-events-calendar' ) && array_key_exists( $translation, $custom_text ) ) {
+			if (
+				0 === strpos( $domain, 'the-events-calendar' )
+				&& array_key_exists( $translation, $custom_text )
+			) {
 				$translation = $custom_text[ $translation ];
 			}
 
