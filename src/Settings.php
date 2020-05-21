@@ -291,6 +291,10 @@ if ( ! class_exists( Settings::class ) ) {
 			}
 
 			return [
+				'Start'                           => [
+					'type' => 'html',
+					'html' => "<div class='tribe-settings-form-wrap'>",
+				],
 				'Example'                           => [
 					'type' => 'html',
 					'html' => $this->get_tweaks_intro_text(),
@@ -379,6 +383,11 @@ if ( ! class_exists( Settings::class ) ) {
 					'tooltip'         => esc_html__( "Checking this box will disable the REST API for The Events Calendar and its add-ons." ),
 					'validation_type' => 'boolean',
 				],
+				'End'                           => [
+					'type' => 'html',
+					'html' => "</div>",
+				],
+
 
 			];
 		}
