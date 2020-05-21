@@ -144,7 +144,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		 * @return bool
 		 */
 		private function php_version_check() {
-			$php_required_version = '5.6';
+			$php_required_version = '7.0';
 
 			if ( version_compare( PHP_VERSION, $php_required_version, '<' ) ) {
 				if ( is_admin() && current_user_can( 'activate_plugins' ) ) {
@@ -443,6 +443,8 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 
 		/**
 		 * Reads and returns the custom 'All Events' URL if it is set.
+		 *
+		 * @param $url
 		 *
 		 * @return mixed
 		 */
