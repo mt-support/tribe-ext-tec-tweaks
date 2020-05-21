@@ -109,8 +109,7 @@ if ( class_exists( 'Tribe__Extension' ) && ! class_exists( Main::class ) ) {
 		 * Extension initialization and hooks.
 		 */
 		public function init() {
-			// Load plugin textdomain
-			// Don't forget to generate the 'languages/tribe-ext-tec-tweaks.pot' file
+			// Load plugin textdomain.
 			load_plugin_textdomain( 'tribe-ext-tec-tweaks', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
 			if ( ! $this->php_version_check() ) {

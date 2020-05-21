@@ -388,7 +388,6 @@ if ( ! class_exists( Settings::class ) ) {
 					'html' => "</div>",
 				],
 
-
 			];
 		}
 	} // class
