@@ -78,6 +78,7 @@ if ( ! class_exists( Settings::class ) ) {
 		 * @see get_options_prefix()
 		 *
 		 * @param string $options_prefix
+		 *
 		 */
 		private function set_options_prefix( $options_prefix = '' ) {
 			if ( empty( $opts_prefix ) ) {
@@ -106,6 +107,8 @@ if ( ! class_exists( Settings::class ) ) {
 		 * This automatically prepends this extension's option prefix so you can just do `$this->get_option( 'a_setting' )`.
 		 *
 		 * @see tribe_get_option()
+		 *
+		 * @param string $default
 		 *
 		 * @param string $key
 		 *
@@ -208,7 +211,8 @@ if ( ! class_exists( Settings::class ) ) {
 				array_map(
 					function ( $key ) {
 						return $this->get_options_prefix() . $key;
-					}, array_keys( $fields )
+					},
+					array_keys( $fields )
 				),
 				$fields
 			);
@@ -222,20 +226,29 @@ if ( ! class_exists( Settings::class ) ) {
 		 * @return string
 		 */
 		private function get_tweaks_intro_text() {
-			$result = '<h3>' . esc_html_x( 'The Events Calendar Tweaks', 'Settings header', 'tribe-ext-tec-tweaks' ) . '</h3>';
+			$result = '<h3>' . esc_html_x(
+					'The Events Calendar Tweaks',
+					'Settings header',
+					'tribe-ext-tec-tweaks'
+				) . '</h3>';
 			$result .= '<div style="margin-left: 20px;">';
 			$result .= '<p>';
-			$result .= esc_html_x( 'This is a collection of tweaks and snippets for The Events Calendar.', 'Settings intro', 'tribe-ext-tec-tweaks' );
+			$result .= esc_html_x(
+				'This is a collection of tweaks and snippets for The Events Calendar.',
+				'Settings intro',
+				'tribe-ext-tec-tweaks'
+			);
 			$result .= ' ';
 			$result .= sprintf(
-							esc_html_x(
-								'For more tweaks visit the %sSnippets%s section of our Knowledgebase.',
-								'Settings intro',
-								'tribe-ext-tec-tweaks'
-							),
-							'<a href="https://theeventscalendar.com/knowledgebase/knowledgebase-category/snippets/" target="_blank">',
-							'</a><span class="dashicons dashicons-external"></span>',
-						);
+				// Translators: 1: link to KB's snippets, 2: link icon.
+				esc_html_x(
+					'For more tweaks visit the %1$sSnippets%2$s section of our Knowledgebase.',
+					'Settings intro',
+					'tribe-ext-tec-tweaks'
+				),
+				'<a href="https://theeventscalendar.com/knowledgebase/knowledgebase-category/snippets/" target="_blank">',
+				'</a><span class="dashicons dashicons-external"></span>'
+			);
 			$result .= '</p>';
 			$result .= '</div>';
 
@@ -243,7 +256,7 @@ if ( ! class_exists( Settings::class ) ) {
 		}
 
 		/**
-		 * Setting up the Tweaks setting tab in admin
+		 * Setting up the Tweaks setting tab in admin.
 		 */
 		public function add_settings_tab() {
 			$args = [
@@ -271,7 +284,6 @@ if ( ! class_exists( Settings::class ) ) {
 		 */
 
 		public function get_settings_fields() {
-
 			$remove_event_end_time_in_views = [
 				'recent' => 'Recent past events list',
 				'single' => 'Single event page',
@@ -296,111 +308,130 @@ if ( ! class_exists( Settings::class ) ) {
 			}
 
 			return [
-				'Example'                    => [
+				'Start'                             => [
+					'type' => 'html',
+					'html' => "<div class='tribe-settings-form-wrap'>",
+				],
+				'Example'                           => [
 					'type' => 'html',
 					'html' => $this->get_tweaks_intro_text(),
 				],
-				'disable_recent_past_events' => [
+				'disable_recent_past_events'        => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( 'Disable "Recent Past Events"', 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( 'When there are no events coming up in your calendar a list of recent past events will be shown. Checking this setting will remove that list.', 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__(
+						'When there are no events coming up in your calendar a list of recent past events will be shown. Checking this setting will remove that list.',
+						'tribe-ext-tec-tweaks'
+					),
 					'validation_type' => 'boolean',
 				],
-				'remove_event_end_time' => [
+				'remove_event_end_time'             => [
 					'type'            => 'checkbox_list',
 					'label'           => esc_html__( 'Remove event end time', 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( 'When this box is checked the end time will no longer display for events that end on the same day when viewing the list, day, views, the recent past events list, the tooltip in month and week (Pro) views, as well as on the event page itself.', 'tribe-ext-tec-tweaks' )
-					                     . '<br>'
-					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
-					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a>',
+					'tooltip'         => esc_html__(
+							'When this box is checked the end time will no longer display for events that end on the same day when viewing the list, day, views, the recent past events list, the tooltip in month and week (Pro) views, as well as on the event page itself.',
+							'tribe-ext-tec-tweaks'
+						) . '<br>' . esc_html__(
+							'Source:',
+							'tribe-ext-tec-tweaks'
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a>',
 					'options'         => $remove_event_end_time_in_views,
 					'validation_type' => 'options_multi',
 					'can_be_empty'    => true,
 				],
-				'hide_tooltip' => [
+				'hide_tooltip'                      => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( 'Hide tooltip in Month view', 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( 'When this box is checked the tooltip will be removed from month view.' )
-					                     . '<br>'
-					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
-					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/hiding-tooltips-in-month-and-week-view/" target="_blank">Hiding Tooltips in Month and Week View</a>',
+					'tooltip'         => esc_html__( 'When this box is checked the tooltip will be removed from month view.' ) . '<br>' . esc_html__(
+							'Source:',
+							'tribe-ext-tec-tweaks'
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/hiding-tooltips-in-month-and-week-view/" target="_blank">Hiding Tooltips in Month and Week View</a>',
 					'validation_type' => 'boolean',
 				],
-				'hide_past_events_in_month_view' => [
+				'hide_past_events_in_month_view'    => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( "Hide past events in Month view", 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( "Checking this box will hide past events in Month view." )
-					                     . '<br>'
-					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
-					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/hide-past-events-on-the-events-calendars-month-view/" target="_blank">Hide Past Events in Month View</a>',
+					'tooltip'         => esc_html__( "Checking this box will hide past events in Month view." ) . '<br>' . esc_html__(
+							'Source:',
+							'tribe-ext-tec-tweaks'
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/hide-past-events-on-the-events-calendars-month-view/" target="_blank">Hide Past Events in Month View</a>',
 					'validation_type' => 'boolean',
 				],
-				'hide_event_time_in_month_view' => [
+				'hide_event_time_in_month_view'     => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( "Hide event time in Month view", 'tribe-ext-tec-tweaks' ),
 					'tooltip'         => esc_html__( "Checking this box will hide the start and end time of the events in Month view." ),
 					'validation_type' => 'boolean',
 				],
-				'remove_archives_from_page_title' => [
+				'remove_archives_from_page_title'   => [
 					'type'            => 'checkbox_bool',
-					'label'           => esc_html__( "Remove 'Archives:' from the calendar page title", 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( "Checking this box will try to remove 'Archives:' from the calendar page title, which is usually coming from the page or archive template of the theme." )
-					                     . '<br>'
-					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
-					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-archives-from-calendar-page-title/" target="_blank">Removing "Archives" From the Calendar Page Title</a>',
+					'label'           => esc_html__(
+						"Remove 'Archives:' from the calendar page title",
+						'tribe-ext-tec-tweaks'
+					),
+					'tooltip'         => esc_html__( "Checking this box will try to remove 'Archives:' from the calendar page title, which is usually coming from the page or archive template of the theme." ) . '<br>' . esc_html__(
+							'Source:',
+							'tribe-ext-tec-tweaks'
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-archives-from-calendar-page-title/" target="_blank">Removing "Archives" From the Calendar Page Title</a>',
 					'validation_type' => 'boolean',
 				],
 				'show_past_events_in_reverse_order' => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( "Show past events in reverse order", 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( "The calendar’s list and photo (Pro) views show past events in chronological order by default. That means the oldest events are displayed first and get newer as you go. Check this checkbox if you would like to show the events in reverse order, where the newest events are displayed first." )
-					                     . '<br>'
-					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
-					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/showing-past-events-in-reverse-order/" target="_blank">Showing Past Events in Reverse Order</a>',
+					'tooltip'         => esc_html__( "The calendar's list and photo (Pro) views show past events in chronological order by default. That means the oldest events are displayed first and get newer as you go. Check this checkbox if you would like to show the events in reverse order, where the newest events are displayed first." ) . '<br>' . esc_html__(
+							'Source:',
+							'tribe-ext-tec-tweaks'
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/showing-past-events-in-reverse-order/" target="_blank">Showing Past Events in Reverse Order</a>',
 					'validation_type' => 'boolean',
 				],
-				'remove_links_from_events' => [
+				'remove_links_from_events'          => [
 					'type'            => 'checkbox_list',
 					'label'           => esc_html__( "Remove links pointing to events", 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( "This will remove the links from events so that users cannot click on them. This way, users cannot visit single events pages." )
-					                     . '<br>'
-					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
-					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-links-from-events/" target="_blank">Remove Links from Events</a>',
+					'tooltip'         => esc_html__( "This will remove the links from events so that users cannot click on them. This way, users cannot visit single events pages." ) . '<br>' . esc_html__(
+							'Source:',
+							'tribe-ext-tec-tweaks'
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-links-from-events/" target="_blank">Remove Links from Events</a>',
 					'options'         => $remove_links_from_events_views,
 					'validation_type' => 'options_multi',
 					'can_be_empty'    => true,
 				],
-				'change_free_in_ticket_cost' => [
+				'change_free_in_ticket_cost'        => [
 					'type'            => 'text',
 					'label'           => esc_html__( 'Change "Free" in the ticket cost', 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( "When you enter a price or a price range for an event and it is or starts with zero (0), then on the front-end it will show up as set above. Leave empty for default setting." )
-					                     . '<br>'
-					                     . esc_html__( 'Source:', 'tribe-ext-tec-tweaks' )
-					                     . ' <a href="https://theeventscalendar.com/knowledgebase/k/changing-the-free-event-price-to-0-zero/" target="_blank">Change “Free” to “0” in the Ticket Cost</a>',
+					'tooltip'         => esc_html__( "When you enter a price or a price range for an event and it is or starts with zero (0), then on the front-end it will show up as set above. Leave empty for default setting." ) . '<br>' . esc_html__(
+							'Source:',
+							'tribe-ext-tec-tweaks'
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/changing-the-free-event-price-to-0-zero/" target="_blank">Change “Free” to “0” in the Ticket Cost</a>',
 					'validation_type' => 'html',
 					'can_be_empty'    => true,
 				],
-				'custom_all_events_url' => [
+				'custom_all_events_url'             => [
 					'type'            => 'text',
 					'label'           => esc_html__( 'Custom URL for "All Events"', 'tribe-ext-custom-all-events-url' ),
 					'tooltip'         => sprintf(
 						esc_html__(
-							'Enter your custom URL, including "http://" or "https://", for example %s. This can be useful when your main calendar page is not the default one',
+							'Enter your custom URL, including "http://" or "https://", for example %s. This can be useful when your main calendar page is not the default one.',
 							'tribe-ext-custom-all-events-url'
 						),
 						'<code>https://demo.theeventscalendar.com/events/</code>'
 					),
 					'validation_type' => 'html',
 				],
-				'disable_tribe_rest_api' => [
+				'disable_tribe_rest_api'            => [
 					'type'            => 'checkbox_bool',
-					'label'           => esc_html__( "Disable REST API for The Events Calendar", 'tribe-ext-tec-tweaks' ),
+					'label'           => esc_html__(
+						"Disable REST API for The Events Calendar",
+						'tribe-ext-tec-tweaks'
+					),
 					'tooltip'         => esc_html__( "Checking this box will disable the REST API for The Events Calendar and its add-ons." ),
 					'validation_type' => 'boolean',
 				],
+				'End'                               => [
+					'type' => 'html',
+					'html' => "</div>",
+				],
 
 			];
-
 		}
 	} // class
 }

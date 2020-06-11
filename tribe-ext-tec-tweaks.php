@@ -27,6 +27,7 @@ namespace Tribe\Extensions\Tec_Tweaks;
 
 use Tribe__Autoloader;
 use Tribe__Dependency;
+use Tribe__Events__REST__V1__Main;
 use Tribe__Extension;
 
 // Do not load unless Tribe Common is fully loaded and our class does not yet exist.
@@ -62,7 +63,6 @@ if (
 		 * This always executes even if the required plugins are not present.
 		 */
 		public function construct() {
-
 			$this->add_required_plugin( 'Tribe__Events__Main', '5.0' );
 			add_action( 'tribe_plugins_loaded', [ $this, 'detect_tec_pro' ], 0 );
 		}
@@ -78,7 +78,7 @@ if (
 			$dep = tribe( Tribe__Dependency::class );
 
 			if ( $dep->is_plugin_active( 'Tribe__Events__Pro__Main' ) ) {
-				$this->add_required_plugin( 'Tribe__Events__Pro__Main' );
+				$this->add_required_plugin( 'Tribe__Events__Pro__Main', '5.0' );
 				$this->ecp_active = true;
 			}
 		}
@@ -113,8 +113,7 @@ if (
 		 * Extension initialization and hooks.
 		 */
 		public function init() {
-			// Load plugin textdomain
-			// Don't forget to generate the 'languages/tribe-ext-tec-tweaks.pot' file
+			// Load plugin textdomain.
 			load_plugin_textdomain( 'tribe-ext-tec-tweaks', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
 			if ( ! $this->php_version_check() ) {
@@ -140,7 +139,6 @@ if (
 			$this->change_free_in_ticket_cost();
 			$this->disable_tribe_rest_api();
 			add_filter( 'tribe_get_events_link', [ $this, 'custom_all_events_url' ] );
-
 		}
 
 		/**
@@ -149,7 +147,7 @@ if (
 		 * @return bool
 		 */
 		private function php_version_check() {
-			$php_required_version = '5.6';
+			$php_required_version = '7.0';
 
 			if ( version_compare( PHP_VERSION, $php_required_version, '<' ) ) {
 				if (
@@ -157,13 +155,23 @@ if (
 					&& current_user_can( 'activate_plugins' )
 				) {
 					$message = '<p>';
-					$message .= sprintf( __( '%s requires PHP version %s or newer to work. Please contact your website host and inquire about updating PHP.', 'tribe-ext-tec-tweaks' ), $this->get_name(), $php_required_version );
+					$message .= sprintf(
+					// Translators: 1: extension name, 2: required version.
+						__(
+							'%1$s requires PHP version %2$s or newer to work. Please contact your website host and inquire about updating PHP.',
+							'tribe-ext-tec-tweaks'
+						),
+						$this->get_name(),
+						$php_required_version
+					);
 					$message .= sprintf( ' <a href="%1$s">%1$s</a>', 'https://wordpress.org/about/requirements/' );
 					$message .= '</p>';
 					tribe_notice( 'tribe-ext-tec-tweaks-php-version', $message, [ 'type' => 'error' ] );
 				}
+
 				return false;
 			}
+
 			return true;
 		}
 
@@ -173,7 +181,6 @@ if (
 		 * @return bool
 		 */
 		private function is_using_compatible_view_version() {
-
 			$view_required_version = 2;
 
 			$meets_req = true;
@@ -272,11 +279,10 @@ if (
 		}
 
 		/**
-		 * Disables the "Recent Past Events" block
+		 * Disables the "Recent Past Events" block.
 		 */
 		public function disable_latest_past_events() {
-
-			$days_to_show = (bool) $this->settings->get_option('disable_recent_past_events', false );
+			$days_to_show = (bool) $this->settings->get_option( 'disable_recent_past_events', false );
 
 			if ( $days_to_show ) {
 				add_filter( 'tribe_events_views_v2_show_latest_past_events_view', '__return_false' );
@@ -284,65 +290,84 @@ if (
 		}
 
 		/**
-		 * Hides the event end time on several views
+		 * Hides the event end time on several views.
 		 */
 		public function hide_event_end_time() {
+			$views = (array) $this->settings->get_option( 'remove_event_end_time', [] );
 
-			$views = (array) $this->settings->get_option('remove_event_end_time', '' );
+			if ( empty ( $views ) ) {
+				return;
+			}
 
-			if ( empty ( $views ) ) return;
+			// If there are any views checked, then run the filter.
+			add_filter(
+				'tribe_events_event_schedule_details_formatting',
+				function ( $settings ) {
+					$views = (array) $this->settings->get_option( 'remove_event_end_time', [] );
 
-			// If there are any views checked, then run the filter
-			add_filter( 'tribe_events_event_schedule_details_formatting', function( $settings ) {
+					foreach ( $views as $view ) {
+						if (
+							tribe_is_view( $view )
+							|| $view === tribe_context()->get( 'view', false )
+						) {
+							$settings['show_end_time'] = false;
 
-				$views = (array) $this->settings->get_option('remove_event_end_time', '' );
-
-				foreach ( $views as $view ) {
-					if ( tribe_is_view( $view ) || tribe_context()->get( 'view', false ) === $view ) {
-						$settings['show_end_time'] = false;
-
-						// If we found the view we are on, no need to go any further.
-						break;
+							// If we found the view we are on, no need to go any further.
+							break;
+						}
 					}
+
+					return $settings;
 				}
-				return $settings;
-			} );
+			);
 		}
 
 		/**
-		 * Hide the tooltip in month view
+		 * Hide the tooltip in month view.
 		 */
 		public function hide_tooltip() {
 			$hide_tooltip = (bool) $this->settings->get_option( 'hide_tooltip', false );
 
 			if ( $hide_tooltip ) {
-				add_filter( 'tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip', '__return_false' );
+				add_filter(
+					'tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip',
+					'__return_false'
+				);
 			}
 		}
 
 		/**
-		 * Hide past events in month view
+		 * Hide past events in month view.
 		 */
 		public function hide_past_events_in_month_view() {
 			$hide_past = (bool) $this->settings->get_option( 'hide_past_events_in_month_view', false );
 
 			if ( $hide_past ) {
-				add_action( 'wp_head', function(){
-					echo '<style id="tribe-ext-tec-tweaks-css-hide-past">.tribe-events-calendar-month__day--past .tribe-events-calendar-month__events{display: none;}</style>';
-				} );
+				add_action(
+					'wp_head',
+					function () {
+						echo '<style id="tribe-ext-tec-tweaks-css-hide-past">.tribe-events-calendar-month__day--past .tribe-events-calendar-month__events{display: none;}</style>';
+					}
+				);
 			}
 		}
 
 		/**
-		 * Hide event times in month view
+		 * Hide event times in month view.
 		 */
 		public function hide_event_time_in_month_view() {
-			$hide_event_time_in_month_view = (bool) $this->settings->get_option( 'hide_event_time_in_month_view', false );
+			$hide_event_time_in_month_view = (bool) $this->settings->get_option(
+				'hide_event_time_in_month_view',
+				false
+			);
 
 			if ( $hide_event_time_in_month_view ) {
-				add_action( 'wp_head', function(){
-					echo '<style id="tribe-ext-tec-tweaks-css-hide-event-time">.tribe-events-calendar-month__calendar-event-datetime{display: none;}</style>';
-				} );
+				add_action(
+					'wp_head',
+					function () {
+						echo '<style id="tribe-ext-tec-tweaks-css-hide-event-time">.tribe-events-calendar-month__calendar-event-datetime{display: none;}</style>';
+					}
+				);
 			}
 		}
 
@@ -351,43 +376,55 @@ if (
 		 * Some themes add that.
 		 */
 		public function remove_archives_from_page_title() {
-			$remove_archives = (bool) $this->settings->get_option('remove_archives_from_page_title', false );
+			$remove_archives = (bool) $this->settings->get_option( 'remove_archives_from_page_title', false );
 
 			if ( $remove_archives ) {
-				add_filter( 'get_the_archive_title', function ( $title ) {
-					if ( is_post_type_archive( 'tribe_events' ) ) {
-						$title = sprintf( __( '%s' ), post_type_archive_title( '', false ) );
+				add_filter(
+					'get_the_archive_title',
+					function ( $title ) {
+						if ( is_post_type_archive( 'tribe_events' ) ) {
+							$title = sprintf( __( '%s' ), post_type_archive_title( '', false ) );
+						}
+
+						return $title;
 					}
-					return $title;
-				});
+				);
 			}
 		}
 
 		/**
-		 * Show past events in reverse order
+		 * Show past events in reverse order.
 		 */
 		public function show_past_events_in_reverse_order() {
-			$show_past_events_in_reverse_order = (bool) $this->settings->get_option('show_past_events_in_reverse_order', false );
+			$show_past_events_in_reverse_order = (bool) $this->settings->get_option(
+				'show_past_events_in_reverse_order',
+				false
+			);
 
 			if ( $show_past_events_in_reverse_order ) {
-				// Change List View to Past Event Reverse Chronological Order
-				add_filter( 'tribe_events_views_v2_view_list_template_vars', [ $this, 'tribe_past_reverse_chronological_v2' ], 100 );
+				// Change List View to Past Event Reverse Chronological Order.
+				add_filter(
+					'tribe_events_views_v2_view_list_template_vars',
+					[ $this, 'tribe_past_reverse_chronological_v2' ],
+					100
+				);
 
-				if ( $this->ecp_active ) {
-					add_filter( 'tribe_events_views_v2_view_photo_template_vars', [ $this, 'tribe_past_reverse_chronological_v2' ], 100 );
-				}
+				add_filter(
+					'tribe_events_views_v2_view_photo_template_vars',
+					[ $this, 'tribe_past_reverse_chronological_v2' ],
+					100
+				);
 			}
 		}
 
 		/**
-		 * Show past events in reverse order
+		 * Show past events in reverse order.
 		 *
 		 * @param $template_vars
 		 *
 		 * @return mixed
 		 */
 		private function tribe_past_reverse_chronological_v2( $template_vars ) {
-
 			if ( ! empty( $template_vars['is_past'] ) ) {
 				$template_vars['events'] = array_reverse( $template_vars['events'] );
 			}
@@ -399,7 +436,7 @@ if (
 		 * Remove links from event titles. Event titles will not be clickable.
 		 */
 		public function remove_links_from_events() {
-			$remove_links_from_events_views = (array) $this->settings->get_option('remove_links_from_events', false );
+			$remove_links_from_events_views = (array) $this->settings->get_option( 'remove_links_from_events', false );
 
 			if ( ! empty ( $remove_links_from_events_views ) ) {
 				add_action( 'wp_head', [ $this, 'remove_links_html' ] );
@@ -410,16 +447,14 @@ if (
 		 * Code for removing links from event titles.
 		 */
 		public function remove_links_html() {
-			$classes = (array) $this->settings->get_option('remove_links_from_events', false );
+			$classes = (array) $this->settings->get_option( 'remove_links_from_events', false );
 
 			$html = "\n<style id='tribe-ext-tec-tweaks-css'>";
 			foreach ( $classes as $class ) {
-				$html .= "\n."
-				         . $class
-				         . ",";
+				$html .= "\n." . $class . ",";
 			}
 			// Remove last comma
-			$html = substr( $html, 0, -1 );
+			$html = substr( $html, 0, - 1 );
 			$html .= "\n{ pointer-events: none; }\n";
 			$html .= "</style>\n";
 
@@ -427,18 +462,21 @@ if (
 		}
 
 		/**
-		 * Change "Free" in event cost to custom text
+		 * Change "Free" in event cost to custom text.
 		 */
 		public function change_free_in_ticket_cost() {
-			$free = $this->settings->get_option('change_free_in_ticket_cost', '0' );
+			$free = $this->settings->get_option( 'change_free_in_ticket_cost', '0' );
 
-			if ( ! empty ( $free ) || $free == '0' ) {
+			if (
+				! empty ( $free )
+				|| $free == '0'
+			) {
 				add_filter( 'gettext', [ $this, 'change_free_function' ], 20, 3 );
 			}
 		}
 
 		/**
-		 * Change "Free" in event cost to custom text
+		 * Change "Free" in event cost to custom text.
 		 *
 		 * @param $translation
 		 * @param $text
@@ -447,40 +485,53 @@ if (
 		 * @return mixed
 		 */
 		public function change_free_function( $translation, $text, $domain ) {
-			$free = $this->settings->get_option('change_free_in_ticket_cost' );
+			$free        = $this->settings->get_option( 'change_free_in_ticket_cost' );
 			$custom_text = [ 'Free' => $free ];
 
 			// If this text domain starts with "tribe-", "the-events-", or "event-" and we have replacement text
-			if( 0 === strpos( $domain, 'the-events-calendar' ) && array_key_exists( $translation, $custom_text ) ) {
+			if (
+				0 === strpos( $domain, 'the-events-calendar' )
+				&& array_key_exists( $translation, $custom_text )
+			) {
 				$translation = $custom_text[ $translation ];
 			}
+
 			return $translation;
 		}
 
 		/**
-		 * Reads and returns the custom 'All Events' URL if it is set
+		 * Reads and returns the custom 'All Events' URL if it is set.
+		 *
+		 * @param $url
 		 *
 		 * @return mixed
 		 */
 		public function custom_all_events_url( $url ) {
-			$custom_url = $this->settings->get_option('custom_all_events_url' );
+			$custom_url = $this->settings->get_option( 'custom_all_events_url' );
 
 			if ( ! empty ( $custom_url ) ) {
 				$url = $custom_url;
 			}
 
 			return $url;
-
 		}
 
 		/**
-		 * Disable REST API for The Events Calendar
+		 * Disable REST API for The Events Calendar.
 		 */
 		public function disable_tribe_rest_api() {
 			$disable_tribe_rest_api = (bool) $this->settings->get_option( 'disable_tribe_rest_api', false );
 
 			if ( $disable_tribe_rest_api ) {
-				add_action( 'init', function(){	remove_action( 'rest_api_init', [ tribe( 'tec.rest-v1.main' ), 'register_endpoints' ] ); } );
+				add_action(
+					'init',
+					function () {
+						/** @var Tribe__Events__REST__V1__Main $rest */
+						$rest = tribe( 'tec.rest-v1.main' );
+
+						remove_action( 'rest_api_init', [ $rest, 'register_endpoints' ] );
+					}
+				);
 			}
 		}
 

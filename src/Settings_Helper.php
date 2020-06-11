@@ -94,7 +94,6 @@ if ( ! class_exists( Settings_Helper::class ) ) {
 					[ $setting_tab => [ $neighboring_field => $fields ] ]
 				);
 			}
-
 		}
 
 
@@ -118,10 +117,8 @@ if ( ! class_exists( Settings_Helper::class ) ) {
 		 * @return array $fields The fields within tribe settings page
 		 */
 		public function filter_options( $fields, $tab ) {
-
 			// Fields appended to misc section.
 			if ( array_key_exists( $tab, $this->insert_fields_misc ) ) {
-
 				// Add a misc heading if none exists.
 				if ( ! array_key_exists( 'tribeMiscSettings', $fields ) ) {
 					$misc_heading = [
@@ -130,16 +127,23 @@ if ( ! class_exists( Settings_Helper::class ) ) {
 							'html' => '<h3>' . esc_html__( 'Miscellaneous Settings', 'tribe-ext-tec-tweaks' ) . '</h3>',
 						],
 					];
-					$fields       = Tribe__Main::array_insert_before_key( 'tribe-form-content-end', $fields, $misc_heading );
+					$fields       = Tribe__Main::array_insert_before_key(
+						'tribe-form-content-end',
+						$fields,
+						$misc_heading
+					);
 				}
 
 				// Insert these settings under misc heading.
-				$fields = Tribe__Main::array_insert_after_key( 'tribeMiscSettings', $fields, $this->insert_fields_misc[ $tab ] );
+				$fields = Tribe__Main::array_insert_after_key(
+					'tribeMiscSettings',
+					$fields,
+					$this->insert_fields_misc[ $tab ]
+				);
 			}
 
 			// Fields inserted above a neighboring field.
 			if ( array_key_exists( $tab, $this->insert_fields_above ) ) {
-
 				foreach ( $this->insert_fields_above[ $tab ] as $insert_after => $new_field ) {
 					$fields = Tribe__Main::array_insert_before_key( $insert_after, $fields, $new_field );
 				}
@@ -147,7 +151,6 @@ if ( ! class_exists( Settings_Helper::class ) ) {
 
 			// Fields inserted below a neighboring field.
 			if ( array_key_exists( $tab, $this->insert_fields_below ) ) {
-
 				foreach ( $this->insert_fields_below[ $tab ] as $insert_after => $new_field ) {
 					$fields = Tribe__Main::array_insert_after_key( $insert_after, $fields, $new_field );
 				}
@@ -155,7 +158,6 @@ if ( ! class_exists( Settings_Helper::class ) ) {
 
 			// Fields that will be removed.
 			if ( array_key_exists( $tab, $this->remove_fields ) ) {
-
 				foreach ( $this->remove_fields[ $tab ] as $remove_field ) {
 					if ( array_key_exists( $remove_field, $fields ) ) {
 						unset( $fields[ $remove_field ] );
