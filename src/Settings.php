@@ -285,26 +285,26 @@ if ( ! class_exists( Settings::class ) ) {
 
 		public function get_settings_fields() {
 			$remove_event_end_time_in_views = [
-				'recent' => 'Recent past events list',
-				'single' => 'Single event page',
-				'day'    => 'Day view',
-				'list'   => 'List view',
-				'month'  => 'Month view tooltip',
+				'recent' => esc_html__( 'Recent past events list', 'tribe-ext-tec-tweaks' ),
+				'single' => esc_html__( 'Single event page', 'tribe-ext-tec-tweaks' ),
+				'day'    => esc_html__( 'Day view', 'tribe-ext-tec-tweaks' ),
+				'list'   => esc_html__( 'List view', 'tribe-ext-tec-tweaks' ),
+				'month'  => esc_html__( 'Month view tooltip', 'tribe-ext-tec-tweaks' ),
 			];
 
 			$remove_links_from_events_views = [
-				'tribe-events-calendar-day__event-title-link'            => 'Day view',
-				'tribe-events-calendar-list__event-title-link'           => 'List view',
-				'tribe-events-calendar-month__calendar-event-title-link' => 'Month view',
+				'tribe-events-calendar-day__event-title-link'            => esc_html__( 'Day view', 'tribe-ext-tec-tweaks' ),
+				'tribe-events-calendar-list__event-title-link'           => esc_html__( 'List view', 'tribe-ext-tec-tweaks' ),
+				'tribe-events-calendar-month__calendar-event-title-link' => esc_html__( 'Month view', 'tribe-ext-tec-tweaks' ),
 			];
 
 			// IF ECP is active, show more options.
 			if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
-				$remove_event_end_time_in_views['week'] = 'Week view tooltip';
+				$remove_event_end_time_in_views['week'] = esc_html__( 'Week view tooltip', 'tribe-ext-tec-tweaks' );
 
-				$remove_links_from_events_views['tribe-events-pro-map__event-card-button']  = 'Map view';
-				$remove_links_from_events_views['tribe-events-pro-photo__event-title-link'] = 'Photo view';
-				$remove_links_from_events_views['tribe-events-pro-week-grid__event-link']   = 'Week view';
+				$remove_links_from_events_views['tribe-events-pro-map__event-card-button']  = esc_html__( 'Map view', 'tribe-ext-tec-tweaks' );
+				$remove_links_from_events_views['tribe-events-pro-photo__event-title-link'] = esc_html__( 'Photo view', 'tribe-ext-tec-tweaks' );
+				$remove_links_from_events_views['tribe-events-pro-week-grid__event-link']   = esc_html__( 'Week view', 'tribe-ext-tec-tweaks' );
 			}
 
 			return [
@@ -428,10 +428,7 @@ if ( ! class_exists( Settings::class ) ) {
 				],
 				'template_hijack'            => [
 					'type'            => 'radio',
-					'label'           => esc_html__(
-						"Enable template hijacking",
-						'tribe-ext-tec-tweaks'
-					),
+					'label'           => esc_html__( "Enable template hijacking", 'tribe-ext-tec-tweaks' ),
 					'tooltip'         => $this->get_template_hijack_tooltip(),
 					'options'         => $this->get_template_hijack_options(),
 					'default'         => 'hijack_none',
