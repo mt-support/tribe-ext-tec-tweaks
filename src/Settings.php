@@ -432,7 +432,7 @@ if ( ! class_exists( Settings::class ) ) {
 						"Enable template hijacking",
 						'tribe-ext-tec-tweaks'
 					),
-					'tooltip'         => esc_html__( "The calendar / event pages will use the WordPress template hierarchy instead of its own templates." ),
+					'tooltip'         => $this->get_template_hijack_tooltip(),
 					'options'         => $this->get_template_hijack_options(),
 					'default'         => 'hijack_none',
 					'validation_type' => 'options',
@@ -452,6 +452,19 @@ if ( ! class_exists( Settings::class ) ) {
 				'hijack_single_events'  => esc_html__( 'Single event pages only', 'tribe-ext-tec-tweaks' ),
 				'hijack_all'            => esc_html__( 'Both calendar and single event pages', 'tribe-ext-tec-tweaks' ),
 			];
+		}
+
+		public function get_template_hijack_tooltip() {
+			$tooltip = esc_html__( 'The calendar / event pages will use the WordPress template hierarchy instead of its own templates.', 'tribe-ext-tec-tweaks' );
+			$tooltip .= '<br>';
+			$tooltip .= esc_html__( 'Note: you might need to create archive template files for your theme. See the source for further info.', 'tribe-ext-tec-tweaks' );
+			$tooltip .= '<br>';
+			$tooltip .= esc_html__(
+				            'Source:',
+				            'tribe-ext-tec-tweaks'
+			            ) . ' <a href="https://theeventscalendar.com/knowledgebase/k/using-the-template-management-filters/" target="_blank">Using the Template Management Filters</a>';
+
+			return $tooltip;
 		}
 	} // class
 }
