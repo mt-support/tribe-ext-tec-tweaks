@@ -139,6 +139,7 @@ if (
 			$this->change_free_in_ticket_cost();
 			$this->disable_tribe_rest_api();
 			add_filter( 'tribe_get_events_link', [ $this, 'custom_all_events_url' ] );
+			$this->template_hijack();
 		}
 
 		/**
@@ -532,6 +533,44 @@ if (
 						remove_action( 'rest_api_init', [ $rest, 'register_endpoints' ] );
 					}
 				);
+			}
+		}
+
+		public function template_hijack() {
+			$hijack = $this->settings->get_option( 'template_hijack', 'hijack_none' );
+
+			if ( $hijack == 'hijack_none' ) {
+				return;
+			}
+
+			if ( $hijack == 'hijack_calendar_pages' ) {
+				add_filter( 'tribe_events_views_v2_use_wp_template_hierarchy',
+					function ( $hijack, $template, $context, $query ) {
+						if ( ! is_singular() ) {
+							$hijack = true;
+						}
+
+						return $hijack;
+					},
+					        10,
+					        4 );
+			}
+
+			if ( $hijack == 'hijack_single_events' ) {
+				add_filter( 'tribe_events_views_v2_use_wp_template_hierarchy',
+					function ( $hijack, $template, $context, $query ) {
+						if ( is_singular() ) {
+							$hijack = true;
+						}
+
+						return $hijack;
+					},
+					        10,
+					        4 );
+			}
+
+			if ( $hijack == 'hijack_all' ) {
+				add_filter( 'tribe_events_views_v2_use_wp_template_hierarchy', '__return_true' );
 			}
 		}
 
