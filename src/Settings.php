@@ -426,11 +426,31 @@ if ( ! class_exists( Settings::class ) ) {
 					'tooltip'         => esc_html__( "Checking this box will disable the REST API for The Events Calendar and its add-ons." ),
 					'validation_type' => 'boolean',
 				],
+				'template_hijack'            => [
+					'type'            => 'radio',
+					'label'           => esc_html__(
+						"Enable template hijacking",
+						'tribe-ext-tec-tweaks'
+					),
+					'tooltip'         => esc_html__( "The calendar / event pages will use the WordPress template hierarchy instead of its own templates." ),
+					'options'         => $this->get_template_hijack_options(),
+					'default'         => 'hijack_none',
+					'validation_type' => 'options',
+				],
 				'End'                               => [
 					'type' => 'html',
 					'html' => "</div>",
 				],
 
+			];
+		}
+
+		public function get_template_hijack_options() {
+			return [
+				'hijack_none'           => esc_html__( 'No template hijacking', 'tribe-ext-tec-tweaks' ),
+				'hijack_calendar_pages' => esc_html__( 'Calendar pages only', 'tribe-ext-tec-tweaks' ),
+				'hijack_single_events'  => esc_html__( 'Single event pages only', 'tribe-ext-tec-tweaks' ),
+				'hijack_all'            => esc_html__( 'Both calendar and single event pages', 'tribe-ext-tec-tweaks' ),
 			];
 		}
 	} // class
