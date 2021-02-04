@@ -544,7 +544,8 @@ if (
 			}
 
 			if ( $hijack == 'hijack_calendar_pages' ) {
-				add_filter( 'tribe_events_views_v2_use_wp_template_hierarchy',
+				add_filter(
+					'tribe_events_views_v2_use_wp_template_hierarchy',
 					function ( $hijack, $template, $context, $query ) {
 						if ( ! is_singular() ) {
 							$hijack = true;
@@ -552,12 +553,14 @@ if (
 
 						return $hijack;
 					},
-					        10,
-					        4 );
+					10,
+					4
+				);
 			}
 
 			if ( $hijack == 'hijack_single_events' ) {
-				add_filter( 'tribe_events_views_v2_use_wp_template_hierarchy',
+				add_filter(
+					'tribe_events_views_v2_use_wp_template_hierarchy',
 					function ( $hijack, $template, $context, $query ) {
 						if ( is_singular() ) {
 							$hijack = true;
@@ -565,8 +568,9 @@ if (
 
 						return $hijack;
 					},
-					        10,
-					        4 );
+					10,
+					4
+				);
 			}
 
 			if ( $hijack == 'hijack_all' ) {
