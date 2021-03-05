@@ -1,0 +1,321 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: The Events Calendar Extension: Tweaks\n"
+"POT-Creation-Date: 2021-03-06 00:26+0100\n"
+"PO-Revision-Date: 2021-03-06 00:25+0100\n"
+"Language-Team: The Events Calendar <support@theeventscalendar.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: tribe-ext-tec-tweaks.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: src/Settings.php:230
+msgctxt "Settings header"
+msgid "The Events Calendar Tweaks"
+msgstr ""
+
+#: src/Settings.php:237
+msgctxt "Settings intro"
+msgid "This is a collection of tweaks and snippets for The Events Calendar."
+msgstr ""
+
+#: src/Settings.php:245
+#, php-format
+msgctxt "Settings intro"
+msgid ""
+"For more tweaks visit the %1$sSnippets%2$s section of our Knowledgebase."
+msgstr ""
+
+#: src/Settings.php:271
+msgctxt "settings tab name"
+msgid "Tweaks"
+msgstr ""
+
+#: src/Settings.php:287
+msgid "Recent past events list"
+msgstr ""
+
+#: src/Settings.php:288
+msgid "Single event page"
+msgstr ""
+
+#: src/Settings.php:289 src/Settings.php:295
+msgid "Day view"
+msgstr ""
+
+#: src/Settings.php:290 src/Settings.php:296
+msgid "List view"
+msgstr ""
+
+#: src/Settings.php:291
+msgid "Month view tooltip"
+msgstr ""
+
+#: src/Settings.php:297
+msgid "Month view"
+msgstr ""
+
+#: src/Settings.php:302
+msgid "Week view tooltip"
+msgstr ""
+
+#: src/Settings.php:304
+msgid "Map view"
+msgstr ""
+
+#: src/Settings.php:305
+msgid "Photo view"
+msgstr ""
+
+#: src/Settings.php:306
+msgid "Week view"
+msgstr ""
+
+#: src/Settings.php:320
+msgid "Remove \"Recent Past Events\""
+msgstr ""
+
+#: src/Settings.php:322
+msgid ""
+"When there are no events coming up in your calendar a list of recent past "
+"events will be shown. Check this setting to remove that list."
+msgstr ""
+
+#: src/Settings.php:329
+msgid "Remove event end time"
+msgstr ""
+
+#: src/Settings.php:331
+msgid ""
+"When this box is checked the end time will no longer display for events that "
+"end on the same day when viewing the List and Day views, the recent past "
+"events list, the tooltip in Month and Week (Pro) views, as well as on the "
+"event page itself."
+msgstr ""
+
+#: src/Settings.php:334 src/Settings.php:345 src/Settings.php:354
+#: src/Settings.php:378 src/Settings.php:387 src/Settings.php:396
+#: src/Settings.php:407 src/Settings.php:491
+msgid "Source:"
+msgstr ""
+
+#: src/Settings.php:343
+msgid "Hide tooltip in Month view"
+msgstr ""
+
+#: src/Settings.php:344
+msgid "Check this to remove the tooltip from Month view."
+msgstr ""
+
+#: src/Settings.php:352
+msgid "Hide past events in Month view"
+msgstr ""
+
+#: src/Settings.php:353
+msgid "Check this to hide past events in Month view."
+msgstr ""
+
+#: src/Settings.php:361
+msgid "Hide event time in Month view"
+msgstr ""
+
+#: src/Settings.php:362
+msgid "Check this to hide the start and end time of events in Month view."
+msgstr ""
+
+#: src/Settings.php:367
+msgid "Hide weekends on Month view"
+msgstr ""
+
+#: src/Settings.php:374
+msgid "Remove 'Archives:' from the calendar page title"
+msgstr ""
+
+#: src/Settings.php:377
+msgid ""
+"Checking this box will try to remove 'Archives:' from the calendar page "
+"title, which is usually coming from the page or archive template of the "
+"theme."
+msgstr ""
+
+#: src/Settings.php:385
+msgid "Show past events in reverse order"
+msgstr ""
+
+#: src/Settings.php:386
+msgid ""
+"The calendar's List and Photo (Pro) views show past events in chronological "
+"order by default. That means the oldest events are displayed first and get "
+"newer as you go. Check this if you would like to show the events in reverse "
+"order, where the newest events are displayed first."
+msgstr ""
+
+#: src/Settings.php:394
+msgid "Remove links pointing to events"
+msgstr ""
+
+#: src/Settings.php:395
+msgid ""
+"This will remove the links from events so that users cannot click on them. "
+"This way, users cannot visit single events pages."
+msgstr ""
+
+#: src/Settings.php:405
+msgid "Change \"Free\" in the ticket cost"
+msgstr ""
+
+#: src/Settings.php:406
+msgid ""
+"When you enter a price or a price range for an event and it is or starts "
+"with zero (0), then on the front-end it will show up as set above. Leave "
+"empty for default setting."
+msgstr ""
+
+#: src/Settings.php:415
+msgid "Custom URL for \"All Events\""
+msgstr ""
+
+#: src/Settings.php:418
+#, php-format
+msgid ""
+"Enter your custom URL, including \"http://\" or \"https://\", for example "
+"%s. This can be useful when your main calendar page is not the default one."
+msgstr ""
+
+#: src/Settings.php:428
+msgid "Disable REST API for The Events Calendar"
+msgstr ""
+
+#: src/Settings.php:436
+msgid "Enable template hijacking"
+msgstr ""
+
+#: src/Settings.php:457
+msgid "No template hijacking"
+msgstr ""
+
+#: src/Settings.php:458
+msgid "Calendar pages only"
+msgstr ""
+
+#: src/Settings.php:459
+msgid "Single event pages only"
+msgstr ""
+
+#: src/Settings.php:460
+msgid "Both calendar and single event pages"
+msgstr ""
+
+#: src/Settings.php:470
+msgid "Check this to hide weekends on Month view."
+msgstr ""
+
+#: src/Settings.php:472
+msgid ""
+"If the week starts with Sunday or Monday, then Saturday and Sunday will be "
+"hidden. In all other cases the last two columns will be hidden."
+msgstr ""
+
+#: src/Settings.php:474
+msgid ""
+"This setting assumes that no multi-day events are happening on the hidden "
+"days."
+msgstr ""
+
+#: src/Settings.php:486
+msgid ""
+"The calendar / event pages will use the WordPress template hierarchy instead "
+"of its own templates."
+msgstr ""
+
+#: src/Settings.php:488
+msgid ""
+"Note: you might need to create archive template files for your theme. See "
+"the source for further info."
+msgstr ""
+
+#: src/Settings.php:504
+msgid ""
+"Check this to disable the REST API for The Events Calendar and its add-ons."
+msgstr ""
+
+#: src/Settings.php:506
+msgid "WARNING!"
+msgstr ""
+
+#: src/Settings.php:507
+msgid "Please note that this can disable some plugin functionality, i.e."
+msgstr ""
+
+#: src/Settings.php:509
+msgid "Fetching events from this site using Event Aggregator"
+msgstr ""
+
+#: src/Settings.php:511
+msgid "Event and attendee synchronization with Promoter"
+msgstr ""
+
+#: src/Settings_Helper.php:127
+msgid "Miscellaneous Settings"
+msgstr ""
+
+#: tribe-ext-tec-tweaks.php:163
+#, php-format
+msgid ""
+"%1$s requires PHP version %2$s or newer to work. Please contact your website "
+"host and inquire about updating PHP."
+msgstr ""
+
+#: tribe-ext-tec-tweaks.php:223
+msgctxt "name of view"
+msgid "Legacy Views"
+msgstr ""
+
+#: tribe-ext-tec-tweaks.php:225
+msgctxt "name of view"
+msgid "New (V2) Views"
+msgstr ""
+
+#: tribe-ext-tec-tweaks.php:237
+#, php-format
+msgid ""
+"%1$s requires the \"%2$s\" so this extension's code will not run until this "
+"requirement is met. You may want to deactivate this extension or visit its "
+"homepage to see if there are any updates available."
+msgstr ""
+
+#: tribe-ext-tec-tweaks.php:409
+#, php-format
+msgid "%s"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "The Events Calendar Extension: Tweaks"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://theeventscalendar.com/extensions/tec-tweaks/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "A combination of snippets and tweaks for The Events Calendar"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "The Events Calendar"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://evnt.is/1971"
+msgstr ""
