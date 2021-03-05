@@ -10,7 +10,7 @@
  * Author URI:        http://evnt.is/1971
  * License:           GPL version 3 or any later version
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain:       tribe-ext-tec-tweaks
+ * Text Domain:       tec-labs-tec-tweaks
  *
  *     This plugin is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -114,7 +114,7 @@ if (
 		 */
 		public function init() {
 			// Load plugin textdomain.
-			load_plugin_textdomain( 'tribe-ext-tec-tweaks', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+			load_plugin_textdomain( 'tec-labs-tec-tweaks', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
 			if ( ! $this->php_version_check() ) {
 				return;
@@ -161,14 +161,14 @@ if (
 					// Translators: 1: extension name, 2: required version.
 						__(
 							'%1$s requires PHP version %2$s or newer to work. Please contact your website host and inquire about updating PHP.',
-							'tribe-ext-tec-tweaks'
+							'tec-labs-tec-tweaks'
 						),
 						$this->get_name(),
 						$php_required_version
 					);
 					$message .= sprintf( ' <a href="%1$s">%1$s</a>', 'https://wordpress.org/about/requirements/' );
 					$message .= '</p>';
-					tribe_notice( 'tribe-ext-tec-tweaks-php-version', $message, [ 'type' => 'error' ] );
+					tribe_notice( 'tec-labs-tec-tweaks-php-version', $message, [ 'type' => 'error' ] );
 				}
 
 				return false;
@@ -220,9 +220,9 @@ if (
 				&& current_user_can( 'activate_plugins' )
 			) {
 				if ( 1 === $view_required_version ) {
-					$view_name = _x( 'Legacy Views', 'name of view', 'tribe-ext-tec-tweaks' );
+					$view_name = _x( 'Legacy Views', 'name of view', 'tec-labs-tec-tweaks' );
 				} else {
-					$view_name = _x( 'New (V2) Views', 'name of view', 'tribe-ext-tec-tweaks' );
+					$view_name = _x( 'New (V2) Views', 'name of view', 'tec-labs-tec-tweaks' );
 				}
 
 				$view_name = sprintf(
@@ -235,14 +235,14 @@ if (
 				$message = sprintf(
 					__(
 						'%1$s requires the "%2$s" so this extension\'s code will not run until this requirement is met. You may want to deactivate this extension or visit its homepage to see if there are any updates available.',
-						'tribe-ext-tec-tweaks'
+						'tec-labs-tec-tweaks'
 					),
 					$this->get_name(),
 					$view_name
 				);
 
 				tribe_notice(
-					'tribe-ext-tec-tweaks-view-mismatch',
+					'tec-labs-tec-tweaks-view-mismatch',
 					'<p>' . $message . '</p>',
 					[ 'type' => 'error' ]
 				);
@@ -348,7 +348,7 @@ if (
 				add_action(
 					'wp_head',
 					function () {
-						echo '<style id="tribe-ext-tec-tweaks-css-hide-past">.tribe-events-calendar-month__day--past .tribe-events-calendar-month__events{display: none;}</style>';
+						echo '<style id="tec-labs-tec-tweaks-css-hide-past">.tribe-events-calendar-month__day--past .tribe-events-calendar-month__events{display: none;}</style>';
 					}
 				);
 			}
@@ -367,7 +367,7 @@ if (
 				add_action(
 					'wp_head',
 					function () {
-						echo '<style id="tribe-ext-tec-tweaks-css-hide-event-time">.tribe-events-calendar-month__calendar-event-datetime{display: none;}</style>';
+						echo '<style id="tec-labs-tec-tweaks-css-hide-event-time">.tribe-events-calendar-month__calendar-event-datetime{display: none;}</style>';
 					}
 				);
 			}
@@ -472,7 +472,7 @@ if (
 		public function remove_links_html() {
 			$classes = (array) $this->settings->get_option( 'remove_links_from_events', false );
 
-			$html = "\n<style id='tribe-ext-tec-tweaks-css'>";
+			$html = "\n<style id='tec-labs-tec-tweaks-css'>";
 			foreach ( $classes as $class ) {
 				$html .= "\n." . $class . ",";
 			}
@@ -624,7 +624,7 @@ if (
 		 */
 		public function enqueue_stylesheet( $filename ) {
 			wp_enqueue_style(
-				'tribe-ext-tec-tweaks-' . str_replace( [ '.', 'css', 'js' ], '', $filename ),
+				'tec-labs-tec-tweaks-' . str_replace( [ '.', 'css', 'js' ], '', $filename ),
 				plugin_dir_url( __FILE__ ) . 'src/' . $filename
 			);
 		}
