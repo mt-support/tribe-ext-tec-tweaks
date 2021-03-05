@@ -559,6 +559,9 @@ if (
 			}
 		}
 
+		/**
+		 * Template hijacking
+		 */
 		public function template_hijack() {
 			$hijack = $this->settings->get_option( 'template_hijack', 'hijack_none' );
 
@@ -614,7 +617,6 @@ if (
 		public function enquque_hide_weekend_sunday_stylesheet() {
 			$this->enquque_stylesheet( 'hide-weekends-on-month-view-sunday.css' );
 		}
-
 
 		/**
 		 * Enqueues the stylesheet
