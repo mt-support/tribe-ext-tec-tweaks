@@ -282,7 +282,6 @@ if ( ! class_exists( Settings::class ) ) {
 		 *
 		 * @return array[]
 		 */
-
 		public function get_settings_fields() {
 			$remove_event_end_time_in_views = [
 				'recent' => esc_html__( 'Recent past events list', 'tribe-ext-tec-tweaks' ),
@@ -448,6 +447,11 @@ if ( ! class_exists( Settings::class ) ) {
 			];
 		}
 
+		/**
+		 * Options for the Template Hijack setting
+		 *
+		 * @return array
+		 */
 		public function get_template_hijack_options() {
 			return [
 				'hijack_none'           => esc_html__( 'No template hijacking', 'tribe-ext-tec-tweaks' ),
@@ -459,6 +463,7 @@ if ( ! class_exists( Settings::class ) ) {
 
 		/**
 		 * Tooltip for Hide weekends on month view setting.
+		 *
 		 * @return string
 		 */
 		public function get_hide_weekends_on_month_view_tooltip() {
@@ -469,6 +474,11 @@ if ( ! class_exists( Settings::class ) ) {
 			return $tooltip;
 		}
 
+		/**
+		 * Tooltip for the Template hijack setting.
+		 *
+		 * @return string
+		 */
 		public function get_template_hijack_tooltip() {
 			$tooltip = esc_html__( 'The calendar / event pages will use the WordPress template hierarchy instead of its own templates.', 'tribe-ext-tec-tweaks' );
 			$tooltip .= '<br>';
@@ -482,6 +492,11 @@ if ( ! class_exists( Settings::class ) ) {
 			return $tooltip;
 		}
 
+		/**
+		 * Tooltip for the Disable REST API setting
+		 *
+		 * @return string
+		 */
 		public function get_disable_tribe_rest_api_tooltip() {
 			$tooltip = esc_html__( "Checking this box will disable the REST API for The Events Calendar and its add-ons.", 'tribe-ext-tec-tweaks' );
 			$tooltip .= '<br>';
