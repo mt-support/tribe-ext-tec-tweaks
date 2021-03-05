@@ -387,10 +387,10 @@ if (
 
 			if ( $hide_weekends_on_month_view ) {
 				if ( $start_of_week == 0 ) {
-					add_action( 'wp_enqueue_scripts', [ $this, 'enquque_hide_weekend_sunday_stylesheet' ] );
+					add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_hide_weekend_sunday_stylesheet' ] );
 				}
 				else {
-					add_action( 'wp_enqueue_scripts', [ $this, 'enquque_hide_weekend_monday_stylesheet' ] );
+					add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_hide_weekend_monday_stylesheet' ] );
 				}
 			}
 		}
@@ -607,15 +607,15 @@ if (
 		/**
 		 * Sends the hide weekends stylesheet for enqueueing if week starts on Monday
 		 */
-		public function enquque_hide_weekend_monday_stylesheet() {
-			$this->enquque_stylesheet( 'hide-weekends-on-month-view-monday.css' );
+		public function enqueque_hide_weekend_monday_stylesheet() {
+			$this->enqueue_stylesheet( 'hide-weekends-on-month-view-monday.css' );
 		}
 
 		/**
 		 * Sends the hide weekends stylesheet for enqueueing if week starts on Sunday
 		 */
-		public function enquque_hide_weekend_sunday_stylesheet() {
-			$this->enquque_stylesheet( 'hide-weekends-on-month-view-sunday.css' );
+		public function enqueque_hide_weekend_sunday_stylesheet() {
+			$this->enqueue_stylesheet( 'hide-weekends-on-month-view-sunday.css' );
 		}
 
 		/**
@@ -623,7 +623,7 @@ if (
 		 *
 		 * @param $filename
 		 */
-		public function enquque_stylesheet( $filename ) {
+		public function enqueue_stylesheet( $filename ) {
 			wp_enqueue_style(
 				'tribe-ext-tec-tweaks-' . str_replace( [ '.', 'css', 'js' ], '' , $filename ),
 				plugin_dir_url( __FILE__ ) . 'src/' . $filename
