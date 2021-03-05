@@ -388,8 +388,7 @@ if (
 			if ( $hide_weekends_on_month_view ) {
 				if ( $start_of_week == 0 ) {
 					add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_hide_weekend_sunday_stylesheet' ] );
-				}
-				else {
+				} else {
 					add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_hide_weekend_monday_stylesheet' ] );
 				}
 			}
@@ -625,7 +624,7 @@ if (
 		 */
 		public function enqueue_stylesheet( $filename ) {
 			wp_enqueue_style(
-				'tribe-ext-tec-tweaks-' . str_replace( [ '.', 'css', 'js' ], '' , $filename ),
+				'tribe-ext-tec-tweaks-' . str_replace( [ '.', 'css', 'js' ], '', $filename ),
 				plugin_dir_url( __FILE__ ) . 'src/' . $filename
 			);
 		}

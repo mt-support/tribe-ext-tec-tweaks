@@ -240,7 +240,7 @@ if ( ! class_exists( Settings::class ) ) {
 			);
 			$result .= ' ';
 			$result .= sprintf(
-				// Translators: 1: link to KB's snippets, 2: link icon.
+			// Translators: 1: link to KB's snippets, 2: link icon.
 				esc_html_x(
 					'For more tweaks visit the %1$sSnippets%2$s section of our Knowledgebase.',
 					'Settings intro',
@@ -362,7 +362,7 @@ if ( ! class_exists( Settings::class ) ) {
 					'tooltip'         => esc_html__( "Checking this box will hide the start and end time of the events in Month view.", 'tribe-ext-tec-tweaks' ),
 					'validation_type' => 'boolean',
 				],
-				'hide_weekends_on_month_view'     => [
+				'hide_weekends_on_month_view'       => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( "Hide weekends on Month view", 'tribe-ext-tec-tweaks' ),
 					'tooltip'         => $this->get_hide_weekends_on_month_view_tooltip(),
@@ -431,7 +431,7 @@ if ( ! class_exists( Settings::class ) ) {
 					'tooltip'         => $this->get_disable_tribe_rest_api_tooltip(),
 					'validation_type' => 'boolean',
 				],
-				'template_hijack'            => [
+				'template_hijack'                   => [
 					'type'            => 'radio',
 					'label'           => esc_html__( "Enable template hijacking", 'tribe-ext-tec-tweaks' ),
 					'tooltip'         => $this->get_template_hijack_tooltip(),
@@ -485,9 +485,9 @@ if ( ! class_exists( Settings::class ) ) {
 			$tooltip .= esc_html__( 'Note: you might need to create archive template files for your theme. See the source for further info.', 'tribe-ext-tec-tweaks' );
 			$tooltip .= '<br>';
 			$tooltip .= esc_html__(
-				            'Source:',
-				            'tribe-ext-tec-tweaks'
-			            ) . ' <a href="https://theeventscalendar.com/knowledgebase/k/using-the-template-management-filters/" target="_blank">Using the Template Management Filters</a>';
+					'Source:',
+					'tribe-ext-tec-tweaks'
+				) . ' <a href="https://theeventscalendar.com/knowledgebase/k/using-the-template-management-filters/" target="_blank">Using the Template Management Filters</a>';
 
 			return $tooltip;
 		}
@@ -500,7 +500,7 @@ if ( ! class_exists( Settings::class ) ) {
 		public function get_disable_tribe_rest_api_tooltip() {
 			$tooltip = esc_html__( "Checking this box will disable the REST API for The Events Calendar and its add-ons.", 'tribe-ext-tec-tweaks' );
 			$tooltip .= '<br>';
-			$tooltip .= '<strong><u>' . esc_html__( 'WARNING!','tribe-ext-tec-tweaks' ) . '</u></strong> ';
+			$tooltip .= '<strong><u>' . esc_html__( 'WARNING!', 'tribe-ext-tec-tweaks' ) . '</u></strong> ';
 			$tooltip .= esc_html__( "Please note that this can disable some plugin functionality, i.e.", 'tribe-ext-tec-tweaks' );
 			$tooltip .= '<br>• ';
 			$tooltip .= esc_html__( 'Fetching events from this site using Event Aggregator', 'tribe-ext-tec-tweaks' );
