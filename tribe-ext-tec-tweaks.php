@@ -4,10 +4,10 @@
  * Plugin URI:        https://theeventscalendar.com/extensions/tec-tweaks/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-tec-tweaks/
  * Description:       A combination of snippets and tweaks for The Events Calendar
- * Version:           1.0.0
+ * Version:           1.1.0
  * Extension Class:   Tribe\Extensions\Tec_Tweaks\Main
- * Author:            Modern Tribe, Inc.
- * Author URI:        http://m.tri.be/1971
+ * Author:            The Events Calendar
+ * Author URI:        http://evnt.is/1971
  * License:           GPL version 3 or any later version
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       tribe-ext-tec-tweaks
