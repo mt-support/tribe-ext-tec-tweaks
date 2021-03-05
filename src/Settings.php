@@ -363,6 +363,12 @@ if ( ! class_exists( Settings::class ) ) {
 					'tooltip'         => esc_html__( "Checking this box will hide the start and end time of the events in Month view.", 'tribe-ext-tec-tweaks' ),
 					'validation_type' => 'boolean',
 				],
+				'hide_weekends_on_month_view'     => [
+					'type'            => 'checkbox_bool',
+					'label'           => esc_html__( "Hide weekends on Month view", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "Check this to only show weekdays on Month View.", 'tribe-ext-tec-tweaks' ),
+					'validation_type' => 'boolean',
+				],
 				'remove_archives_from_page_title'   => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__(
