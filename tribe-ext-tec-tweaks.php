@@ -373,6 +373,20 @@ if (
 		}
 
 		/**
+		 * Hide weekends on month view.
+		 */
+		public function hide_event_time_in_month_view() {
+			$hide_weekends_on_month_view = (bool) $this->settings->get_option(
+				'hide_weekends_on_month_view',
+				false
+			);
+
+			if ( $hide_weekends_on_month_view ) {
+
+			}
+		}
+
+		/**
 		 * Remove "Archives:" from the page titles.
 		 * Some themes add that.
 		 */
