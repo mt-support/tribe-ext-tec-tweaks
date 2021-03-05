@@ -1,0 +1,10 @@
+.tribe-events-calendar-month__header-row .tribe-events-calendar-month__header-column:nth-child(1),
+.tribe-events-calendar-month__header-row .tribe-events-calendar-month__header-column:nth-child(7),
+.tribe-events-calendar-month__week .tribe-events-calendar-month__day:nth-child(1),
+.tribe-events-calendar-month__week .tribe-events-calendar-month__day:nth-child(7) {
+	display: none;
+}
+.tribe-events-calendar-month__week .tribe-events-calendar-month__day,
+.tribe-events-calendar-month__header-row .tribe-events-calendar-month__header-column {
+	width: 20%;
+}
