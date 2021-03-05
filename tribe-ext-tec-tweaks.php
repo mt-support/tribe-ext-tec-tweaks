@@ -592,5 +592,17 @@ if (
 			}
 		}
 
+		/**
+		 * Enqueuing stylesheet
+		 */
+		public function enquque_stylesheet( $filename, $view ) {
+			if ( tribe_context()->get( 'view_request' ) === $view ) {
+				wp_enqueue_style(
+					'tribe-ext-limit-week-view-time-range',
+					plugin_dir_url( __FILE__ ) . 'src/' . $filename
+				);
+			}
+		}
+
 	} // end class
 } // end if class_exists check
