@@ -384,7 +384,6 @@ if (
 
 			if ( $hide_weekends_on_month_view ) {
 				add_action( 'wp_enqueue_scripts', [ $this, 'enquque_hide_weekend_stylesheet' ] );
-				//$this->enquque_stylesheet( 'hide-weekend-on-month-view.css', 'month' );
 			}
 		}
 
@@ -594,20 +593,24 @@ if (
 			}
 		}
 
+		/**
+		 * Sends the hide weekends stylesheet for enqueueing
+		 */
 		public function enquque_hide_weekend_stylesheet() {
-			$this->enquque_stylesheet( 'hide-weekends-on-month-view.css', 'month' );
+			$this->enquque_stylesheet( 'hide-weekends-on-month-view.css' );
 		}
 
+
 		/**
-		 * Enqueuing stylesheet
+		 * Enqueues the stylesheet
+		 *
+		 * @param $filename
 		 */
-		public function enquque_stylesheet( $filename, $view = 'month' ) {
-			if ( tribe_context()->get( 'view_request' ) === $view ) {
-				wp_enqueue_style(
-					'tribe-ext-tec-tweaks-' . str_replace( [ '.', 'css', 'js' ], '' , $filename ),
-					plugin_dir_url( __FILE__ ) . 'src/' . $filename
-				);
-			}
+		public function enquque_stylesheet( $filename ) {
+			wp_enqueue_style(
+				'tribe-ext-tec-tweaks-' . str_replace( [ '.', 'css', 'js' ], '' , $filename ),
+				plugin_dir_url( __FILE__ ) . 'src/' . $filename
+			);
 		}
 
 	} // end class
