@@ -366,7 +366,7 @@ if ( ! class_exists( Settings::class ) ) {
 				'hide_weekends_on_month_view'     => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( "Hide weekends on Month view", 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( "Check this to only show weekdays on Month View.", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => $this->get_hide_weekends_on_month_view_tooltip(),
 					'validation_type' => 'boolean',
 				],
 				'remove_archives_from_page_title'   => [
@@ -455,6 +455,18 @@ if ( ! class_exists( Settings::class ) ) {
 				'hijack_single_events'  => esc_html__( 'Single event pages only', 'tribe-ext-tec-tweaks' ),
 				'hijack_all'            => esc_html__( 'Both calendar and single event pages', 'tribe-ext-tec-tweaks' ),
 			];
+		}
+
+		/**
+		 * Tooltip for Hide weekends on month view setting.
+		 * @return string
+		 */
+		public function get_hide_weekends_on_month_view_tooltip() {
+			$tooltip = esc_html__( 'Check this to hide weekends on Month View.', 'tribe-ext-tec-tweaks' );
+			$tooltip .= '<br>';
+			$tooltip .= esc_html__( 'If the week starts with Sunday or Monday, then Saturday and Sunday will be hidden. In all other cases the last two columns will be hidden.', 'tribe-ext-tec-tweaks' );
+
+			return $tooltip;
 		}
 
 		public function get_template_hijack_tooltip() {
