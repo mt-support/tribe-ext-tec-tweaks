@@ -375,14 +375,14 @@ if (
 		/**
 		 * Hide weekends on month view.
 		 */
-		public function hide_event_time_in_month_view() {
+		public function hide_weekends_on_month_view() {
 			$hide_weekends_on_month_view = (bool) $this->settings->get_option(
 				'hide_weekends_on_month_view',
 				false
 			);
 
 			if ( $hide_weekends_on_month_view ) {
-
+				$this->enquque_stylesheet( 'hide-weekend-on-month-view.css', 'month' );
 			}
 		}
 
@@ -598,7 +598,7 @@ if (
 		public function enquque_stylesheet( $filename, $view ) {
 			if ( tribe_context()->get( 'view_request' ) === $view ) {
 				wp_enqueue_style(
-					'tribe-ext-limit-week-view-time-range',
+					'tribe-ext-tec-tweaks-' . str_replace( '.', '-', $filename ),
 					plugin_dir_url( __FILE__ ) . 'src/' . $filename
 				);
 			}
