@@ -470,6 +470,9 @@ if ( ! class_exists( Settings::class ) ) {
 			$tooltip = esc_html__( 'Check this to hide weekends on Month View.', 'tribe-ext-tec-tweaks' );
 			$tooltip .= '<br>';
 			$tooltip .= esc_html__( 'If the week starts with Sunday or Monday, then Saturday and Sunday will be hidden. In all other cases the last two columns will be hidden.', 'tribe-ext-tec-tweaks' );
+			$tooltip .= '<br><strong>';
+			$tooltip .= esc_html__( 'This setting assumes that no multi-day events are happening on the hidden days.', 'tribe-ext-tec-tweaks' );
+			$tooltip .= '</strong>';
 
 			return $tooltip;
 		}
