@@ -423,7 +423,7 @@ if ( ! class_exists( Settings::class ) ) {
 						"Disable REST API for The Events Calendar",
 						'tribe-ext-tec-tweaks'
 					),
-					'tooltip'         => esc_html__( "Checking this box will disable the REST API for The Events Calendar and its add-ons.", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => $this->get_disable_tribe_rest_api_tooltip(),
 					'validation_type' => 'boolean',
 				],
 				'template_hijack'            => [
@@ -463,5 +463,19 @@ if ( ! class_exists( Settings::class ) ) {
 
 			return $tooltip;
 		}
+
+		public function get_disable_tribe_rest_api_tooltip() {
+			$tooltip = esc_html__( "Checking this box will disable the REST API for The Events Calendar and its add-ons.", 'tribe-ext-tec-tweaks' );
+			$tooltip .= '<br>';
+			$tooltip .= '<strong><u>' . esc_html__( 'WARNING!','tribe-ext-tec-tweaks' ) . '</u></strong> ';
+			$tooltip .= esc_html__( "Please note that this can disable some plugin functionality, i.e.", 'tribe-ext-tec-tweaks' );
+			$tooltip .= '<br>• ';
+			$tooltip .= esc_html__( 'Fetching events from this site using Event Aggregator', 'tribe-ext-tec-tweaks' );
+			$tooltip .= '<br>• ';
+			$tooltip .= esc_html__( 'Event and attendee synchronization with Promoter', 'tribe-ext-tec-tweaks' );
+
+			return $tooltip;
+		}
+
 	} // class
 }
