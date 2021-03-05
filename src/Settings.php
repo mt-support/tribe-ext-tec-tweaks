@@ -317,9 +317,9 @@ if ( ! class_exists( Settings::class ) ) {
 				],
 				'disable_recent_past_events'        => [
 					'type'            => 'checkbox_bool',
-					'label'           => esc_html__( 'Disable "Recent Past Events"', 'tribe-ext-tec-tweaks' ),
+					'label'           => esc_html__( 'Remove "Recent Past Events"', 'tribe-ext-tec-tweaks' ),
 					'tooltip'         => esc_html__(
-						'When there are no events coming up in your calendar a list of recent past events will be shown. Checking this setting will remove that list.',
+						'When there are no events coming up in your calendar a list of recent past events will be shown. Check this setting to remove that list.',
 						'tribe-ext-tec-tweaks'
 					),
 					'validation_type' => 'boolean',
@@ -328,7 +328,7 @@ if ( ! class_exists( Settings::class ) ) {
 					'type'            => 'checkbox_list',
 					'label'           => esc_html__( 'Remove event end time', 'tribe-ext-tec-tweaks' ),
 					'tooltip'         => esc_html__(
-							'When this box is checked the end time will no longer display for events that end on the same day when viewing the list, day, views, the recent past events list, the tooltip in month and week (Pro) views, as well as on the event page itself.',
+							'When this box is checked the end time will no longer display for events that end on the same day when viewing the List and Day views, the recent past events list, the tooltip in Month and Week (Pro) views, as well as on the event page itself.',
 							'tribe-ext-tec-tweaks'
 						) . '<br>' . esc_html__(
 							'Source:',
@@ -341,7 +341,7 @@ if ( ! class_exists( Settings::class ) ) {
 				'hide_tooltip'                      => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( 'Hide tooltip in Month view', 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( 'When this box is checked the tooltip will be removed from month view.', 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__(
+					'tooltip'         => esc_html__( 'Check this to remove the tooltip from Month view.', 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__(
 							'Source:',
 							'tribe-ext-tec-tweaks'
 						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/hiding-tooltips-in-month-and-week-view/" target="_blank">Hiding Tooltips in Month and Week View</a>',
@@ -350,7 +350,7 @@ if ( ! class_exists( Settings::class ) ) {
 				'hide_past_events_in_month_view'    => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( "Hide past events in Month view", 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( "Checking this box will hide past events in Month view.", 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__(
+					'tooltip'         => esc_html__( "Check this to hide past events in Month view.", 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__(
 							'Source:',
 							'tribe-ext-tec-tweaks'
 						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/hide-past-events-on-the-events-calendars-month-view/" target="_blank">Hide Past Events in Month View</a>',
@@ -359,7 +359,7 @@ if ( ! class_exists( Settings::class ) ) {
 				'hide_event_time_in_month_view'     => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( "Hide event time in Month view", 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( "Checking this box will hide the start and end time of the events in Month view.", 'tribe-ext-tec-tweaks' ),
+					'tooltip'         => esc_html__( "Check this to hide the start and end time of events in Month view.", 'tribe-ext-tec-tweaks' ),
 					'validation_type' => 'boolean',
 				],
 				'hide_weekends_on_month_view'       => [
@@ -383,7 +383,7 @@ if ( ! class_exists( Settings::class ) ) {
 				'show_past_events_in_reverse_order' => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( "Show past events in reverse order", 'tribe-ext-tec-tweaks' ),
-					'tooltip'         => esc_html__( "The calendar's list and photo (Pro) views show past events in chronological order by default. That means the oldest events are displayed first and get newer as you go. Check this checkbox if you would like to show the events in reverse order, where the newest events are displayed first.", 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__(
+					'tooltip'         => esc_html__( "The calendar's List and Photo (Pro) views show past events in chronological order by default. That means the oldest events are displayed first and get newer as you go. Check this if you would like to show the events in reverse order, where the newest events are displayed first.", 'tribe-ext-tec-tweaks' ) . '<br>' . esc_html__(
 							'Source:',
 							'tribe-ext-tec-tweaks'
 						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/showing-past-events-in-reverse-order/" target="_blank">Showing Past Events in Reverse Order</a>',
@@ -467,7 +467,7 @@ if ( ! class_exists( Settings::class ) ) {
 		 * @return string
 		 */
 		public function get_hide_weekends_on_month_view_tooltip() {
-			$tooltip = esc_html__( 'Check this to hide weekends on Month View.', 'tribe-ext-tec-tweaks' );
+			$tooltip = esc_html__( 'Check this to hide weekends on Month view.', 'tribe-ext-tec-tweaks' );
 			$tooltip .= '<br>';
 			$tooltip .= esc_html__( 'If the week starts with Sunday or Monday, then Saturday and Sunday will be hidden. In all other cases the last two columns will be hidden.', 'tribe-ext-tec-tweaks' );
 			$tooltip .= '<br><strong>';
@@ -501,7 +501,7 @@ if ( ! class_exists( Settings::class ) ) {
 		 * @return string
 		 */
 		public function get_disable_tribe_rest_api_tooltip() {
-			$tooltip = esc_html__( "Checking this box will disable the REST API for The Events Calendar and its add-ons.", 'tribe-ext-tec-tweaks' );
+			$tooltip = esc_html__( "Check this to disable the REST API for The Events Calendar and its add-ons.", 'tribe-ext-tec-tweaks' );
 			$tooltip .= '<br>';
 			$tooltip .= '<strong><u>' . esc_html__( 'WARNING!', 'tribe-ext-tec-tweaks' ) . '</u></strong> ';
 			$tooltip .= esc_html__( "Please note that this can disable some plugin functionality, i.e.", 'tribe-ext-tec-tweaks' );
