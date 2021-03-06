@@ -32,25 +32,3 @@
 .tribe-events-calendar-month__week .tribe-events-calendar-month__day:nth-child(6) .tribe-events-calendar-month__multiday-event--width-2 .tribe-events-calendar-month__multiday-event-bar {
 	width: calc(100%);
 }
-
-.tribe-events-calendar-month__week .tribe-events-calendar-month__day:nth-child(1) .tribe-events-calendar-month__multiday-event--width-2 .tribe-events-calendar-month__multiday-event-bar {
-	margin-left: 100%;
-	width: calc(100%);
-}
-.tribe-events-calendar-month__week .tribe-events-calendar-month__day:nth-child(1) .tribe-events-calendar-month__multiday-event--width-3 .tribe-events-calendar-month__multiday-event-bar {
-	margin-left: 100%;
-	width: calc(200% + 1px);
-}
-.tribe-events-calendar-month__week .tribe-events-calendar-month__day:nth-child(1) .tribe-events-calendar-month__multiday-event--width-4 .tribe-events-calendar-month__multiday-event-bar {
-	margin-left: 100%;
-	width: calc(300% + 2px);
-}
-.tribe-events-calendar-month__week .tribe-events-calendar-month__day:nth-child(1) .tribe-events-calendar-month__multiday-event--width-5 .tribe-events-calendar-month__multiday-event-bar {
-	margin-left: 100%;
-	width: calc(400% + 3px);
-}
-.tribe-events-calendar-month__week .tribe-events-calendar-month__day:nth-child(1) .tribe-events-calendar-month__multiday-event--width-6 .tribe-events-calendar-month__multiday-event-bar,
-.tribe-events-calendar-month__week .tribe-events-calendar-month__day:nth-child(1) .tribe-events-calendar-month__multiday-event--width-7 .tribe-events-calendar-month__multiday-event-bar {
-	margin-left: 100%;
-	width: calc(500% + 4px);
-}
