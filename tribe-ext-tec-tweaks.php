@@ -606,14 +606,14 @@ if (
 		/**
 		 * Sends the hide weekends stylesheet for enqueueing if week starts on Monday
 		 */
-		public function enqueque_hide_weekend_monday_stylesheet() {
+		public function enqueue_hide_weekend_monday_stylesheet() {
 			$this->enqueue_stylesheet( 'hide-weekends-on-month-view-monday.css' );
 		}
 
 		/**
 		 * Sends the hide weekends stylesheet for enqueueing if week starts on Sunday
 		 */
-		public function enqueque_hide_weekend_sunday_stylesheet() {
+		public function enqueue_hide_weekend_sunday_stylesheet() {
 			$this->enqueue_stylesheet( 'hide-weekends-on-month-view-sunday.css' );
 		}
 
