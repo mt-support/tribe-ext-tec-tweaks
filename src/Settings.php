@@ -471,7 +471,7 @@ if ( ! class_exists( Settings::class ) ) {
 			$tooltip .= '<br>';
 			$tooltip .= esc_html__( 'If the week starts with Sunday or Monday, then Saturday and Sunday will be hidden. In all other cases the last two columns will be hidden.', 'tec-labs-tec-tweaks' );
 			$tooltip .= '<br><strong>';
-			$tooltip .= esc_html__( 'This setting assumes that no multi-day events are happening on the hidden days.', 'tec-labs-tec-tweaks' );
+			$tooltip .= esc_html__( 'If the week starts with Sunday, then events starting on Sunday or multi-day events spanning over Sunday will not be fully shown.', 'tec-labs-tec-tweaks' );
 			$tooltip .= '</strong>';
 
 			return $tooltip;
