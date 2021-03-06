@@ -330,10 +330,10 @@ if ( ! class_exists( Settings::class ) ) {
 					'tooltip'         => esc_html__(
 							'When this box is checked the end time will no longer display for events that end on the same day when viewing the List and Day views, the recent past events list, the tooltip in Month and Week (Pro) views, as well as on the event page itself.',
 							'tec-labs-tec-tweaks'
-						) . '<br>' . esc_html__(
+						) . '<br><i>' . esc_html__(
 							'Source:',
 							'tec-labs-tec-tweaks'
-						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a>',
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a></i>',
 					'options'         => $remove_event_end_time_in_views,
 					'validation_type' => 'options_multi',
 					'can_be_empty'    => true,
@@ -341,19 +341,19 @@ if ( ! class_exists( Settings::class ) ) {
 				'hide_tooltip'                      => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( 'Hide tooltip in Month view', 'tec-labs-tec-tweaks' ),
-					'tooltip'         => esc_html__( 'Check this to remove the tooltip from Month view.', 'tec-labs-tec-tweaks' ) . '<br>' . esc_html__(
+					'tooltip'         => esc_html__( 'Check this to remove the tooltip from Month view.', 'tec-labs-tec-tweaks' ) . '<br><i>' . esc_html__(
 							'Source:',
 							'tec-labs-tec-tweaks'
-						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/hiding-tooltips-in-month-and-week-view/" target="_blank">Hiding Tooltips in Month and Week View</a>',
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/hiding-tooltips-in-month-and-week-view/" target="_blank">Hiding Tooltips in Month and Week View</a></i>',
 					'validation_type' => 'boolean',
 				],
 				'hide_past_events_in_month_view'    => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( "Hide past events in Month view", 'tec-labs-tec-tweaks' ),
-					'tooltip'         => esc_html__( "Check this to hide past events in Month view.", 'tec-labs-tec-tweaks' ) . '<br>' . esc_html__(
+					'tooltip'         => esc_html__( "Check this to hide past events in Month view.", 'tec-labs-tec-tweaks' ) . '<br><i>' . esc_html__(
 							'Source:',
 							'tec-labs-tec-tweaks'
-						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/hide-past-events-on-the-events-calendars-month-view/" target="_blank">Hide Past Events in Month View</a>',
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/hide-past-events-on-the-events-calendars-month-view/" target="_blank">Hide Past Events in Month View</a></i>',
 					'validation_type' => 'boolean',
 				],
 				'hide_event_time_in_month_view'     => [
@@ -374,28 +374,28 @@ if ( ! class_exists( Settings::class ) ) {
 						"Remove 'Archives:' from the calendar page title",
 						'tec-labs-tec-tweaks'
 					),
-					'tooltip'         => esc_html__( "Checking this box will try to remove 'Archives:' from the calendar page title, which is usually coming from the page or archive template of the theme.", 'tec-labs-tec-tweaks' ) . '<br>' . esc_html__(
+					'tooltip'         => esc_html__( "Checking this box will try to remove 'Archives:' from the calendar page title, which is usually coming from the page or archive template of the theme.", 'tec-labs-tec-tweaks' ) . '<br><i>' . esc_html__(
 							'Source:',
 							'tec-labs-tec-tweaks'
-						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-archives-from-calendar-page-title/" target="_blank">Removing "Archives" From the Calendar Page Title</a>',
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-archives-from-calendar-page-title/" target="_blank">Removing "Archives" From the Calendar Page Title</a></i>',
 					'validation_type' => 'boolean',
 				],
 				'show_past_events_in_reverse_order' => [
 					'type'            => 'checkbox_bool',
 					'label'           => esc_html__( "Show past events in reverse order", 'tec-labs-tec-tweaks' ),
-					'tooltip'         => esc_html__( "The calendar's List and Photo (Pro) views show past events in chronological order by default. That means the oldest events are displayed first and get newer as you go. Check this if you would like to show the events in reverse order, where the newest events are displayed first.", 'tec-labs-tec-tweaks' ) . '<br>' . esc_html__(
+					'tooltip'         => esc_html__( "The calendar's List and Photo (Pro) views show past events in chronological order by default. That means the oldest events are displayed first and get newer as you go. Check this if you would like to show the events in reverse order, where the newest events are displayed first.", 'tec-labs-tec-tweaks' ) . '<br><i>' . esc_html__(
 							'Source:',
 							'tec-labs-tec-tweaks'
-						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/showing-past-events-in-reverse-order/" target="_blank">Showing Past Events in Reverse Order</a>',
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/showing-past-events-in-reverse-order/" target="_blank">Showing Past Events in Reverse Order</a></i>',
 					'validation_type' => 'boolean',
 				],
 				'remove_links_from_events'          => [
 					'type'            => 'checkbox_list',
 					'label'           => esc_html__( "Remove links pointing to events", 'tec-labs-tec-tweaks' ),
-					'tooltip'         => esc_html__( "This will remove the links from events so that users cannot click on them. This way, users cannot visit single events pages.", 'tec-labs-tec-tweaks' ) . '<br>' . esc_html__(
+					'tooltip'         => esc_html__( "This will remove the links from events so that users cannot click on them. This way, users cannot visit single events pages.", 'tec-labs-tec-tweaks' ) . '<br><i>' . esc_html__(
 							'Source:',
 							'tec-labs-tec-tweaks'
-						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-links-from-events/" target="_blank">Remove Links from Events</a>',
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-links-from-events/" target="_blank">Remove Links from Events</a></i>',
 					'options'         => $remove_links_from_events_views,
 					'validation_type' => 'options_multi',
 					'can_be_empty'    => true,
@@ -403,10 +403,10 @@ if ( ! class_exists( Settings::class ) ) {
 				'change_free_in_ticket_cost'        => [
 					'type'            => 'text',
 					'label'           => esc_html__( 'Change "Free" in the ticket cost', 'tec-labs-tec-tweaks' ),
-					'tooltip'         => esc_html__( "When you enter a price or a price range for an event and it is or starts with zero (0), then on the front-end it will show up as set above. Leave empty for default setting." ) . '<br>' . esc_html__(
+					'tooltip'         => esc_html__( "When you enter a price or a price range for an event and it is or starts with zero (0), then on the front-end it will show up as set above. Leave empty for default setting." ) . '<br><i>' . esc_html__(
 							'Source:',
 							'tec-labs-tec-tweaks'
-						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/changing-the-free-event-price-to-0-zero/" target="_blank">Change “Free” to “0” in the Ticket Cost</a>',
+						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/changing-the-free-event-price-to-0-zero/" target="_blank">Change “Free” to “0” in the Ticket Cost</a></i>',
 					'validation_type' => 'html',
 					'can_be_empty'    => true,
 				],
@@ -486,11 +486,11 @@ if ( ! class_exists( Settings::class ) ) {
 			$tooltip = esc_html__( 'The calendar / event pages will use the WordPress template hierarchy instead of its own templates.', 'tec-labs-tec-tweaks' );
 			$tooltip .= '<br>';
 			$tooltip .= esc_html__( 'Note: you might need to create archive template files for your theme. See the source for further info.', 'tec-labs-tec-tweaks' );
-			$tooltip .= '<br>';
+			$tooltip .= '<br><i>';
 			$tooltip .= esc_html__(
 					'Source:',
 					'tec-labs-tec-tweaks'
-				) . ' <a href="https://theeventscalendar.com/knowledgebase/k/using-the-template-management-filters/" target="_blank">Using the Template Management Filters</a>';
+				) . ' <a href="https://theeventscalendar.com/knowledgebase/k/using-the-template-management-filters/" target="_blank">Using the Template Management Filters</a></i>';
 
 			return $tooltip;
 		}
