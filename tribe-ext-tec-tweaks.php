@@ -4,13 +4,13 @@
  * Plugin URI:        https://theeventscalendar.com/extensions/tec-tweaks/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-tec-tweaks/
  * Description:       A combination of snippets and tweaks for The Events Calendar
- * Version:           1.0.0
+ * Version:           1.1.0
  * Extension Class:   Tribe\Extensions\Tec_Tweaks\Main
- * Author:            Modern Tribe, Inc.
- * Author URI:        http://m.tri.be/1971
+ * Author:            The Events Calendar
+ * Author URI:        http://evnt.is/1971
  * License:           GPL version 3 or any later version
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain:       tribe-ext-tec-tweaks
+ * Text Domain:       tec-labs-tec-tweaks
  *
  *     This plugin is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -114,7 +114,7 @@ if (
 		 */
 		public function init() {
 			// Load plugin textdomain.
-			load_plugin_textdomain( 'tribe-ext-tec-tweaks', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+			load_plugin_textdomain( 'tec-labs-tec-tweaks', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
 			if ( ! $this->php_version_check() ) {
 				return;
@@ -133,12 +133,14 @@ if (
 			$this->hide_tooltip();
 			$this->hide_past_events_in_month_view();
 			$this->hide_event_time_in_month_view();
+			$this->hide_weekends_on_month_view();
 			$this->remove_archives_from_page_title();
 			$this->show_past_events_in_reverse_order();
 			$this->remove_links_from_events();
 			$this->change_free_in_ticket_cost();
 			$this->disable_tribe_rest_api();
 			add_filter( 'tribe_get_events_link', [ $this, 'custom_all_events_url' ] );
+			$this->template_hijack();
 		}
 
 		/**
@@ -159,14 +161,14 @@ if (
 					// Translators: 1: extension name, 2: required version.
 						__(
 							'%1$s requires PHP version %2$s or newer to work. Please contact your website host and inquire about updating PHP.',
-							'tribe-ext-tec-tweaks'
+							'tec-labs-tec-tweaks'
 						),
 						$this->get_name(),
 						$php_required_version
 					);
 					$message .= sprintf( ' <a href="%1$s">%1$s</a>', 'https://wordpress.org/about/requirements/' );
 					$message .= '</p>';
-					tribe_notice( 'tribe-ext-tec-tweaks-php-version', $message, [ 'type' => 'error' ] );
+					tribe_notice( 'tec-labs-tec-tweaks-php-version', $message, [ 'type' => 'error' ] );
 				}
 
 				return false;
@@ -218,9 +220,9 @@ if (
 				&& current_user_can( 'activate_plugins' )
 			) {
 				if ( 1 === $view_required_version ) {
-					$view_name = _x( 'Legacy Views', 'name of view', 'tribe-ext-tec-tweaks' );
+					$view_name = _x( 'Legacy Views', 'name of view', 'tec-labs-tec-tweaks' );
 				} else {
-					$view_name = _x( 'New (V2) Views', 'name of view', 'tribe-ext-tec-tweaks' );
+					$view_name = _x( 'New (V2) Views', 'name of view', 'tec-labs-tec-tweaks' );
 				}
 
 				$view_name = sprintf(
@@ -233,14 +235,14 @@ if (
 				$message = sprintf(
 					__(
 						'%1$s requires the "%2$s" so this extension\'s code will not run until this requirement is met. You may want to deactivate this extension or visit its homepage to see if there are any updates available.',
-						'tribe-ext-tec-tweaks'
+						'tec-labs-tec-tweaks'
 					),
 					$this->get_name(),
 					$view_name
 				);
 
 				tribe_notice(
-					'tribe-ext-tec-tweaks-view-mismatch',
+					'tec-labs-tec-tweaks-view-mismatch',
 					'<p>' . $message . '</p>',
 					[ 'type' => 'error' ]
 				);
@@ -346,7 +348,7 @@ if (
 				add_action(
 					'wp_head',
 					function () {
-						echo '<style id="tribe-ext-tec-tweaks-css-hide-past">.tribe-events-calendar-month__day--past .tribe-events-calendar-month__events{display: none;}</style>';
+						echo '<style id="tec-labs-tec-tweaks-css-hide-past">.tribe-events-calendar-month__day--past .tribe-events-calendar-month__events{display: none;}</style>';
 					}
 				);
 			}
@@ -365,9 +367,30 @@ if (
 				add_action(
 					'wp_head',
 					function () {
-						echo '<style id="tribe-ext-tec-tweaks-css-hide-event-time">.tribe-events-calendar-month__calendar-event-datetime{display: none;}</style>';
+						echo '<style id="tec-labs-tec-tweaks-css-hide-event-time">.tribe-events-calendar-month__calendar-event-datetime{display: none;}</style>';
 					}
 				);
+			}
+		}
+
+		/**
+		 * Hide weekends on month view.
+		 */
+		public function hide_weekends_on_month_view() {
+			$hide_weekends_on_month_view = (bool) $this->settings->get_option(
+				'hide_weekends_on_month_view',
+				false
+			);
+
+			// Getting start of the week. 0 = Sunday; 1 = Monday;
+			$start_of_week = get_option( 'start_of_week' );
+
+			if ( $hide_weekends_on_month_view ) {
+				if ( $start_of_week == 0 ) {
+					add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_hide_weekend_sunday_stylesheet' ] );
+				} else {
+					add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_hide_weekend_monday_stylesheet' ] );
+				}
 			}
 		}
 
@@ -449,7 +472,7 @@ if (
 		public function remove_links_html() {
 			$classes = (array) $this->settings->get_option( 'remove_links_from_events', false );
 
-			$html = "\n<style id='tribe-ext-tec-tweaks-css'>";
+			$html = "\n<style id='tec-labs-tec-tweaks-css'>";
 			foreach ( $classes as $class ) {
 				$html .= "\n." . $class . ",";
 			}
@@ -533,6 +556,77 @@ if (
 					}
 				);
 			}
+		}
+
+		/**
+		 * Template hijacking
+		 */
+		public function template_hijack() {
+			$hijack = $this->settings->get_option( 'template_hijack', 'hijack_none' );
+
+			if ( $hijack == 'hijack_none' ) {
+				return;
+			}
+
+			if ( $hijack == 'hijack_calendar_pages' ) {
+				add_filter(
+					'tribe_events_views_v2_use_wp_template_hierarchy',
+					function ( $hijack, $template, $context, $query ) {
+						if ( ! is_singular() ) {
+							$hijack = true;
+						}
+
+						return $hijack;
+					},
+					10,
+					4
+				);
+			}
+
+			if ( $hijack == 'hijack_single_events' ) {
+				add_filter(
+					'tribe_events_views_v2_use_wp_template_hierarchy',
+					function ( $hijack, $template, $context, $query ) {
+						if ( is_singular() ) {
+							$hijack = true;
+						}
+
+						return $hijack;
+					},
+					10,
+					4
+				);
+			}
+
+			if ( $hijack == 'hijack_all' ) {
+				add_filter( 'tribe_events_views_v2_use_wp_template_hierarchy', '__return_true' );
+			}
+		}
+
+		/**
+		 * Sends the hide weekends stylesheet for enqueueing if week starts on Monday
+		 */
+		public function enqueue_hide_weekend_monday_stylesheet() {
+			$this->enqueue_stylesheet( 'hide-weekends-on-month-view-monday.css' );
+		}
+
+		/**
+		 * Sends the hide weekends stylesheet for enqueueing if week starts on Sunday
+		 */
+		public function enqueue_hide_weekend_sunday_stylesheet() {
+			$this->enqueue_stylesheet( 'hide-weekends-on-month-view-sunday.css' );
+		}
+
+		/**
+		 * Enqueues the stylesheet
+		 *
+		 * @param $filename
+		 */
+		public function enqueue_stylesheet( $filename ) {
+			wp_enqueue_style(
+				'tec-labs-tec-tweaks-' . str_replace( [ '.', 'css', 'js' ], '', $filename ),
+				plugin_dir_url( __FILE__ ) . 'src/' . $filename
+			);
 		}
 
 	} // end class
