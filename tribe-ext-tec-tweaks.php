@@ -348,7 +348,7 @@ if (
 				add_action(
 					'wp_head',
 					function () {
-						echo '<style id="tec-labs-tec-tweaks-css-hide-past">.tribe-events-calendar-month__day--past .tribe-events-calendar-month__events{display: none;}</style>';
+						echo '<style id="tec-labs-tec-tweaks-css-hide-past">.tribe-events-calendar-month__day--past .tribe-events-calendar-month__events, .tribe-events-calendar-month__day--past .tribe-events-calendar-month__more-events {display: none;}</style>';
 					}
 				);
 			}
