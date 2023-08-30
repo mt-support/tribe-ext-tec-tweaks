@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name:       The Events Calendar Extension: Tweaks
- * Plugin URI:        https://theeventscalendar.com/extensions/tec-tweaks/
+ * Plugin URI:        https://theeventscalendar.com/extensions/the-events-calendar-tweaks/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-tec-tweaks/
  * Description:       A combination of snippets and tweaks for The Events Calendar
- * Version:           1.1.0
+ * Version:           1.1.1
  * Extension Class:   Tribe\Extensions\Tec_Tweaks\Main
  * Author:            The Events Calendar
  * Author URI:        http://evnt.is/1971
@@ -348,7 +348,7 @@ if (
 				add_action(
 					'wp_head',
 					function () {
-						echo '<style id="tec-labs-tec-tweaks-css-hide-past">.tribe-events-calendar-month__day--past .tribe-events-calendar-month__events{display: none;}</style>';
+						echo '<style id="tec-labs-tec-tweaks-css-hide-past">.tribe-events-calendar-month__day--past .tribe-events-calendar-month__events, .tribe-events-calendar-month__day--past .tribe-events-calendar-month__more-events {display: none;}</style>';
 					}
 				);
 			}
