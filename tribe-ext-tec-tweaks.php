@@ -4,7 +4,7 @@
  * Plugin URI:        https://theeventscalendar.com/extensions/the-events-calendar-tweaks/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-tec-tweaks/
  * Description:       A combination of snippets and tweaks for The Events Calendar
- * Version:           1.1.0
+ * Version:           1.1.1
  * Extension Class:   Tribe\Extensions\Tec_Tweaks\Main
  * Author:            The Events Calendar
  * Author URI:        http://evnt.is/1971

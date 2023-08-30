@@ -3,9 +3,9 @@ Contributors: theeventscalendar
 Donate link: http://evnt.is/29
 Tags: events, calendar
 Requires at least: 4.9
-Tested up to: 5.6.2
+Tested up to: 6.3.1
 Requires PHP: 5.6
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,12 +31,17 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 == Changelog ==
 
+= [1.1.1] 2023-08-30 =
+
+* Fix - Corrected the Plugin URI so that it links to the correct page.
+* Tweak - Adjusted CSS rules to hide "+X more" on month view.
+
 = [1.1.0] 2021-03-08 =
 
-* Added an option to control template hijacking
-* Added the option to hide the weekend on Month view
-* Made adjustments to the tooltip texts
-* Changed textdomain from 'tribe-ext-tec-tweaks' to 'tec-labs-tec-tweaks'
+* Added an option to control template hijacking.
+* Added the option to hide the weekend on Month view.
+* Made adjustments to the tooltip texts.
+* Changed textdomain from 'tribe-ext-tec-tweaks' to 'tec-labs-tec-tweaks'.
 
 = [1.0.0] 2020-06-11 =
 
