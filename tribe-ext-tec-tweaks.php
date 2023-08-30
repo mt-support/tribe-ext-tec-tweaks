@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       The Events Calendar Extension: Tweaks
- * Plugin URI:        https://theeventscalendar.com/extensions/tec-tweaks/
+ * Plugin URI:        https://theeventscalendar.com/extensions/the-events-calendar-tweaks/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-tec-tweaks/
  * Description:       A combination of snippets and tweaks for The Events Calendar
  * Version:           1.1.0
