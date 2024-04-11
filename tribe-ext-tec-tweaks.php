@@ -4,7 +4,7 @@
  * Plugin URI:        https://theeventscalendar.com/extensions/the-events-calendar-tweaks/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-tec-tweaks/
  * Description:       A combination of snippets and tweaks for The Events Calendar
- * Version:           1.1.1
+ * Version:           1.1.2
  * Extension Class:   Tribe\Extensions\Tec_Tweaks\Main
  * Author:            The Events Calendar
  * Author URI:        http://evnt.is/1971
@@ -129,7 +129,6 @@ if (
 			$this->get_settings();
 
 			$this->disable_latest_past_events();
-			$this->hide_event_end_time();
 			$this->hide_tooltip();
 			$this->hide_past_events_in_month_view();
 			$this->hide_event_time_in_month_view();
@@ -289,39 +288,6 @@ if (
 			if ( $days_to_show ) {
 				add_filter( 'tribe_events_views_v2_show_latest_past_events_view', '__return_false' );
 			}
-		}
-
-		/**
-		 * Hides the event end time on several views.
-		 */
-		public function hide_event_end_time() {
-			$views = (array) $this->settings->get_option( 'remove_event_end_time', [] );
-
-			if ( empty ( $views ) ) {
-				return;
-			}
-
-			// If there are any views checked, then run the filter.
-			add_filter(
-				'tribe_events_event_schedule_details_formatting',
-				function ( $settings ) {
-					$views = (array) $this->settings->get_option( 'remove_event_end_time', [] );
-
-					foreach ( $views as $view ) {
-						if (
-							tribe_is_view( $view )
-							|| $view === tribe_context()->get( 'view', false )
-						) {
-							$settings['show_end_time'] = false;
-
-							// If we found the view we are on, no need to go any further.
-							break;
-						}
-					}
-
-					return $settings;
-				}
-			);
 		}
 
 		/**
