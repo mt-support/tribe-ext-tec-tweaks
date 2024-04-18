@@ -283,14 +283,6 @@ if ( ! class_exists( Settings::class ) ) {
 		 * @return array[]
 		 */
 		public function get_settings_fields() {
-			$remove_event_end_time_in_views = [
-				'recent' => esc_html__( 'Recent past events list', 'tec-labs-tec-tweaks' ),
-				'single' => esc_html__( 'Single event page', 'tec-labs-tec-tweaks' ),
-				'day'    => esc_html__( 'Day view', 'tec-labs-tec-tweaks' ),
-				'list'   => esc_html__( 'List view', 'tec-labs-tec-tweaks' ),
-				'month'  => esc_html__( 'Month view tooltip', 'tec-labs-tec-tweaks' ),
-			];
-
 			$remove_links_from_events_views = [
 				'tribe-events-calendar-day__event-title-link'            => esc_html__( 'Day view', 'tec-labs-tec-tweaks' ),
 				'tribe-events-calendar-list__event-title-link'           => esc_html__( 'List view', 'tec-labs-tec-tweaks' ),
@@ -299,8 +291,6 @@ if ( ! class_exists( Settings::class ) ) {
 
 			// IF ECP is active, show more options.
 			if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
-				$remove_event_end_time_in_views['week'] = esc_html__( 'Week view tooltip', 'tec-labs-tec-tweaks' );
-
 				$remove_links_from_events_views['tribe-events-pro-map__event-card-button']  = esc_html__( 'Map view', 'tec-labs-tec-tweaks' );
 				$remove_links_from_events_views['tribe-events-pro-photo__event-title-link'] = esc_html__( 'Photo view', 'tec-labs-tec-tweaks' );
 				$remove_links_from_events_views['tribe-events-pro-week-grid__event-link']   = esc_html__( 'Week view', 'tec-labs-tec-tweaks' );
@@ -323,20 +313,6 @@ if ( ! class_exists( Settings::class ) ) {
 						'tec-labs-tec-tweaks'
 					),
 					'validation_type' => 'boolean',
-				],
-				'remove_event_end_time'             => [
-					'type'            => 'checkbox_list',
-					'label'           => esc_html__( 'Remove event end time', 'tec-labs-tec-tweaks' ),
-					'tooltip'         => esc_html__(
-							'When this box is checked the end time will no longer display for events that end on the same day when viewing the List and Day views, the recent past events list, the tooltip in Month and Week (Pro) views, as well as on the event page itself.',
-							'tec-labs-tec-tweaks'
-						) . '<br><i>' . esc_html__(
-							'Source:',
-							'tec-labs-tec-tweaks'
-						) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a></i>',
-					'options'         => $remove_event_end_time_in_views,
-					'validation_type' => 'options_multi',
-					'can_be_empty'    => true,
 				],
 				'hide_tooltip'                      => [
 					'type'            => 'checkbox_bool',
