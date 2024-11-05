@@ -31,6 +31,11 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 == Changelog ==
 
+= [1.1.2] 2024-04-24 =
+
+* Tweak - Remove options for "Remove end time", because the feature has been merged into The Events Calendar 6.4.1. [TEC-4371]
+
+
 = [1.1.1] 2023-08-30 =
 
 * Fix - Corrected the Plugin URI so that it links to the correct page.
